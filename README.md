@@ -9,7 +9,8 @@ MachuzuERP is a Java EE–based ERP application running on **WildFly** with a **
 - **[JDK 14](ca://s?q=Install_JDK_14_on_Windows)**  
 - **[MySQL Server 8.0.25](ca://s?q=Install_MySQL_Server_8.0.25)**  
 - **[MySQL Workbench](ca://s?q=Install_MySQL_Workbench)**  
-- **[WildFly 24.0.1](ca://s?q=Download_WildFly_24.0.1)**  
+- **[WildFly 24.0.1](ca://s?q=Download_WildFly_24.0.1)**
+- Netbeans 12.01
 
 ---
 
