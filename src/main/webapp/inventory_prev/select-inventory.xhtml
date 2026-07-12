@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Add Inventory To Project</h1>
+
+                <h:form styleClass="ui-fluid">
+
+                    <p:fieldset legend="Project" style="margin-bottom:20px">
+                        <h:panelGrid columns="2" cellpadding="2">                                 
+                            <h:outputLabel for="pID" value="#" style="font-weight:bold"/><h:outputText id="pID" value="#{inventory.projectId}" binding="#{olProjectIdBind}"/>                                    
+                            <h:outputLabel for="name" value="Name" style="font-weight:bold;font-size:16px;width:400px"/><h:outputText id="name" value="#{inventory.projectName}" style="font-size:15px;"/>                                                                            
+                            <h:outputLabel for="actualStart" value="Actual Start" style="font-weight:bold"/><h:outputText id="actualStart" value="#{inventory.actualStart}"/>                                    
+                            <h:outputLabel for="actualEnd" value="Actual End" style="font-weight:bold" /><h:outputText id="surname" value="#{inventory.actualEnd}"/>
+                        </h:panelGrid>
+                        <p>
+                                <h:panelGrid columns="2"> 
+                                    <h:outputLabel value="ACTIVITY" style="font-weight: bold"/>
+                                    <h:outputLabel value="#{projectActivities.activityName}"/>
+                                    <h:outputLabel value="Priority"/>
+                                    <h:outputLabel value="#{projectActivities.priority}"/>
+                                    <h:outputLabel value="Planned Start"/>
+                                    <h:outputLabel value="#{projectActivities.plannedStart}"/>
+                                    <h:outputLabel value="Planned End"/>
+                                    <h:outputLabel value="#{projectActivities.plannedEnd}"/>                        
+                                    <h:outputLabel value="Actual Start"/>
+                                    <h:outputLabel value="#{projectActivities.actualStart}"/>
+                                    <h:outputLabel value="Actual End"/>
+                                    <h:outputLabel value="#{projectActivities.actualEnd}"/>
+                                    <h:outputLabel value="Planned Budget"/>
+                                    <h:outputLabel value="#{projectActivities.plannedBudget}"/>                        
+                                    <h:outputLabel value="Actual Budget"/>
+                                    <h:outputLabel value="#{projectActivities.actualBudget}"/>
+                                    <h:outputLabel value="Description"/>
+                                    <h:outputLabel value="#{projectActivities.description}"/>                                           
+                                </h:panelGrid>                
+                            </p>
+                    </p:fieldset>
+
+                    <p:dataTable id="inventoryDT" rows="10" paginator="true" var="invs" value="#{inventoryData.allInventory}"  editable="true" editMode="cell" selection="#{inventoryData.selectedInv}" rowKey="#{invs.recNum}"  widgetVar="cellInvs" style="margin-bottom:0;height:100%">                        
+                        <f:facet name="header">
+                            Select Inventory
+                        </f:facet>                                 
+                        
+                        
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>                            
+                        <p:column style="width:15px">
+                            <f:facet name="header">
+                                <h:outputText value="#"/>
+                            </f:facet>
+                            <h:outputText value="#{invs.recNum}"/>
+                        </p:column>                           
+                        <p:column filterBy="#{invs.description}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Description" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{invs.description}" />                             
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Selling Price" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{invs.sellingPrice}" />                                
+                        </p:column>            
+                        <p:column headerText="Quantity">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{invs.quantity}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{invs.quantity}" />                                            
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton process="inventoryDT" action="#{inventory.completeAddInventory(inventoryData.selectedInv, session)}" value="Next" >
+                                
+                                
+                                <f:param name="projectId" value="#{olProjectIdBind.value}" />
+                                <f:param name="projectName" value="#{inventory.projectName}" />
+                                <f:param name="actualStart" value="#{inventory.actualStart}" />
+                                <f:param name="actualEnd" value="#{inventory.actualEnd}" />                                        
+                            </p:commandButton>
+                        </f:facet>
+                    </p:dataTable> 
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

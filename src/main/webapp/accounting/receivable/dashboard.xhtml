@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Accounts Receivable</h1>                
+                <p>
+                    <h:form id="frmProcesses" styleClass="ui-fluid">
+                        <p><p:commandButton icon="ui-icon-extlink"  value="Send Credit Emails" action="#{receiptData.sendCreditEmails()}"/></p>
+                    </h:form>
+                    
+                    <h:form id="newItem" styleClass="ui-fluid">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <p:selectOneMenu id="Type" value="#{menuNavigation.navOption}" style="width:125px" required="true">
+                                <f:selectItem itemLabel="Select Module" itemValue="" />
+                                <f:selectItem itemLabel="Point of Sale" itemValue="Point of Sale" />                                        
+                                <f:selectItem itemLabel="Quotation" itemValue="Quotation" />                                        
+                                <f:selectItem itemLabel="Sales Order" itemValue="Sales Order" />
+                                <f:selectItem itemLabel="Sales Invoice" itemValue="Sales Invoice" />
+                                <f:selectItem itemLabel="Credit Note" itemValue="Credit Note" />
+                                <f:selectItem itemLabel="Receipt" itemValue="Receipt" />
+                            </p:selectOneMenu>
+                        <p:commandButton icon="ui-icon-plus"  value="Create" action="#{menuNavigation.navReceivable(session)}"/>
+                    </h:form>
+                </p>
+
+                <h:form id="form" styleClass="ui-fluid">                                                  
+
+                    <p>
+                        <p:fieldset id="fsFilter" legend="Filter by Date">
+                            
+                            <p>
+                        <h:panelGrid columns="5" cellpadding="2" >                                                               
+                            <h:outputText value="From"/>
+                            <p:calendar id="startDate" value="#{menuNavigation.dateFrom}" binding="#{dFrom}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                            <h:outputText value="To"/>
+                            <p:calendar id="endDate" value="#{menuNavigation.dateTo}" binding="#{dTo}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />                                                                                               
+                        </h:panelGrid>
+                    </p>     
+                            
+                            <h:panelGrid columns="18">
+                                <p:commandButton value="Quotation" icon="ui-icon-search" action="#{quotationData.searchQuotation(dFrom.value, dTo.value)}">
+                                    
+                                    
+                                </p:commandButton>
+                                &nbsp;
+                                <p:commandButton value="Sales Order" icon="ui-icon-search" action="#{salesOrderData.searchSalesOrder(dFrom.value, dTo.value)}">
+                                    
+                                    
+                                </p:commandButton>
+                                &nbsp;
+                                <p:commandButton value="Sales Invoice" icon="ui-icon-search" action="#{invoiceData.searchInvoice(dFrom.value, dTo.value)}">
+                                    
+                                    
+                                </p:commandButton>
+                                 &nbsp;
+                                 <p:commandButton value="Receipt" icon="ui-icon-search" action="#{receiptData.searchReceipt(dFrom.value, dTo.value)}">
+                                    
+                                    
+                                </p:commandButton>
+                                &nbsp;
+                                <p:commandButton value="Credit Note" icon="ui-icon-search" action="#{creditNote.searchCreditNote(dFrom.value, dTo.value)}">
+                                    
+                                    
+                                </p:commandButton>
+                                 &nbsp;                                 
+                             
+                            </h:panelGrid> 
+                        </p:fieldset>
+                    </p>
+                </h:form>                
+                <h:form id="db" styleClass="ui-fluid">  
+
+                    <p>                        
+                        <p:panelGrid columns="1" style="width: 100%;" id="stakeholderDash">
+                            <!--p:chart type="line" model="#{accountingDashboard.totRevenueExpenditure}" /-->
+                        </p:panelGrid>
+                    </p>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

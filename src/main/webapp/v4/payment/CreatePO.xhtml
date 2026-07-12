@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/erpbyw-template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Create New Payment"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <p:growl id="growl">
+                <p:autoUpdate/>
+            </p:growl>
+
+            <h:form id="PaymentListForm">
+                <h:panelGroup id="display">
+                    <p:panel header="Supplier">
+                        <p:panelGrid columns="2" rendered="#{supplierController.selected != null}">
+                            <h:outputText value="ID"/>
+                            <h:outputText value="#{supplierController.selected.id}" title="#{bundle.ViewSupplierTitle_id}"/>
+                            <h:outputText value="VAT Number"/>
+                            <h:outputText value="#{supplierController.selected.vatNum}" title="#{bundle.ViewSupplierTitle_vatNum}"/>
+                            <h:outputText value="Description"/>
+                            <h:outputText value="#{supplierController.selected.description}" title="#{bundle.ViewSupplierTitle_description}"/>
+                            <h:outputText value="Country"/>
+                            <h:outputText value="#{supplierController.selected.country}" title="#{bundle.ViewSupplierTitle_country}"/>
+                            <h:outputText value="Website"/>
+                            <h:outputText value="#{supplierController.selected.website}" title="#{bundle.ViewSupplierTitle_website}"/>
+                            <h:outputText value="Products and Services"/>
+                            <h:outputText value="#{supplierController.selected.productsServices}" title="#{bundle.ViewSupplierTitle_productsServices}"/>
+                            <h:outputText value="Payment Terms"/>
+                            <h:outputText value="#{supplierController.selected.paymentTerms}" title="#{bundle.ViewSupplierTitle_paymentTerms}"/>
+                            <h:outputText value="Lead Time"/>
+                            <h:outputText value="#{supplierController.selected.leadTime}" title="#{bundle.ViewSupplierTitle_leadTime}"/>
+                            <h:outputText value="Quality Rating"/>
+                            <h:outputText value="#{supplierController.selected.qualityRating}" title="#{bundle.ViewSupplierTitle_qualityRating}"/>
+                            <h:outputText value="Delivery Performance"/>
+                            <h:outputText value="#{supplierController.selected.deliveryPerformance}" title="#{bundle.ViewSupplierTitle_deliveryPerformance}"/>
+                            <h:outputText value="Certifications"/>
+                            <h:outputText value="#{supplierController.selected.certifications}" title="#{bundle.ViewSupplierTitle_certifications}"/>
+                            <h:outputText value="Status}"/>
+                            <h:outputText value="#{supplierController.selected.status}" title="#{bundle.ViewSupplierTitle_status}"/>
+                            <h:outputText value="Notes"/>
+                            <h:outputText value="#{supplierController.selected.notes}" title="#{bundle.ViewSupplierTitle_notes}"/>
+                        </p:panelGrid>
+                    </p:panel>
+                    
+                    <h3>Create Payment</h3>
+                    <p:panelGrid columns="2">   
+                        <h:outputText value="Pay From Which Account?" />
+                        <p:multiSelectListbox id="AccountType" value="#{paymentController.selected.account}" required="true">
+                            <f:selectItems value="#{accounts.categories}" />
+                        </p:multiSelectListbox>                                               
+                        <p:outputLabel value="Amount" for="amount" />
+                        <p:inputNumber id="amount" value="#{paymentController.selected.amount}" title="#{bundle.CreatePaymentTitle_amount}" />
+                        <p:outputLabel value="Currency" for="currency" />
+                        <p:selectOneMenu id="currency" value="#{paymentController.selected.currency}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="SZL" itemValue="SZL" />
+                            <f:selectItem itemLabel="ZAR" itemValue="ZAR" />                            
+                            <f:selectItem itemLabel="USD" itemValue="USD" />                            
+                            <f:selectItem itemLabel="Euro" itemValue="Euro" />                            
+                            <f:selectItem itemLabel="Pound" itemValue="Pound" />                            
+                        </p:selectOneMenu>                        
+                        <p:outputLabel value="Due Date" for="dueDate" />
+                        <p:calendar id="dueDate" value="#{paymentController.selected.dueDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                        <p:outputLabel value="Payment Date" for="paymentDate" />
+                        <p:calendar id="paymentDate" value="#{paymentController.selected.paymentDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                        <p:outputLabel value="Actual Delivery Date" for="actualDeliveryDate" />
+                        <p:calendar id="actualDeliveryDate" value="#{paymentController.selected.actualDeliveryDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                        <p:outputLabel value="Payment Method" for="paymentMethod" />
+                        <p:selectOneMenu id="paymentMethod" value="#{paymentController.selected.paymentMethod}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Cash in Advance" itemValue="Cash in Advance" />
+                            <f:selectItem itemLabel="Cash on Delivery" itemValue="Cash on Delivery" />                            
+                            <f:selectItem itemLabel="Letter of Credit" itemValue="Letter of Credit" />                            
+                            <f:selectItem itemLabel="Payment in Advance" itemValue="Payment in Advance" />                            
+                            <f:selectItem itemLabel="Payment Schedule" itemValue="Payment Schedule" />                            
+                        </p:selectOneMenu>                        
+                        <p:outputLabel value="Payment Method Details" for="paymentMethodDetails" />
+                        <p:inputText id="paymentMethodDetails" value="#{paymentController.selected.paymentMethodDetails}" title="#{bundle.CreatePaymentTitle_paymentMethodDetails}" />
+                        <p:outputLabel value="Notes" for="notes" />
+                        <p:inputText id="notes" value="#{paymentController.selected.notes}" title="#{bundle.CreatePaymentTitle_notes}" />
+                        <p:commandButton actionListener="#{paymentController.create(session, purchaseOrderController.selectedDTO, supplierController.selected)}" value="#{bundle.Save}"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="ShipmentCreateDialog.hide()"/>
+                    </p:panelGrid>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PurchaseOrderEditDlg" widgetVar="PurchaseOrderEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPurchaseOrderTitle}">
+            <h:form id="PurchaseOrderEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{purchaseOrderController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{purchaseOrderController.selected.id}" title="#{bundle.EditPurchaseOrderTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_PODate}" for="PODate" />
+                        <p:inputText id="PODate" value="#{purchaseOrderController.selected.PODate}" title="#{bundle.EditPurchaseOrderTitle_PODate}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_deliveryDate}" for="deliveryDate" />
+                        <p:calendar id="deliveryDate" pattern="MM/dd/yyyy" value="#{purchaseOrderController.selected.deliveryDate}" title="#{bundle.EditPurchaseOrderTitle_deliveryDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_shippingTerms}" for="shippingTerms" />
+                        <p:inputText id="shippingTerms" value="#{purchaseOrderController.selected.shippingTerms}" title="#{bundle.EditPurchaseOrderTitle_shippingTerms}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_shippingMethod}" for="shippingMethod" />
+                        <p:inputText id="shippingMethod" value="#{purchaseOrderController.selected.shippingMethod}" title="#{bundle.EditPurchaseOrderTitle_shippingMethod}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_paymentTerms}" for="paymentTerms" />
+                        <p:inputText id="paymentTerms" value="#{purchaseOrderController.selected.paymentTerms}" title="#{bundle.EditPurchaseOrderTitle_paymentTerms}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_supplierId}" for="supplierId" />
+                        <p:inputText id="supplierId" value="#{purchaseOrderController.selected.supplierId}" title="#{bundle.EditPurchaseOrderTitle_supplierId}" required="true" requiredMessage="#{bundle.EditPurchaseOrderRequiredMessage_supplierId}"/>
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_inventoryId}" for="inventoryId" />
+                        <p:inputText id="inventoryId" value="#{purchaseOrderController.selected.inventoryId}" title="#{bundle.EditPurchaseOrderTitle_inventoryId}" required="true" requiredMessage="#{bundle.EditPurchaseOrderRequiredMessage_inventoryId}"/>
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_requisitionId}" for="requisitionId" />
+                        <p:inputText id="requisitionId" value="#{purchaseOrderController.selected.requisitionId}" title="#{bundle.EditPurchaseOrderTitle_requisitionId}" required="true" requiredMessage="#{bundle.EditPurchaseOrderRequiredMessage_requisitionId}"/>
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_total}" for="total" />
+                        <p:inputText id="total" value="#{purchaseOrderController.selected.total}" title="#{bundle.EditPurchaseOrderTitle_total}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_subTotal}" for="subTotal" />
+                        <p:inputText id="subTotal" value="#{purchaseOrderController.selected.subTotal}" title="#{bundle.EditPurchaseOrderTitle_subTotal}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_shippingCharges}" for="shippingCharges" />
+                        <p:inputText id="shippingCharges" value="#{purchaseOrderController.selected.shippingCharges}" title="#{bundle.EditPurchaseOrderTitle_shippingCharges}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_taxAmount}" for="taxAmount" />
+                        <p:inputText id="taxAmount" value="#{purchaseOrderController.selected.taxAmount}" title="#{bundle.EditPurchaseOrderTitle_taxAmount}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_productsServices}" for="productsServices" />
+                        <p:inputText id="productsServices" value="#{purchaseOrderController.selected.productsServices}" title="#{bundle.EditPurchaseOrderTitle_productsServices}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy" value="#{purchaseOrderController.selected.creationDate}" title="#{bundle.EditPurchaseOrderTitle_creationDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{purchaseOrderController.selected.status}" title="#{bundle.EditPurchaseOrderTitle_status}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseOrderLabel_notes}" for="notes" />
+                        <p:inputText id="notes" value="#{purchaseOrderController.selected.notes}" title="#{bundle.EditPurchaseOrderTitle_notes}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{purchaseOrderController.update}" value="#{bundle.Save}" update="display,:PurchaseOrderListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PurchaseOrderEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PurchaseOrderEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

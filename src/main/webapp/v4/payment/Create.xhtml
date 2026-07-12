@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaymentCreateDlg" widgetVar="PaymentCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePaymentTitle}">
+            <h:form id="PaymentCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paymentController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_supplierId}" for="supplierId" />
+                        <h:selectOneMenu id="supplierId" value="#{paymentController.selected.supplierId}">
+                            <f:selectItems value="#{supplierController.items}" var="supp" 
+                                          itemValue="#{supp.id}"
+                                          itemLabel="#{supp.description}"/>
+                        </h:selectOneMenu>   
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_purchaseOrderId}" for="purchaseOrderId" />
+                        <p:inputText id="purchaseOrderId" value="#{paymentController.selected.purchaseOrderId}" title="#{bundle.CreatePaymentTitle_purchaseOrderId}" required="true" requiredMessage="#{bundle.CreatePaymentRequiredMessage_purchaseOrderId}"/>
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_invoiceId}" for="invoiceId" />
+                        <p:inputText id="invoiceId" value="#{paymentController.selected.invoiceId}" title="#{bundle.CreatePaymentTitle_invoiceId}" required="true" requiredMessage="#{bundle.CreatePaymentRequiredMessage_invoiceId}"/>
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{paymentController.selected.amount}" title="#{bundle.CreatePaymentTitle_amount}" />
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_currency}" for="currency" />
+                        <p:inputText id="currency" value="#{paymentController.selected.currency}" title="#{bundle.CreatePaymentTitle_currency}" />
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_dueDate}" for="dueDate" />
+                        <p:calendar id="dueDate" pattern="MM/dd/yyyy" value="#{paymentController.selected.dueDate}" title="#{bundle.EditPaymentTitle_dueDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_paymentDate}" for="paymentDate" />
+                        <p:calendar id="paymentDate" pattern="MM/dd/yyyy" value="#{paymentController.selected.paymentDate}" title="#{bundle.EditPaymentTitle_paymentDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_actualDeliveryDate}" for="actualDeliveryDate" />
+                        <p:calendar id="actualDeliveryDate" pattern="MM/dd/yyyy" value="#{paymentController.selected.actualDeliveryDate}" title="#{bundle.EditPaymentTitle_actualDeliveryDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_paymentMethod}" for="paymentMethod" />
+                        <p:inputText id="paymentMethod" value="#{paymentController.selected.paymentMethod}" title="#{bundle.CreatePaymentTitle_paymentMethod}" />
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_paymentMethodDetails}" for="paymentMethodDetails" />
+                        <p:inputText id="paymentMethodDetails" value="#{paymentController.selected.paymentMethodDetails}" title="#{bundle.CreatePaymentTitle_paymentMethodDetails}" />
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy" value="#{paymentController.selected.creationDate}" title="#{bundle.EditPaymentTitle_creationDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_updateDate}" for="updateDate" />
+                        <p:calendar id="updateDate" pattern="MM/dd/yyyy" value="#{paymentController.selected.updateDate}" title="#{bundle.EditPaymentTitle_updateDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{paymentController.selected.status}" title="#{bundle.CreatePaymentTitle_status}" />
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_notes}" for="notes" />
+                        <p:inputText id="notes" value="#{paymentController.selected.notes}" title="#{bundle.CreatePaymentTitle_notes}" />
+                        <p:outputLabel value="#{bundle.CreatePaymentLabel_metadata}" for="metadata" />
+                        <p:inputText id="metadata" value="#{paymentController.selected.metadata}" title="#{bundle.CreatePaymentTitle_metadata}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paymentController.create(session, null, supplierController.selected)}" value="#{bundle.Save}" update="display,:growl" oncomplete="handleSubmit(args,'PaymentCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PaymentCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

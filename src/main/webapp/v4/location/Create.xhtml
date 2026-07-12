@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LocationCreateDlg" widgetVar="LocationCreateDialog" modal="true" resizable="false" appendTo="@(dialog)" header="Create New Location">
+            <h:form id="LocationCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Description" for="description" />
+                        <p:inputText id="description" value="#{locationController.selected.description}" title="#{bundle.CreateLocationTitle_description}" />
+                        <p:outputLabel value="Country" for="country" />
+                        <h:selectOneMenu id='country' value="#{locationController.selected.country}" title="Country">
+                            <f:selectItems value="#{citiesController.countries}" var="cnty" itemValue="#{cnty}" itemLabel="#{cnty}"/>
+                             <p:ajax listener="#{citiesController.onCountryChange(locationController.selected.country)}" update="city"/>
+                        </h:selectOneMenu>  
+                        <p:outputLabel value="City" for="city" />
+                        <h:selectOneMenu id='city' value="#{locationController.selected.city}" title="City" >
+                            <f:selectItems id="cities" value="#{citiesController.citiesList}" var="cty" itemValue="#{cty}" itemLabel="#{cty}"/>
+                        </h:selectOneMenu>
+                        <p:outputLabel value="District" for="district" />
+                        <p:inputText id="district" value="#{locationController.selected.district}" title="#{bundle.CreateAddressTitle_country}" />                        
+                        <p:outputLabel value="Postal Code" for="postalCode" />
+                        <p:inputText id="postalCode" value="#{locationController.selected.postalCode}" title="#{bundle.CreateLocationTitle_postalCode}" />
+                        <p:outputLabel value="Currency" for="currency" />
+                        <p:inputText id="currency" value="#{locationController.selected.currency}" title="#{bundle.CreateLocationTitle_currency}" />
+                        <p:outputLabel value="Latitude" for="latitude" />
+                        <p:inputText id="latitude" value="#{locationController.selected.latitude}" title="#{bundle.CreateLocationTitle_latitude}" />
+                        <p:outputLabel value="Longitude" for="longitude" />
+                        <p:inputText id="longitude" value="#{locationController.selected.longitude}" title="#{bundle.CreateLocationTitle_longitude}" />
+                        <p:outputLabel value="Contact Person" for="contactPerson" />
+                        <p:inputText id="contactPerson" value="#{locationController.selected.contactPerson}" title="#{bundle.CreateLocationTitle_contactPerson}" />
+                        <p:outputLabel value="Contact Phone" for="contactPhone" />
+                        <p:inputText id="contactPhone" value="#{locationController.selected.contactPhone}" title="#{bundle.CreateLocationTitle_contactPhone}" />
+                        <p:outputLabel value="Contact Email" for="contactEmail" />
+                        <p:inputText id="contactEmail" value="#{locationController.selected.contactEmail}" title="#{bundle.CreateLocationTitle_contactEmail}" />
+                        <p:outputLabel value="Contact Capacity" for="capacity" />
+                        <p:inputText id="capacity" value="#{locationController.selected.capacity}" title="#{bundle.CreateLocationTitle_capacity}" />
+                        <p:outputLabel value="Area" for="area" />
+                        <p:inputText id="area" value="#{locationController.selected.area}" title="#{bundle.CreateLocationTitle_area}" />
+                        <p:outputLabel value="Location Method" for="locationMethod" />
+                        <p:inputText id="locationMethod" value="#{locationController.selected.locationMethod}" title="#{bundle.CreateLocationTitle_locationMethod}" />
+                        <p:outputLabel value="Location Method Details" for="locationMethodDetails" />
+                        <p:inputText id="locationMethodDetails" value="#{locationController.selected.locationMethodDetails}" title="#{bundle.CreateLocationTitle_locationMethodDetails}" />
+                        <p:outputLabel value="Notes" for="notes" />
+                        <p:inputText id="notes" value="#{locationController.selected.notes}" title="#{bundle.CreateLocationTitle_notes}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{locationController.create(supplierController.selected.id)}" value="Save" update="display,:growl"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LocationCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

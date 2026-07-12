@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="/css/default.css"/>        
+        <h:outputStylesheet name="/css/cssLayout.css"/>
+        <title>Machuzu - Enterprise Resource Planning Software</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+
+        <div style="height:500px" align="center" styleClass="ui-fluid">
+            <h:form>
+                <h:graphicImage value="/images/Machuzu-smallest.png"></h:graphicImage>
+                <h:panelGrid columns="3" style="position:absolute;right:5px;top:25px; border-width: 0px;">                
+                    <h:outputFormat value="Logged in: {0}">
+                        <f:param name="name" value="#{session.getAttribute('username')}" />
+                        <f:param name="uk" value="#{session.getAttribute('uk')}" />
+                    </h:outputFormat>
+                    <p:commandButton value="Manage Account" action="#{employeeController.getEmployeeNavigation(session.getAttribute('uk'))}"  update=""/>
+                    <p:commandButton value="Logout" action="#{administrationController.logOff(session)}"  update=""/>
+                </h:panelGrid>            
+
+                <p:menubar styleClass="centeredMenuBar">
+                            <p:menuitem value="Home" action="#{login.mainDashboard()}" icon="ui-icon-home" style="font-family: sans-serif; font-size:15px;" />
+                            <p:submenu label="Stakeholders" style="font-family: sans-serif; font-size:15px; font-weight: bolder;">
+                                <p:menuitem action="#{login.customerDashboard}" value="Dashboard"/>
+                                <p:menuitem action="#{login.newUser(session)}" value="New"/>
+                                <p:menuitem action="#{login.customerDetailedListing(session)}" value="Search"/>
+                                <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;"/>
+                                <p:menuitem action="#{login.clientGeneral}" value="General"/>
+                                <p:menuitem action="#{login.clientInvoices}" value="Invoices"/>
+                                <p:menuitem action="#{login.clientReciepts()}" value="Receipts"/>
+                                <p:menuitem action="#{login.clientProjects}" value="Projects"/>
+                                <p:menuitem action="#{login.clientServices()}" value="Services"/>
+                                <p:menuitem action="#{login.clientSharedDocs()}" value="Shared Documents"/>
+                            </p:submenu>
+                            <p:submenu label="Accounting" style="font-family: sans-serif; font-size:15px; font-weight: bolder;">
+                                <p:menuitem action="#{login.accountingDashboard}" value="Dashboard"/>
+                                <p:menuitem action="#{login.accountsPayable}" value="Payable"/>
+                                <p:menuitem action="#{login.accountsReceivable}" value="Receivable"/>
+                                <p:menuitem action="#{login.newAccount(session)}" value="New Account"/>
+                                <p:menuitem action="#{accountData.findAccount(session)}" value="Search Account"/>
+                                <p:menuitem action="#{login.accountsJournal}" value="Edit Journal"/>
+                                <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;" />
+                                <p:menuitem action="#{login.accountingSales}" value="Sales"/>
+                                <p:menuitem action="#{login.accountingGeneral}" value="General"/>
+                                <p:menuitem action="#{login.accountingType}" value="Type"/>
+                                <p:menuitem action="#{login.accountsJournalReport}" value="Journal"/>
+                            </p:submenu>                            
+                            <p:submenu label="Human Resources" style="font-family: sans-serif; font-size:15px; font-weight: bolder;">
+                                <p:menuitem action="#{login.hrmDashboard}" value="Dashboard"/>
+                                <p:menuitem action="#{login.findEmployee(session)}" value="Search Employee"/>
+                                <p:menuitem value="-" />
+                                <p:menuitem action="/hr/payroll/dashboard" value="PAYROLL"/>                     
+                                <p:menuitem value="REPORTS" style="font-family: sans-serif; font-size:15px; font-weight: bolder;" />
+                                <p:menuitem action="#{login.hrGeneral}" value="Employees"/>                     
+                                <p:menuitem action="#{login.hrPayroll}" value="Payroll"/>
+                                <p:menuitem action="#{login.hrBenefits}" value="Benefits"/>
+                                <p:menuitem action="#{login.hrDeductions}" value="Deductions"/>
+                                <p:menuitem action="#{login.hrLeave}" value="Leave"/>
+                                <p:menuitem action="#{login.hrTrainings}" value="Trainings"/>
+                                <p:menuitem action="#{login.hrProjects}" value="Projects"/>
+                            </p:submenu>                            
+                            <p:submenu label="Access Control" style="font-family: sans-serif; font-size:15px; font-weight: bolder;">
+                                <p:menuitem action="#{login.completeMission}" value="Complete Mission"/>
+                                <p:menuitem action="#{login.accessControlDashboard}" value="Dashboard" />                        
+                                <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;" />
+                                <p:menuitem action="#{login.accessControlDashboard}" value="Reports" />                                              
+                            </p:submenu>
+                            <p:submenu label="Inventory" style="font-family: sans-serif; font-size:15px; font-weight: bolder;">
+                                <p:menuitem action="#{login.inventoryDashboard}" value="Dashboard"/>
+                                <p:menuitem action="#{inventoryData.findInventory(session)}" value="List"/>
+                                <p:menuitem action="#{login.selectInventory()}" value="Add To Project"/>
+                                <p:menuitem value="REPORTS" />                                
+                                <p:menuitem action="#{login.inventorySupplier}" value="Inventory Levels"/>
+                                <p:menuitem action="#{login.inventoryGeneral}" value="Inventory Turnover"/>
+                                <p:menuitem action="#{login.inventoryGeneral}" value="Inventory Aging"/>
+                            </p:submenu>
+                            <p:submenu label="Services" style="font-family: sans-serif; font-size:15px; font-weight: bolder;">
+                                <p:menuitem action="#{login.servicesDashboard}" value="Dashboard"/>
+                                <p:menuitem action="#{login.newService(session)}" value="New"/>
+                                <p:menuitem action="#{serviceData.findService(session)}" value="Search"/>
+                                <p:menuitem value="REPORTS" class="menu"/>
+                                <p:menuitem action="#{login.servicesGeneral}" value="General"/>
+                            </p:submenu>
+                            <p:submenu label="Suppliers" style="font-family: sans-serif; font-size:15px; font-weight: bolder;">
+                                <p:menuitem action="#{login.suppliersDashboard}" value="Dashboard"/>
+                                <p:menuitem action="#{login.findSupplier(session)}" value="Search"/>
+                                <p:menuitem action="#{login.findShipment(session)}" value="Find Shipments"/>
+                                <p:menuitem action="#{login.createShipment(session)}" actionListener="#{shipmentController.prepareCreate()}" value="Create Shipment"/>
+                                <p:menuitem value="REPORTS" class="menu" />
+                                <p:menuitem action="#{login.suppliersGeneral}" value="General" disabled="#{!administrationController.selected.suppliersView}"/>
+                            </p:submenu>
+                        </p:menubar>     
+                                        </h:form>
+
+                <p>
+                    <h:form>
+                        <p:growl id="msgs" showDetail="true" />
+                        <h:panelGrid columns="2" >
+                            <p:dashboard id="board" model="#{dashboardManagedBean.model}" style="padding: 20px;">
+                                <p:ajax event="reorder" listener="#{dashboardManagedBean.handleReorder}" update="msgs" />
+                                <p:panel id="Stakeholders" header="Stakeholders" closable="true" toggleable="true">
+                                    <h:outputText value=""></h:outputText>			
+                                </p:panel>
+                                <p:panel id="Inventory" header="Inventory" closable="true" toggleable="true">
+                                    <h:outputText value=""></h:outputText>
+                                </p:panel>
+                                <p:panel id="Services" header="Services" closable="true" toggleable="true">
+                                    <h:outputText value=""></h:outputText>			
+                                </p:panel>
+                                <p:panel id="Suppliers" header="Suppliers" closable="true" toggleable="true">
+                                    <h:outputText value=""></h:outputText>			
+                                </p:panel>
+                                <p:panel id="AP" header="Accounts Payable" closable="true" toggleable="true">
+                                    <h:panelGrid columns="2">                                                                      
+                                        <h:outputLabel id="openRequisitionsLabel" for="openRequisitions" value="Requisition Approvals" style="color:#{mainDashboard.color}};"/>
+                                        <h:outputText id="openRequisitions" value="#{mainDashboard.openRequisitions}" style="color:#{mainDashboard.color}};"/>                                        
+                                        <p:commandButton value="Refresh" action="#{mainDashboard.openRequisitionCount()}"  update="openRequisitions,openRequisitionsLabel"/>
+                                        <p:commandButton value="View" action="/accounting/payable/requisition/Open-Requisitions"  update="openRequisitions,openRequisitionsLabel"/>
+                                    </h:panelGrid>
+                                </p:panel>												
+                                <p:panel id="AR" header="Accounts Receivable" closable="true" toggleable="true">
+                                    <h:outputText value=""></h:outputText>			
+                                </p:panel>												
+                                <p:panel id="Projects" header="Projects" closable="true" toggleable="true">
+                                    <h:outputText value=""></h:outputText>			
+                                </p:panel>												
+                                <p:panel id="HR" header="Human Resources" closable="true" toggleable="true">
+                                    <h:outputText value=""></h:outputText>			
+                                </p:panel>												
+                                <p:panel id="Collaboration" header="Collaboration" closable="true" toggleable="true">
+                                    <h:outputText value=""></h:outputText>			
+                                </p:panel>												
+                                <p:panel id="Access" header="Access Control" closable="true" toggleable="true">
+                                    <h:outputText value=""></h:outputText>			
+                                </p:panel>
+                            </p:dashboard>
+                            <!--p:panel id="draggable">
+                                <h:outputLabel value="Drag Panel Into Your Dashboard"></h:outputLabel>
+                            </p:panel>
+                            <p:draggable for="draggable" helper="clone" dashboard="board"></p:draggable-->						
+                        </h:panelGrid>                    
+                    </h:form>
+
+                </p>
+                <div id="bottom">
+                    <center><ui:insert name="bottom"><p:outputLabel value="Copyright &copy; Maestro IT (Pty) Ltd 2007 - #{login.currDate}"/>  
+                            | Version 3.1 | <a href="https://www.machuzu.com" target="_blank">www.machuzu.com</a></ui:insert></center>
+                </div>
+        </div>
+
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <img src="images/ajax-loader.gif" />
+        </p:dialog>
+    </h:body>
+</html>

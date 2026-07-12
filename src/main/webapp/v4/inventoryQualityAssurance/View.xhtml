@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="QualityAssuranceViewDlg" widgetVar="QualityAssuranceViewDialog" modal="true" resizable="false" appendTo="@(dialog)" header="#{bundle.ViewQualityAssuranceTitle}">
+            <h:form id="QualityAssuranceViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_id}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.id}" title="#{bundle.ViewQualityAssuranceTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_shippingTerms}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.shippingTerms}" title="#{bundle.ViewQualityAssuranceTitle_shippingTerms}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_inspectionDate}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.inspectionDate}" title="#{bundle.ViewQualityAssuranceTitle_inspectionDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_shippingMethod}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.shippingMethod}" title="#{bundle.ViewQualityAssuranceTitle_shippingMethod}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_inventoryId}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.inventoryId}" title="#{bundle.ViewQualityAssuranceTitle_inventoryId}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_metadata}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.metadata}" title="#{bundle.ViewQualityAssuranceTitle_metadata}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_inspectionStatus}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.inspectionStatus}" title="#{bundle.ViewQualityAssuranceTitle_inspectionStatus}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_inspectionNotes}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.inspectionNotes}" title="#{bundle.ViewQualityAssuranceTitle_inspectionNotes}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_correctiveAction}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.correctiveAction}" title="#{bundle.ViewQualityAssuranceTitle_correctiveAction}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_productDisposition}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.productDisposition}" title="#{bundle.ViewQualityAssuranceTitle_productDisposition}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_sampleSize}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.sampleSize}" title="#{bundle.ViewQualityAssuranceTitle_sampleSize}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_testMethod}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.testMethod}" title="#{bundle.ViewQualityAssuranceTitle_testMethod}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_equipmentUsed}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.equipmentUsed}" title="#{bundle.ViewQualityAssuranceTitle_equipmentUsed}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_discrepancyReasons}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.discrepancyReasons}" title="#{bundle.ViewQualityAssuranceTitle_discrepancyReasons}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_creationDate}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.creationDate}" title="#{bundle.ViewQualityAssuranceTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_updateDate}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.updateDate}" title="#{bundle.ViewQualityAssuranceTitle_updateDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_status}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.status}" title="#{bundle.ViewQualityAssuranceTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewQualityAssuranceLabel_notes}"/>
+                        <h:outputText value="#{qualityAssuranceController.selected.notes}" title="#{bundle.ViewQualityAssuranceTitle_notes}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="QualityAssuranceViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

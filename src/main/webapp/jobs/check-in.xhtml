@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Check In</h1>
+                <p:messages id="messages" showDetail="true" closable="true" />
+                <h:form styleClass="ui-fluid">                    
+                    <p:panelGrid columns="2" style="width: 100%">                        
+                        <h:outputText value="Start Date" />                                                    
+                        <p:calendar id="StartDate" value="#{checkIn.startDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />                                                   
+                        <h:outputText value="Have you verified the request? "/>
+                        <p:selectOneMenu id="VerifiedRequest" value="#{checkIn.verifiedRequest}" style="width:125px" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Yes" itemValue="Yes" />
+                            <f:selectItem itemLabel="No" itemValue="No" />                                        
+                        </p:selectOneMenu>   
+                        <h:outputText value="What are the verification results? "/>
+                        <p:selectOneMenu id="VerificationResults" value="#{checkIn.verificationResults}" style="width:125px" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Valid" itemValue="Issue/Request valid" />
+                            <f:selectItem itemLabel="Invalid" itemValue="Issue/Request not valid" />                                        
+                        </p:selectOneMenu>                        
+                        <h:outputText value="What are additional requirements? "/>
+                        <p:inputTextarea id="AdditionalRequirements" value="#{checkIn.additionalRequirements}" required="true"  style="width: 100%"/>                          
+                        <h:outputText value="What are the external issues/changes that could negatively affect request? "/>
+                        <p:selectOneMenu id="ExternalIssues" value="#{checkIn.externalIssues}" style="width:125px" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Political issues" itemValue="Political issues" />
+                            <f:selectItem itemLabel="Economic issues" itemValue="Economic issues" />
+                            <f:selectItem itemLabel="Financial issues" itemValue="Financial issues" />
+                            <f:selectItem itemLabel="Technological" itemValue="Technological" />
+                            <f:selectItem itemLabel="Environmental" itemValue="Environmental" />
+                            <f:selectItem itemLabel="Legal issues" itemValue="Legal issues" />
+                            <f:selectItem itemLabel="Health issues" itemValue="Health issues" />
+                            <f:selectItem itemLabel="Social/Riot Issues" itemValue="Social/Riot Issues" />
+                            <f:selectItem itemLabel="Stakeholder" itemValue="Stakeholder" />
+                            <f:selectItem itemLabel="Access/Location" itemValue="Access/Location" />
+                        </p:selectOneMenu>
+                        <h:outputText value="What are the internal issues that could negatively affect request?"/>
+                        <p:selectOneMenu id="InternalIssues" value="#{checkIn.internalIssues}" style="width:125px" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Finances/budget" itemValue="Finances/budget" />
+                            <f:selectItem itemLabel="Materials/Equip/Veh" itemValue="Materials/Equip/Veh" />
+                            <f:selectItem itemLabel="Process" itemValue="Process" />
+                            <f:selectItem itemLabel="Knowledge" itemValue="Knowledge" />
+                            <f:selectItem itemLabel="Human Resource" itemValue="Human Resource" />
+                            <f:selectItem itemLabel="Policy/Plans" itemValue="Policy/Plans" />
+                            <f:selectItem itemLabel="Communication" itemValue="Communication" />
+                            <f:selectItem itemLabel="Infrastructure" itemValue="Infrastructure" />
+                            <f:selectItem itemLabel="Internal conflicts" itemValue="Internal conflicts" />
+                            <f:selectItem itemLabel="Competency" itemValue="Competency" />
+                        </p:selectOneMenu>
+                        <h:outputText value="What risks are associated with the request?"/>                                
+                        <p:selectOneMenu id="AssociatedRisks" value="#{checkIn.associatedRisks}" style="width:125px" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Health and safety" itemValue="Health and safety" />
+                            <f:selectItem itemLabel="Financial/Fraud" itemValue="Financial/Fraud" />
+                            <f:selectItem itemLabel="Governance/Policy" itemValue="Governance/Policy" />
+                            <f:selectItem itemLabel="Legal" itemValue="Legal" />
+                            <f:selectItem itemLabel="Quality of work" itemValue="Quality of work" />
+                            <f:selectItem itemLabel="Labour" itemValue="Labour" />
+                            <f:selectItem itemLabel="Materials/Veh/Equip" itemValue="Materials/Veh/Equip" />
+                            <f:selectItem itemLabel="Failures (Syst/Plant)" itemValue="Failures (Syst/Plant)" />
+                            <f:selectItem itemLabel="Mistakes/Delays" itemValue="Mistakes/Delays" />
+                            <f:selectItem itemLabel="Conflicts" itemValue="Conflicts" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Customer Satisfaction"/>
+                        <p:selectOneMenu id="CustomerSatisfaction" value="#{checkIn.customerSatisfaction}" style="width:125px" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Satisfied" itemValue="Satisfied" />
+                            <f:selectItem itemLabel="Unsatisfied" itemValue="Unsatisfied" />
+                            <f:selectItem itemLabel="Governance/Policy" itemValue="Governance/Policy" />
+                            <f:selectItem itemLabel="Legal" itemValue="Legal" />
+                            <f:selectItem itemLabel="Quality of work" itemValue="Quality of work" />
+                            <f:selectItem itemLabel="Labour" itemValue="Labour" />
+                            <f:selectItem itemLabel="Materials/Veh/Equip" itemValue="Materials/Veh/Equip" />
+                            <f:selectItem itemLabel="Failures (Syst/Plant)" itemValue="Failures (Syst/Plant)" />
+                            <f:selectItem itemLabel="Mistakes/Delays" itemValue="Mistakes/Delays" />
+                            <f:selectItem itemLabel="Conflicts" itemValue="Conflicts" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Customer Satisfaction Comment"/>                
+                        <p:inputTextarea id="CSComment" value="#{checkIn.customerSatisfactionComment}" required="true" style="width: 100%"/>                                                
+                    </p:panelGrid>
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Save &amp; Next" action="#{checkIn.checkInActions(jobsData.recNum)}"  global="true">                        
+                        
+                        
+                    </p:commandButton>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

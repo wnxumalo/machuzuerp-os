@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>View Purchase Order</h1>
+                
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate />
+                </p:messages>
+
+                <h:form id="form" styleClass="ui-fluid">
+                    <p:commandButton id="print" value="Print" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                        <p:printer target="fsPurchaseOrder" />
+                    </p:commandButton>
+                    <p:commandButton id="delete" value="Delete" type="button" onclick="PF('dlgConfirmDelete').show();" style="display:block;margin-bottom: 20px"/>
+
+                    <div align="right">
+                        <p:button value="Back To Dashboard" outcome="/accounting/payable/dashboard">
+                            
+                            
+                        </p:button> &nbsp;&nbsp;                                   
+                        <br></br><br></br>
+                    </div>
+
+                    <p:fieldset id="fsPurchaseOrder" legend="PURCHASE ORDER" style="font-size:20px;">
+
+                        <p:outputPanel style="font-size:20px;font-family:Tahoma;border-bottom: solid;">
+                            <h:outputText value="#{purchaseOrder.orgName}" style="font-size:30px;"/><br></br>
+                            <h:outputText value="VAT NUMBER: #{purchaseOrder.vatNum}"/><br></br><br></br>
+                            <h:outputText value="#{purchaseOrder.orgTel}"/><br></br>
+                            <h:outputText value="#{purchaseOrder.orgFax}"/><br></br>
+                            <h:outputText value="#{purchaseOrder.orgEmail}"/><br></br>
+                            <h:outputText value="#{purchaseOrder.orgPosAdd}"/><br></br>
+                            <h:outputText value="#{purchaseOrder.orgPhysAdd}"/><br></br>                                        
+                        </p:outputPanel><br></br>
+
+                        <h:panelGrid columns="2" cellpadding="2" style="width:100%;">  
+                            <h:outputText value="Requisition Id" style="font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{purchaseOrder.requisitionId}"/>
+                            <h:outputText value="Purchase Order Number" style="font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{purchaseOrder.recNum}"/>
+                            <h:outputText value="Date" style="font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{purchaseOrder.PODate}"/>
+                        </h:panelGrid><br></br>
+
+                        <h:outputLabel value="Supplier" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:25px"/><br></br>
+                        <h:panelGrid columns="2" cellpadding="2">                                           
+                            <h:outputLabel for="cID" value="Number" style="font-weight:bold;font-size:16px;width:400px"/><h:outputText id="cID" value="#{purchaseOrder.recNum}" style="font-size:15px;"/>                                    
+                            <h:outputLabel for="vatNum" value="VAT Number" style="font-weight:bold;font-size:16px;width:400px"/><h:outputText id="vatNum" value="#{purchaseOrder.vatNum}" style="font-size:15px;"/>                                                                            
+                            <h:outputLabel for="name" value="Name" style="font-weight:bold;font-size:16px"/><h:outputText id="name" value="#{purchaseOrder.supplierName}" style="font-size:15px;"/>                                    
+                            <h:outputLabel for="tel" value="Telephone" style="font-weight:bold;font-size:16px" /><h:outputText id="tel" value="#{purchaseOrder.tel}" style="font-size:15px;"/>                                    
+                            <h:outputLabel for="cell" value="Cellphone" style="font-weight:bold;font-size:16px" /><h:outputText id="cell" value="#{purchaseOrder.cell}" style="font-size:15px;"/>                                   
+                            <h:outputLabel for="fax" value="Fax" style="font-weight:bold;font-size:16px" /><h:outputText id="fax" value="#{purchaseOrder.fax}" style="font-size:15px;"/>                                   
+                            <h:outputLabel for="email" value="Email" style="font-weight:bold;font-size:16px" /><h:outputText id="email" value="#{purchaseOrder.email}" style="font-size:15px;"/>                                   
+                            <h:outputLabel for="posAdd" value="Postal Address" style="font-weight:bold;font-size:16px" /><h:outputText id="posAdd" value="#{purchaseOrder.posAdd}" style="font-size:15px;"/>                                  
+                            <h:outputLabel for="physAdd" value="Physical Address" style="font-weight:bold;font-size:16px" /><h:outputText id="physAdd" value="#{purchaseOrder.physAdd}" style="font-size:15px;"/>
+                        </h:panelGrid><br></br>
+                        <h:outputLabel for="outputServices" value="" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:17px"/><br></br>
+                        <p:outputPanel id="outputServices">
+                            <table>
+                                <th align="left">Description</th><th align="left">Unit</th><th align="right">Quantity</th><th align="right">Amount</th>
+                                <ui:repeat value="#{purchaseOrder.filteredPurchaseOrders}" var="svs">
+                                    <tr>
+                                        <td><h:outputText value="#{svs.itemService}" style="display:block;width:300px;align-content: flex-end"/></td>
+                                        <td><h:outputText value="#{svs.estUnitPrice}" style="display:block;width:50px;align-content: flex-end"/></td>
+                                        <td align="right"><h:outputText value="#{svs.quantity}" style="display:block;width:100px;align-content: flex-end"/></td>
+                                        <td align="right"><h:outputText value="#{svs.estAmount}" style="display:block;width:100px;align-content: flex-end"/></td>
+                                    </tr>
+                                </ui:repeat>
+                                <p>
+                                    <tr>
+                                        <td colspan="3" align="right"><h:outputText value="Total" style="color:#D98880;font-weight:bold;width:1300px"/></td>
+                                        <td align="right"><h:outputText value="#{purchaseOrder.totalCost}" style="display:block;color:#D98880;font-weight:bold;"/></td>
+                                    </tr>
+                                </p>
+                            </table>
+                        </p:outputPanel><br></br>
+                        <p><h:outputText value="Notes" style="font-weight:bold;font-size:17px"/><br></br><h:outputText value="#{purchaseOrder.notes}"/></p>
+                    </p:fieldset>
+                    
+                    <p:confirmDialog message="Are you sure you want to delete?"
+                                 header="Delete Purchase Order" severity="alert"
+                                 widgetVar="dlgConfirmDelete">
+                        <p:commandButton value="Yes" actionListener="#{purchaseOrder.deletePurchaseOrder()}"
+                                         oncomplete="PF('dlgConfirmDelete').hide()"  onclick="PF('fsPurchaseOrder').hide();"/>
+                        <p:commandButton value="Not" onclick="PF('dlgConfirmDelete').hide();" type="button" />
+                    </p:confirmDialog>
+                </h:form>
+              
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

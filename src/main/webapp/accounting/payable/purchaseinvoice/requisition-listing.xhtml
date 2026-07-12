@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Purchase Order - Select Requisition</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+                    <p:button value="Back To Dashboard" outcome="/accounting/payable/dashboard">
+                        
+                        
+                    </p:button> &nbsp;&nbsp;
+                    <p:dataTable id="requisitionsDT" var="req" value="#{menuNavigation.requisitions}"  selectionMode="single" selection="#{menuNavigation.selectedRequisition}" rowKey="#{req.recnum}">
+                        <p:ajax event="rowSelect" listener="#{menuNavigation.onRowSelectRequisitions}"/>  
+                         <f:facet name="header">
+                            Select
+                        </f:facet>
+                        
+                          
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Recnum" />
+                            </f:facet>
+                            <h:outputText value="#{req.recnum}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date" />
+                            </f:facet>                       
+                            <h:outputText value="#{req.requestDate}" />                                
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Deliver To" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{req.deliverTo}" />                             
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Requestor" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{req.requestorName}" />                                
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Accounts Manager" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{req.accountsManagerName}" />                                
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Approver" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{req.approverName}" />                                
+                        </p:column>                         
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>
+

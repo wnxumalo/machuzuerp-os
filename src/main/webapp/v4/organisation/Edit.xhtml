@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrganisationEditDlg" widgetVar="OrganisationEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditOrganisationTitle}">
+            <h:form id="OrganisationEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{organisationController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditOrganisationLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{organisationController.selected.id}" title="#{bundle.EditOrganisationTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditOrganisationLabel_vatNumber}" for="vatNumber" />
+                        <p:inputText id="vatNumber" value="#{organisationController.selected.vatNumber}" title="#{bundle.EditOrganisationTitle_vatNumber}" />
+                        <p:outputLabel value="#{bundle.EditOrganisationLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{organisationController.selected.name}" title="#{bundle.EditOrganisationTitle_name}" />
+                        <p:outputLabel value="#{bundle.EditOrganisationLabel_telephone}" for="telephone" />
+                        <p:inputText id="telephone" value="#{organisationController.selected.telephone}" title="#{bundle.EditOrganisationTitle_telephone}" />
+                        <p:outputLabel value="#{bundle.EditOrganisationLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{organisationController.selected.email}" title="#{bundle.EditOrganisationTitle_email}" />
+                        <p:outputLabel value="#{bundle.EditOrganisationLabel_city}" for="city" />
+                        <p:inputText id="city" value="#{organisationController.selected.city}" title="#{bundle.EditOrganisationTitle_city}" />
+                        <p:outputLabel value="#{bundle.EditOrganisationLabel_district}" for="district" />
+                        <p:inputText id="district" value="#{organisationController.selected.district}" title="#{bundle.EditOrganisationTitle_district}" />
+                        <p:outputLabel value="#{bundle.EditOrganisationLabel_country}" for="country" />
+                        <p:inputText id="country" value="#{organisationController.selected.country}" title="#{bundle.EditOrganisationTitle_country}" />
+                        <p:outputLabel value="#{bundle.EditOrganisationLabel_postalAddress}" for="postalAddress" />
+                        <p:inputText id="postalAddress" value="#{organisationController.selected.postalAddress}" title="#{bundle.EditOrganisationTitle_postalAddress}" />
+                        <p:outputLabel value="#{bundle.EditOrganisationLabel_physicalAddress}" for="physicalAddress" />
+                        <p:inputText id="physicalAddress" value="#{organisationController.selected.physicalAddress}" title="#{bundle.EditOrganisationTitle_physicalAddress}" />
+                        <p:outputLabel value="#{bundle.EditOrganisationLabel_interestRate}" for="interestRate" />
+                        <p:inputText id="interestRate" value="#{organisationController.selected.interestRate}" title="#{bundle.EditOrganisationTitle_interestRate}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{organisationController.update}" value="#{bundle.Save}" update="display,:OrganisationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrganisationEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OrganisationEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

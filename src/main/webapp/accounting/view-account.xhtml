@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Account</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:commandButton icon="ui-icon-circle-minus" action="#{accounts.deleteAccount()}" title="Delete">
+                        
+                        
+                        <f:param name="recnum" value="#{param['recnum']}" />
+                    </p:commandButton>
+
+                    <p:commandButton icon="ui-icon-msg" action="#{accounts.editAccount_1(otRecNumBind.value, otAccountNumberBind.value, otDescriptionBind.value, otBalanceBind.value, otCommentsBind.value)}"  title="Edit">                           
+                        
+                        
+                        <f:param name="recnum" value="#{param['recnum']}" />
+                        <f:param name="accountNumber" value="#{param['accountNumber']}" />
+                        <f:param name="description" value="#{param['description']}" />
+                        <f:param name="balance" value="#{param['balance']}" />
+                        <f:param name="comments" value="#{param['comments']}" />                                                        
+                    </p:commandButton>    
+
+                    <table>
+                        <tr>
+                            <td><h:outputText value="ID: "/></td><td><h:outputText binding="#{otRecNumBind}" value="#{param['recnum']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Account Number "/></td><td><h:outputText binding="#{otAccountNumberBind}" value="#{param['accountNumber']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Description "/></td><td><h:outputText binding="#{otDescriptionBind}" value="#{param['description']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Balance "/></td><td><h:outputText binding="#{otBalanceBind}" value="#{param['balance']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Comments "/></td><td><h:outputText binding="#{otCommentsBind}" value="#{param['comments']}"/></td>
+                        </tr>
+                    </table>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

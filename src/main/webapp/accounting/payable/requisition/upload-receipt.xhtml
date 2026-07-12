@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Upload Receipt</h1>
+                <h:form id="frm" styleClass="ui-fluid">
+
+                    <p:messages id="messages" showDetail="true" closable="true" >
+                        <p:autoUpdate/>
+                    </p:messages>
+
+                    <h5>Existing Receipts</h5>
+                    <ui:repeat id="otVal" value="#{requisitionData.uploadedReceipts}" var="val" >
+                            <h:outputLabel value="#{val.filename}"  /><h:commandLink value="view" action="#{requisitionData.startDownload(val.id, val.filename, val.uploaddate)}"/><br/>
+                        </ui:repeat>
+                    <h5>Upload New Files (if applicable)</h5>                    
+                    <p:fileUpload update="otVal" listener="#{requisitionData.handleFileUpload}" mode="advanced" dragDropSupport="false"
+                                  sizeLimit="1048576" fileLimit="3" >
+                    </p:fileUpload>
+
+                    <br></br> 
+                    &nbsp;&nbsp;&nbsp;                   
+                    <p:commandButton value="Done" action="requisition-preview-2.xhtml">
+                    </p:commandButton>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Stakeholder Search</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+                    <br></br>
+                    <!--p:inputText value="#{customerData.byName}" placeholder="Search">
+                        <p:ajax event="keyup" update="customers" listener="#{customerData.filterCustomers()}" />
+                    </p:inputText-->  
+
+                    <p:inputText value="#{customerData.byVatNum}" placeholder="VAT/ID Number"/>                        
+                    <p:inputText value="#{customerData.byName}" placeholder="Name"/>                        
+                    <p:inputText value="#{customerData.bySurname}" placeholder="Surname"/>   
+                    <p:inputText value="#{customerData.byCellphone}" placeholder="Cellphone"/>   
+                    <p:commandButton value="Filter" update="frmCusts:customers" actionListener="#{customerData.filterCustomers()}">
+                        
+                                                
+                    </p:commandButton>
+                    <br></br>
+                    
+                    <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+                        <f:facet name="default">
+                            <h:outputText value="" />
+                        </f:facet>
+
+                    </p:ajaxStatus>
+
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <img src="../images/ajax-loader.gif" />
+                    </p:dialog> 
+                </h:form>
+
+                <h:form id="frmCusts" styleClass="ui-fluid">
+
+
+                    <p:dataGrid var="cust" value="#{customerData.filteredCustomers}" columns="1" rows="5" lazy="true" layout="grid"
+                                paginator="true" id="customers" 
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                        <p:panel header="#{cust.customerName} #{cust.surname}" style="position:relative;">
+                            <h:panelGrid columns="2" style="width:100%;text-align:left">                              
+
+                                <b>Record #</b><h:outputText value="#{cust.recnum}" />
+                                <b>ID Number</b><h:outputText value="#{cust.vatNum}" />
+                                <b>Type</b><h:outputText value="#{cust.type}" />
+                                <b>Status</b><h:outputText value="#{cust.status}" />
+                                <b>Gender</b><h:outputText value="#{cust.gender}" />
+                                <b>Telephone</b><h:outputText value="#{cust.telephone}" />
+                                <b>Cellphone</b><h:outputText value="#{cust.cellphone}" />
+                                <b>Email</b><h:outputText value="#{cust.email}" />
+                                <b>Fax</b><h:outputText value="#{cust.fax}" />
+                                <b>Postal Address</b><h:outputText value="#{cust.postalAddress}" />
+                                <b>Physical Address</b><h:outputText value="#{cust.physicalAddress}" />
+                                <b>Country</b><h:outputText value="#{cust.country}" />
+                                <b>Joining Date</b><h:outputText value="#{cust.JDate}" /><br></br><br></br>
+                            </h:panelGrid>
+
+                            <p:commandButton value="SMS" onclick="PF('dlgSMS').show();" icon="ui-icon-mail-closed" title="SMS"/>
+                            <p:commandButton value="Email" onclick="PF('dlgEmail').show();" icon="ui-icon-extlink" title="Email"/>
+                            <p:commandButton value="Outstanding Receipts" action="#{receiptData.searchClientReceipt(cust.vatNum)}" icon="ui-icon-search" title="Outstanding Receipts"/>                                
+                            <p:commandButton value="Outstanding Invoices" action="#{invoiceData.getOutstandingInvoices}" icon="ui-icon-search" title="Outstanding Invoices">
+                                <f:param name="recnum" value="#{cust.recnum}" />
+                                <f:param name="custname" value="#{cust.customerName}" />
+                                <f:param name="custsurname" value="#{cust.surname}" />
+                            </p:commandButton>
+                            <p:commandButton value="Projects" action="#{projectData.getStakeholderProjects()}" icon="ui-icon-gear" title="Active Projects">                                                                
+                                <f:param name="recnum" value="#{cust.recnum}" />                                
+                            </p:commandButton>                            
+                            <p:commandButton value="Services" action="#{enrolledServices.getStakeholderServices()}" icon="ui-icon-gear" title="Enrolled Services">
+                                <f:param name="crecnum" value="#{cust.recnum}" />                                
+                            </p:commandButton>
+                            <p:commandButton value="Edit" action="#{customer.getCustomer(cust.recnum, cust.vatNum, cust.type, cust.status, cust.name, cust.surname, cust.gender, cust.telephone, cust.cellphone, cust.email, cust.fax, cust.postalAddress, cust.physicalAddress, cust.country, cust.JDate)}" icon="ui-icon-gear" title="Edit Stakeholder"/>
+        
+                            <!--SMS Dialog-->
+                            <p:dialog header="SMS: #{cust.customerName} #{cust.surname}" widgetVar="dlgSMS" resizable="false">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel for="subject" value="Subject" /><br></br>
+                                    <p:inputText id="smsSubject" value="#{customer.subject}" label="subject" /><br></br>
+
+                                    <h:outputLabel for="message" value="Message" /><br></br>
+                                    <p:inputTextarea id="smsMessage" value="#{customer.msg}" label="message" /><br></br>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton value="Send" actionListener="#{customer.smsCust}"
+                                                         oncomplete="PF('dlgSMS').hide();"  >
+                                            <f:param name="cellphone" value="#{cust.cellphone}" />
+                                            <f:param name="name" value="#{cust.customerName}" />
+                                        </p:commandButton>
+
+                                    </f:facet>  
+                                </h:panelGrid>
+                            </p:dialog>
+
+                            <!--Email Dialog-->
+                            <p:dialog header="Email: #{cust.customerName} #{cust.surname}" widgetVar="dlgEmail" resizable="false">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputLabel for="subject" value="Subject" /><br></br>
+                                    <p:inputText id="subject" value="#{customer.subject}" label="subject" /><br></br>
+
+                                    <h:outputLabel for="message" value="Message" /><br></br>
+                                    <p:inputTextarea id="message" value="#{customer.msg}" label="message" /><br></br>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton value="Send" actionListener="#{customer.emailCust}"
+                                                         oncomplete="PF('dlgEmail').hide();"  >
+                                            <f:param name="email" value="#{cust.email}" />
+                                            <f:param name="cName" value="#{cust.customerName}" />
+                                        </p:commandButton>
+                                    </f:facet> 
+
+                                </h:panelGrid>
+                            </p:dialog>
+                        </p:panel>
+
+                    </p:dataGrid>  
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

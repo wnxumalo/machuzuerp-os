@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Employee Training Report</h1>
+                <h:form styleClass="ui-fluid">
+                    <p:fieldset legend="FILTER">
+                        
+                        <h:selectOneMenu value="#{projectsBean.selectedProject}" converter="projectConverter">
+                            <f:selectItems value="#{projectsBean.projects}" var="projs"
+                                           itemValue="#{projs}"
+                                           itemLabel="#{projs.id} - #{projs.name}"/>
+                        </h:selectOneMenu> &nbsp;&nbsp;&nbsp;&nbsp;                        
+                        <p:commandButton value="Projects" action="#{employeesProjects.searchProjects(projectsBean.selectedProject)}" icon="ui-icon-search" title="View Projects" update="employeeDT">
+                            
+                            
+                            <f:param name="recnum" value="#{cust.recnum}" />
+                            <f:param name="custname" value="#{cust.customerName}" />
+                            <f:param name="custsurname" value="#{cust.surname}" />
+                        </p:commandButton>                        
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <p:commandButton value="Export as Excel" ajax="false">
+                            <p:dataExporter type="xls" target="employeeDT" fileName="Projects"/>
+                        </p:commandButton>
+                        <br/><br/>                      
+
+                        <p:dataTable id="employeeDT" var="emp" value="#{employeesProjects.employees}" 
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                     rowsPerPageTemplate="20" sortBy="#{emp.empName}">
+                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Project" />
+                                </f:facet>
+                                <h:outputText value="#{emp.project}" />
+                            </p:column> 
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Description" />
+                                </f:facet>
+                                <h:outputText value="#{emp.description}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Planned Start" />
+                                </f:facet>
+                                <h:outputText value="#{emp.plannedStart}" />
+                            </p:column>    
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Planned End" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{emp.plannedEnd}" />                                
+                            </p:column> 
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Actual Start" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{emp.actualStart}" />
+                            </p:column>                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Actual End" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{emp.actualEnd}" />                             
+                            </p:column>  
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Status" />
+                                </f:facet>
+                                <h:outputText value="#{emp.status}" />
+                            </p:column>                                                                                                          
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Progress" />
+                                </f:facet>
+                                <h:outputText value="#{emp.progress}" />
+                            </p:column> 
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Employee" />
+                                </f:facet>
+                                <h:outputText value="#{emp.empName}" />
+                            </p:column> 
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Surname" />
+                                </f:facet>
+                                <h:outputText value="#{emp.surname}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ID Number" />
+                                </f:facet>
+                                <h:outputText value="#{emp.IDNumber}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

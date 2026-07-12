@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InventoryAdditionViewDlg" widgetVar="InventoryAdditionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewInventoryAdditionTitle}">
+            <h:form id="InventoryAdditionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{inventoryAdditionController.selected != null}">
+                        <!--h:outputText value="#{bundle.ViewInventoryAdditionLabel_id}"/>
+                        <h:outputText value="#{inventoryAdditionController.selected.id}" title="#{bundle.ViewInventoryAdditionTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewInventoryAdditionLabel_supplierId}"/>
+                        <h:outputText value="#{inventoryAdditionController.selected.supplierId}" title="#{bundle.ViewInventoryAdditionTitle_supplierId}"/>
+                        <h:outputText value="#{bundle.ViewInventoryAdditionLabel_deliveryNoteId}"/>
+                        <h:outputText value="#{inventoryAdditionController.selected.deliveryNoteId}" title="#{bundle.ViewInventoryAdditionTitle_deliveryNoteId}"/>
+                        <h:outputText value="#{bundle.ViewInventoryAdditionLabel_quantity}"/>
+                        <h:outputText value="#{inventoryAdditionController.selected.quantity}" title="#{bundle.ViewInventoryAdditionTitle_quantity}"/>
+                        <h:outputText value="#{bundle.ViewInventoryAdditionLabel_deliveryDate}"/>
+                        <h:outputText value="#{inventoryAdditionController.selected.deliveryDate}" title="#{bundle.ViewInventoryAdditionTitle_deliveryDate}"/>
+                        <h:outputText value="#{bundle.ViewInventoryAdditionLabel_comments}"/>
+                        <h:outputText value="#{inventoryAdditionController.selected.comments}" title="#{bundle.ViewInventoryAdditionTitle_comments}"/-->
+
+                        <p:dataTable id="datalist" value="#{inventoryAdditionController.itemsDTO}" var="item"
+                                     selectionMode="single" selection="#{inventoryAdditionController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+
+                            <!--p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/-->
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{item.id}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Item"/>
+                                </f:facet>
+                                <h:outputText value="#{item.inventoryDescription}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Supplier"/>
+                                </f:facet>
+                                <h:outputText value="#{item.supplierDescription}"/>
+                            </p:column>                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Delivery Note"/>
+                                </f:facet>
+                                <h:outputText value="#{item.deliveryNoteId}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Quantity"/>
+                                </f:facet>
+                                <h:outputText value="#{item.quantity}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Delivery Date"/>
+                                </f:facet>
+                                <h:outputText value="#{item.deliveryDate}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Comments"/>
+                                </f:facet>
+                                <h:outputText value="#{item.comments}"/>
+                            </p:column>
+                            <!--f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{inventoryAdditionController.prepareCreate}" update=":InventoryAdditionCreateForm" oncomplete="PF('InventoryAdditionCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InventoryAdditionViewForm" oncomplete="PF('InventoryAdditionViewDialog').show()" disabled="#{empty inventoryAdditionController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InventoryAdditionEditForm" oncomplete="PF('InventoryAdditionEditDialog').show()" disabled="#{empty inventoryAdditionController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{inventoryAdditionController.destroy}" update=":growl,datalist" disabled="#{empty inventoryAdditionController.selected}"/>
+                            </f:facet-->
+                        </p:dataTable>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="InventoryAdditionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

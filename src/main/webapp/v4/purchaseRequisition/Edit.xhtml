@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PurchaseRequisitionEditDlg" widgetVar="PurchaseRequisitionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPurchaseRequisitionTitle}">
+            <h:form id="PurchaseRequisitionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{purchaseRequisitionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPurchaseRequisitionLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{purchaseRequisitionController.selected.id}" title="#{bundle.EditPurchaseRequisitionTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseRequisitionLabel_PODate}" for="PODate" />
+                        <p:inputText id="PODate" value="#{purchaseRequisitionController.selected.PODate}" title="#{bundle.EditPurchaseRequisitionTitle_PODate}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseRequisitionLabel_deliveryDate}" for="deliveryDate" />
+                        <p:inputText id="deliveryDate" value="#{purchaseRequisitionController.selected.deliveryDate}" title="#{bundle.EditPurchaseRequisitionTitle_deliveryDate}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseRequisitionLabel_shippingTerms}" for="shippingTerms" />
+                        <p:inputText id="shippingTerms" value="#{purchaseRequisitionController.selected.shippingTerms}" title="#{bundle.EditPurchaseRequisitionTitle_shippingTerms}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseRequisitionLabel_shippingMethod}" for="shippingMethod" />
+                        <p:inputText id="shippingMethod" value="#{purchaseRequisitionController.selected.shippingMethod}" title="#{bundle.EditPurchaseRequisitionTitle_shippingMethod}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseRequisitionLabel_paymentTerms}" for="paymentTerms" />
+                        <p:inputText id="paymentTerms" value="#{purchaseRequisitionController.selected.paymentTerms}" title="#{bundle.EditPurchaseRequisitionTitle_paymentTerms}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseRequisitionLabel_supplierId}" for="supplierId" />
+                        <p:inputText id="supplierId" value="#{purchaseRequisitionController.selected.supplierId}" title="#{bundle.EditPurchaseRequisitionTitle_supplierId}" required="true" requiredMessage="#{bundle.EditPurchaseRequisitionRequiredMessage_supplierId}"/>
+                        <p:outputLabel value="#{bundle.EditPurchaseRequisitionLabel_inventoryId}" for="inventoryId" />
+                        <p:inputText id="inventoryId" value="#{purchaseRequisitionController.selected.inventoryId}" title="#{bundle.EditPurchaseRequisitionTitle_inventoryId}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseRequisitionLabel_deliveryEmployeeId}" for="deliveryEmployeeId" />
+                        <p:inputText id="deliveryEmployeeId" value="#{purchaseRequisitionController.selected.deliveryEmployeeId}" title="#{bundle.EditPurchaseRequisitionTitle_deliveryEmployeeId}" required="true" requiredMessage="#{bundle.EditPurchaseRequisitionRequiredMessage_deliveryEmployeeId}"/>
+                        <p:outputLabel value="#{bundle.EditPurchaseRequisitionLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy" value="#{purchaseRequisitionController.selected.creationDate}" title="#{bundle.EditPurchaseRequisitionTitle_creationDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPurchaseRequisitionLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{purchaseRequisitionController.selected.status}" title="#{bundle.EditPurchaseRequisitionTitle_status}" />
+                        <p:outputLabel value="#{bundle.EditPurchaseRequisitionLabel_notes}" for="notes" />
+                        <p:inputText id="notes" value="#{purchaseRequisitionController.selected.notes}" title="#{bundle.EditPurchaseRequisitionTitle_notes}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{purchaseRequisitionController.update}" value="#{bundle.Save}" update="display,:PurchaseRequisitionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PurchaseRequisitionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PurchaseRequisitionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

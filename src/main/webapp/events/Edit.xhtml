@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditEventsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditEventsLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{eventsController.selected.id}" title="#{bundle.EditEventsTitle_id}" />
+                    <h:outputLabel value="#{bundle.EditEventsLabel_title}" for="title" />
+                    <h:inputText id="title" value="#{eventsController.selected.title}" title="#{bundle.EditEventsTitle_title}" />
+                    <h:outputLabel value="#{bundle.EditEventsLabel_startDate}" for="startDate" />
+                    <h:inputText id="startDate" value="#{eventsController.selected.startDate}" title="#{bundle.EditEventsTitle_startDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditEventsLabel_endDate}" for="endDate" />
+                    <h:inputText id="endDate" value="#{eventsController.selected.endDate}" title="#{bundle.EditEventsTitle_endDate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditEventsLabel_customers}" for="customers" />
+                    <h:inputText id="customers" value="#{eventsController.selected.customers}" title="#{bundle.EditEventsTitle_customers}" />
+                </h:panelGrid>
+                <h:commandLink action="#{eventsController.update}" value="#{bundle.EditEventsSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditEventsViewLink}"/>
+                <br />
+                <h:commandLink action="#{eventsController.prepareList}" value="#{bundle.EditEventsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditEventsIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

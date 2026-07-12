@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdministrationEditDlg" widgetVar="AdministrationEditDialog" modal="true" resizable="false" appendTo="@(dialog)" header="Edit Administration">
+            <h:form id="AdministrationEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="18">
+                        <p:outputLabel value="STAKEHOLDER" />
+                        <p:outputLabel value="Create" for="stakeholderCreate" />
+                        <p:selectBooleanCheckbox id="stakeholderCreate" value="#{administrationController.selected.stakeholderCreate}" />
+                        <p:outputLabel value="View" for="stakeholderView" />
+                        <p:selectBooleanCheckbox id="stakeholderView" value="#{administrationController.selected.stakeholderView}" />                        
+                        <p:outputLabel value="Edit" for="stakeholderEdit" />
+                        <p:selectBooleanCheckbox id="stakeholderEdit" value="#{administrationController.selected.stakeholderEdit}" />
+                        <p:outputLabel value="Delete" for="stakeholderDelete" />
+                        <p:selectBooleanCheckbox id="stakeholderDelete" value="#{administrationController.selected.stakeholderDelete}" />
+                        <p:outputLabel value="ACCOUNTING" />
+                        <p:outputLabel value="Create" for="accountingCreate" />
+                        <p:selectBooleanCheckbox id="accountingCreate" value="#{administrationController.selected.accountingCreate}" />
+                        <p:outputLabel value="View" for="accountingView" />
+                        <p:selectBooleanCheckbox id="accountingView" value="#{administrationController.selected.accountingView}" />                        
+                        <p:outputLabel value="Edit" for="accountingEdit" />
+                        <p:selectBooleanCheckbox id="accountingEdit" value="#{administrationController.selected.accountingEdit}" />
+                        <p:outputLabel value="Delete" for="accountingDelete" />
+                        <p:selectBooleanCheckbox id="accountingDelete" value="#{administrationController.selected.accountingDelete}" />
+                        <p:outputLabel value="PROJECT MANAGEMENT" />
+                        <p:outputLabel value="Create" for="projectManagementCreate" />
+                        <p:selectBooleanCheckbox id="projectManagementCreate" value="#{administrationController.selected.projectManagementCreate}" />
+                        <p:outputLabel value="View" for="projectManagementView" />
+                        <p:selectBooleanCheckbox id="projectManagementView" value="#{administrationController.selected.projectManagementView}" />                        
+                        <p:outputLabel value="Edit" for="projectManagementEdit" />
+                        <p:selectBooleanCheckbox id="projectManagementEdit" value="#{administrationController.selected.projectManagementEdit}" />
+                        <p:outputLabel value="Delete" for="projectManagementDelete" />
+                        <p:selectBooleanCheckbox id="projectManagementDelete" value="#{administrationController.selected.projectManagementDelete}" />
+                        <p:outputLabel value="HUMAN RESOURCES" />
+                        <p:outputLabel value="Create" for="humanResourcesCreate" />
+                        <p:selectBooleanCheckbox id="humanResourcesCreate" value="#{administrationController.selected.humanResourcesCreate}" />
+                        <p:outputLabel value="View" for="humanResourcesView" />
+                        <p:selectBooleanCheckbox id="humanResourcesView" value="#{administrationController.selected.humanResourcesView}" />                        
+                        <p:outputLabel value="Edit" for="humanResourcesEdit" />
+                        <p:selectBooleanCheckbox id="humanResourcesEdit" value="#{administrationController.selected.humanResourcesEdit}" />
+                        <p:outputLabel value="Delete" for="humanResourcesDelete" />
+                        <p:selectBooleanCheckbox id="humanResourcesDelete" value="#{administrationController.selected.humanResourcesDelete}" />
+                        <p:outputLabel value="COLLABORATION" />
+                        <p:outputLabel value="Create" for="collaborationCreate" />
+                        <p:selectBooleanCheckbox id="collaborationCreate" value="#{administrationController.selected.collaborationCreate}" />
+                        <p:outputLabel value="View" for="collaborationView" />
+                        <p:selectBooleanCheckbox id="collaborationView" value="#{administrationController.selected.collaborationView}" />                        
+                        <p:outputLabel value="Edit" for="collaborationEdit" />
+                        <p:selectBooleanCheckbox id="collaborationEdit" value="#{administrationController.selected.collaborationEdit}" />
+                        <p:outputLabel value="Delete" for="collaborationDelete" />
+                        <p:selectBooleanCheckbox id="collaborationDelete" value="#{administrationController.selected.collaborationDelete}" />
+                        <p:outputLabel value="WORKFLOW" />
+                        <p:outputLabel value="Create" for="workflowCreate" />
+                        <p:selectBooleanCheckbox id="workflowCreate" value="#{administrationController.selected.workflowCreate}" />
+                        <p:outputLabel value="View" for="workflowView" />
+                        <p:selectBooleanCheckbox id="workflowView" value="#{administrationController.selected.workflowView}" />                        
+                        <p:outputLabel value="Edit" for="workflowEdit" />
+                        <p:selectBooleanCheckbox id="workflowEdit" value="#{administrationController.selected.workflowEdit}" />
+                        <p:outputLabel value="Delete" for="workflowDelete" />
+                        <p:selectBooleanCheckbox id="workflowDelete" value="#{administrationController.selected.workflowDelete}" />
+                        <p:outputLabel value="INVENTORY" />
+                        <p:outputLabel value="Create" for="inventoryCreate" />
+                        <p:selectBooleanCheckbox id="inventoryCreate" value="#{administrationController.selected.inventoryCreate}" />
+                        <p:outputLabel value="View" for="inventoryView" />
+                        <p:selectBooleanCheckbox id="inventoryView" value="#{administrationController.selected.inventoryView}" />                       
+                        <p:outputLabel value="Edit" for="inventoryEdit" />
+                        <p:selectBooleanCheckbox id="inventoryEdit" value="#{administrationController.selected.inventoryEdit}" />
+                        <p:outputLabel value="Delete" for="inventoryDelete" />
+                        <p:selectBooleanCheckbox id="inventoryDelete" value="#{administrationController.selected.inventoryDelete}" />
+                        <p:outputLabel value="SERVICES" />
+                        <p:outputLabel value="Create" for="servicesCreate" />
+                        <p:selectBooleanCheckbox id="servicesCreate" value="#{administrationController.selected.servicesCreate}" />
+                        <p:outputLabel value="View" for="servicesView" />
+                        <p:selectBooleanCheckbox id="servicesView" value="#{administrationController.selected.servicesView}" />                        
+                        <p:outputLabel value="Edit" for="servicesEdit" />
+                        <p:selectBooleanCheckbox id="servicesEdit" value="#{administrationController.selected.servicesEdit}" />
+                        <p:outputLabel value="Delete" for="servicesDelete" />
+                        <p:selectBooleanCheckbox id="servicesDelete" value="#{administrationController.selected.servicesDelete}" />
+                        <p:outputLabel value="SUPPLIERS" />
+                        <p:outputLabel value="Create" for="suppliersCreate" />
+                        <p:selectBooleanCheckbox id="suppliersCreate" value="#{administrationController.selected.suppliersCreate}" />
+                        <p:outputLabel value="View" for="suppliersView" />
+                        <p:selectBooleanCheckbox id="suppliersView" value="#{administrationController.selected.suppliersView}" />                        
+                        <p:outputLabel value="Edit" for="suppliersEdit" />
+                        <p:selectBooleanCheckbox id="suppliersEdit" value="#{administrationController.selected.suppliersEdit}" />
+                        <p:outputLabel value="Delete" for="suppliersDelete" />
+                        <p:selectBooleanCheckbox id="suppliersDelete" value="#{administrationController.selected.suppliersDelete}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{administrationController.update}" value="#{bundle.Save}" update="display,:AdministrationListForm:datalist,:growl"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AdministrationEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

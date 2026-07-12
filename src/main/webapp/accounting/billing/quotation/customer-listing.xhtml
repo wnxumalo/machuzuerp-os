@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Quotation</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:dataTable id="customersDT" var="cust" value="#{customerData.allCustomers}"
+                                 paginator="true"
+                                 rowKey="#{cust.recnum}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50">                            
+                        <f:facet name="header">
+                            Select Stakeholder
+                        </f:facet>
+                        
+                                                    
+                        <p:column style="width:15px">
+                            <f:facet name="header">
+                                <h:outputText value="#"/>
+                            </f:facet>
+                            <h:outputText value="#{cust.recnum}"/>
+                        </p:column>                           
+                        <p:column filterBy="#{cust.customerName}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Name" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{cust.customerName}" />                             
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Surname" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{cust.surname}" />                                
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cellphone" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{cust.cellphone}" />
+                        </p:column>  
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton action="#{quotation.selectService(cust.recnum)}" icon="ui-icon-check" title="Next">
+                                <f:setPropertyActionListener value="#{cust}" target="#{customerData.selectedCustomer}" />
+                                
+                                
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>  
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>
+

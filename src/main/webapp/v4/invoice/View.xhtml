@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InvoiceViewDlg" widgetVar="InvoiceViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewInvoiceTitle}">
+            <h:form id="InvoiceViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{invoiceController.selected != null}">
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_id}"/>
+                        <h:outputText value="#{invoiceController.selected.id}" title="#{bundle.ViewInvoiceTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_invoiceCheck}"/>
+                        <h:outputText value="#{invoiceController.selected.invoiceCheck}" title="#{bundle.ViewInvoiceTitle_invoiceCheck}"/>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_invoiceDate}"/>
+                        <h:outputText value="#{invoiceController.selected.invoiceDate}" title="#{bundle.ViewInvoiceTitle_invoiceDate}"/>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_recurring}"/>
+                        <h:outputText value="#{invoiceController.selected.recurring}" title="#{bundle.ViewInvoiceTitle_recurring}"/>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_IFile}"/>
+                        <h:outputText value="#{invoiceController.selected.IFile}" title="#{bundle.ViewInvoiceTitle_IFile}"/>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_orderNum}"/>
+                        <h:outputText value="#{invoiceController.selected.orderNum}" title="#{bundle.ViewInvoiceTitle_orderNum}"/>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_vatNum}"/>
+                        <h:outputText value="#{invoiceController.selected.vatNum}" title="#{bundle.ViewInvoiceTitle_vatNum}"/>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_total}"/>
+                        <h:outputText value="#{invoiceController.selected.total}" title="#{bundle.ViewInvoiceTitle_total}"/>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_outstanding}"/>
+                        <h:outputText value="#{invoiceController.selected.outstanding}" title="#{bundle.ViewInvoiceTitle_outstanding}"/>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_quoteId}"/>
+                        <h:outputText value="#{invoiceController.selected.quoteId}" title="#{bundle.ViewInvoiceTitle_quoteId}"/>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_projectId}"/>
+                        <h:outputText value="#{invoiceController.selected.projectId}" title="#{bundle.ViewInvoiceTitle_projectId}"/>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_notes}"/>
+                        <h:outputText value="#{invoiceController.selected.notes}" title="#{bundle.ViewInvoiceTitle_notes}"/>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_creationDate}"/>
+                        <h:outputText value="#{invoiceController.selected.creationDate}" title="#{bundle.ViewInvoiceTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewInvoiceLabel_status}"/>
+                        <h:outputText value="#{invoiceController.selected.status}" title="#{bundle.ViewInvoiceTitle_status}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="InvoiceViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

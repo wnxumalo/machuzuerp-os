@@ -1,0 +1,35 @@
+body {margin:0;padding:0;word-wrap:break-word;font-family:arial;font-size:10pt;margin-top:0.1cm;height:100%}
+img {border:none;}
+input {border:1px solid black;border-radius:2px;padding:0;}
+input[type=image] { border: none; }
+textarea {border:1px solid black;padding:0;}
+* {box-sizing:content-box;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;-ms-box-sizing:content-box;}
+a:link {color:#ba1f1f;text-decoration:none;}
+a:visited {color:#ba1f1f;text-decoration:none;}
+a:hover {color:#ba1f1f;text-decoration:none;}
+a:active {color:#ba1f1f;text-decoration:none;}
+.DefaultParagraph { text-align:left;margin:0px;text-indent:0.0px;line-height:1px;font-family:"Verdana", sans-serif;font-style:normal;font-weight:normal;color:#000000;background-color:transparent;font-variant:normal;font-size:16.0px;vertical-align:0; }
+.Artistic-Body { text-align:left;margin:0px;text-indent:0.0px;line-height:1px;font-family:"Verdana", sans-serif;font-style:normal;font-weight:normal;color:#000000;background-color:transparent;font-variant:normal;font-size:16.0px;vertical-align:0; }
+.Body { text-align:left;margin:0px 0px 12px;text-indent:0.0px;line-height:1px;font-family:"Verdana", sans-serif;font-style:normal;font-weight:normal;color:#000000;background-color:transparent;font-variant:normal;font-size:16.0px;vertical-align:0; }
+.Normal { text-align:left;margin:0px;text-indent:0.0px;line-height:1px;font-family:"Verdana", sans-serif;font-style:normal;font-weight:normal;color:#000000;background-color:transparent;font-variant:normal;font-size:16.0px;vertical-align:0; }
+.Table-Body { text-align:left;margin:0px 0px 12px;text-indent:0.0px;line-height:1px;font-family:"Verdana", sans-serif;font-style:normal;font-weight:normal;color:#000000;background-color:transparent;font-variant:normal;font-size:16.0px;vertical-align:0; }
+
+body .ui-widget .ui-icon.fa, 
+body .ui-icon.fa {
+   font-family: FontAwesome;
+}
+
+body .ui-button.ui-button-text-icon-left .ui-icon.fa, 
+body .ui-button.ui-button-text-icon-right .ui-icon.fa {
+        font-size: 20px;
+        margin-top: -11px;
+}
+            
+body.layout-compact .ui-button.ui-button-text-icon-left .ui-icon.fa, 
+body.layout-compact .ui-button.ui-button-text-icon-right .ui-icon.fa {
+        font-size: 18px;
+        margin-top: -10px;
+ }
+ .gmap {
+     height: 100%;
+ }

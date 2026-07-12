@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Stakeholder Project Report</h1>                
+
+                <h:form styleClass="ui-fluid">                    
+                    <p:fieldset id="fsInvoice" legend="FILTER" style="font-size:14px;width:100%;">
+                        <h:selectOneMenu value="#{clientsBean.selectedClient}" converter="clientConverter">
+                            <f:selectItems value="#{clientsBean.clients}" var="client"
+                                           itemValue="#{client}"
+                                           itemLabel="#{client.id} - #{client.name}"/>
+                        </h:selectOneMenu> &nbsp;&nbsp;&nbsp;&nbsp;                                                
+                        <p:commandButton value="Projects" action="#{projectData.reportStakeholderProjects(clientsBean.selectedClient)}" icon="ui-icon-gear" title="Active Projects" update="stakeholdersDT">
+                            
+                            
+                            <f:param name="recnum" value="#{cust.recnum}" />                                
+                        </p:commandButton>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <p:commandButton value="Export as Excel" ajax="false">
+                            <p:dataExporter type="xls" target="stakeholdersDT" fileName="Stakeholders"/>
+                        </p:commandButton>
+                        <br/><br/>
+
+                        <p:dataTable id="stakeholdersDT" var="projs" value="#{projectData.repStakeholderProjects}" 
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                     rowsPerPageTemplate="20">
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Recnum" />
+                                </f:facet>
+                                <h:outputText value="#{projs.recNum}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Name" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{projs.projName}" />                             
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Description" />
+                                </f:facet>                       
+                                <h:outputText value="#{projs.description}" />                                
+                            </p:column>      
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Planned Start" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{projs.plannedStart}" />                             
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Planned End" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{projs.plannedEnd}" />                             
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Actual Start" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{projs.actualStart}" />                             
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Actual End" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{projs.actualEnd}" />                             
+                            </p:column>                                                  
+                        </p:dataTable>
+                    </p:fieldset>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

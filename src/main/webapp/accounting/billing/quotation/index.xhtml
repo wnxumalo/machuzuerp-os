@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Quotations</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:growl id="msgs" showDetail="true"/>
+
+                    <p:dataTable id="servicesDT" var="invServs" value="#{services.services}"  editable="true" editMode="cell" selection="#{quotation.selectedServs}" rowKey="#{invServs.recNum}"  widgetVar="cellServs" style="margin-bottom:0">                            
+
+                        <f:facet name="header">
+                            Select Services
+                        </f:facet>
+
+                        <p:ajax event="cellEdit" listener="#{services.onCellEdit}" />
+
+                        
+                        
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>                            
+                        <p:column style="width:15px">
+                            <f:facet name="header">
+                                <h:outputText value="#"/>
+                            </f:facet>
+                            <h:outputText value="#{invServs.recNum}"/>
+                        </p:column>                           
+                        <p:column filterBy="#{invServs.description}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Description" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{invServs.description}"/>                             
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cost" />                                    
+                            </f:facet>
+                            <h:outputText value="#{invServs.cost}" />
+                        </p:column>
+                        <p:column headerText="Quantity">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{invServs.qty}" /></f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu value="#{invServs.qty}" style="width:100%">
+                                        <f:selectItems value="#{serviceData.qtys}" var="qty" itemLabel="#{qty}" itemValue="#{qty}" />
+                                    </h:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <f:facet name="footer">                                
+                            <p:commandButton process="servicesDT" action="#{quotation.selectInventory()}" value="Next" >
+                                
+                                
+                                <f:param name="cID" value="#{quotation.CID}" />
+                                <f:param name="cName" value="#{quotation.CName}" />
+                                <f:param name="cSurname" value="#{quotation.CSurname}" />
+                                <f:param name="tel" value="#{quotation.tel}" />
+                                <f:param name="cell" value="#{quotation.cell}" />
+                                <f:param name="fax" value="#{quotation.fax}" />
+                                <f:param name="posAdd" value="#{quotation.posAdd}" />
+                                <f:param name="physAdd" value="#{quotation.physAdd}" />                                    
+                            </p:commandButton>
+                        </f:facet>
+
+                    </p:dataTable> 
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

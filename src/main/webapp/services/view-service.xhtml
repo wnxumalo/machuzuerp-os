@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>View Service</h1>
+
+                <h:form styleClass="ui-fluid">
+                    <p>                    
+                        <p:commandButton icon="ui-icon-pencil" action="#{services.editService_1(otRecNumBind.value, otCodeBind.value, otDescriptionBind.value, otCostBind.value)}"  title="Edit">                           
+                            
+                            
+                            <f:param name="recnum" value="#{param['recnum']}" />
+                            <f:param name="code" value="#{param['code']}" />
+                            <f:param name="description" value="#{param['description']}" />
+                            <f:param name="cost" value="#{param['cost']}" />                                                                     
+                        </p:commandButton>    
+                    </p>
+                    <table>
+                        <tr>
+                            <td><h:outputText value="ID: "/></td><td><h:outputText binding="#{otRecNumBind}" value="#{param['recnum']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Code "/></td><td><h:outputText binding="#{otCodeBind}" value="#{param['code']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Description "/></td><td><h:outputText binding="#{otDescriptionBind}" value="#{param['description']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Cost "/></td><td><h:outputText binding="#{otCostBind}" value="#{param['cost']}"/></td>
+                        </tr>
+                    </table>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

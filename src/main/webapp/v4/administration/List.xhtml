@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/erpbyw-template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="Administration"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <p:growl id="growl">
+                <p:autoUpdate/>
+            </p:growl>
+            <h:form id="AdministrationListForm">
+                <p:panel header="Administration Listing">
+                    <p:dataTable id="datalist" value="#{administrationController.items}" var="item"
+                                 selectionMode="single" selection="#{administrationController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Employee Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.employeeIdDate}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="View Stakeholder"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.stakeholderView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Create Stakeholder"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.stakeholderCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Edit Stakeholder"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.stakeholderEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Delete Stakeholder"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.stakeholderDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="View Accounting"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.accountingView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Create Accounting"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.accountingCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Edit Accounting"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.accountingEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Delete Accounting"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.accountingDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="View Project Management"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.projectManagementView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Create Project Management"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.projectManagementCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Edit Project Management"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.projectManagementEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Delete Project Management"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.projectManagementDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="View Human Resources"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.humanResourcesView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Create Human Resources"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.humanResourcesCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Edit Human Resources"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.humanResourcesEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Delete Human Resources"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.humanResourcesDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="View Collaboration"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.collaborationView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Create Collaboration"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.collaborationCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Edit Collaboration"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.collaborationEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Delete Collaboration"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.collaborationDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="View Workflow"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.workflowView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Create Workflow"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.workflowCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Edit Workflow"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.workflowEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Delete Workflow"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.workflowDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="View Inventory"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.inventoryView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Create Inventory"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.inventoryCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Edit Inventory"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.inventoryEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Delete Inventory"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.inventoryDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="View Services"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.servicesView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Create Services"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.servicesCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Edit Services"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.servicesEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Delete Services"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.servicesDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="View Suppliers"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.suppliersView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Create Suppliers"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.suppliersCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Edit Suppliers"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.suppliersEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Delete Suppliers"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.suppliersDelete}" disabled="true"/>
+                        </p:column>                        
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{administrationController.prepareCreate}" update=":AdministrationCreateForm" oncomplete="PF('AdministrationCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AdministrationViewForm" oncomplete="PF('AdministrationViewDialog').show()" disabled="#{empty administrationController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AdministrationEditForm" oncomplete="PF('AdministrationEditDialog').show()" disabled="#{empty administrationController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{administrationController.destroy}" update=":growl,datalist" disabled="#{empty administrationController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

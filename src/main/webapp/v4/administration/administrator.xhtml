@@ -1,0 +1,539 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="/css/default.css"/>        
+        <h:outputStylesheet name="/css/cssLayout.css"/>
+        <title>Machuzu - Enterprise Resource Planning Software</title>
+    </h:head>
+    <h:body>
+
+        <ui:include src="Create.xhtml"/>
+        <ui:include src="View.xhtml"/>
+        <ui:include src="Edit.xhtml"/>
+
+        <ui:include src="/v4/hr/employee/Create.xhtml"/>
+        <ui:include src="/v4/hr/employee/Edit.xhtml"/>
+        <ui:include src="/v4/hr/employee/View.xhtml"/>
+                
+        <ui:include src="/v4/organisation/Create.xhtml"/>
+        <ui:include src="/v4/organisation/Edit.xhtml"/>
+        <ui:include src="/v4/organisation/View.xhtml"/>        
+
+        <ui:include src="/v4/passwordManagement/Create.xhtml"/>
+        <ui:include src="/v4/passwordManagement/Edit.xhtml"/>
+        <ui:include src="/v4/passwordManagement/View.xhtml"/>
+
+        <div style="height:500px" align="center" styleClass="ui-fluid">
+            <h:graphicImage value="/images/Machuzu-smallest.png"></h:graphicImage>
+            <h:outputFormat value="Logged in: {0}" style="position:absolute;right:5px;top:25px;">
+                <f:param name="name" value="#{session.getAttribute('username')}" />
+                <f:param name="uk" value="#{session.getAttribute('uk')}" />
+            </h:outputFormat>   
+
+            <p:growl id="growl" showDetail="true">
+                <p:autoUpdate/>
+            </p:growl>
+
+            <h:form>
+
+                <p:menubar styleClass="centeredMenuBar">
+                    <p:menuitem value="Home" action="#{login.mainDashboard()}" icon="ui-icon-home" class="menu"/>
+                    <p:submenu label="Stakeholders" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.customerDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.newUser(session)}" value="New" />
+                        <p:menuitem action="#{login.customerDetailedListing(session)}" value="Search" />
+                        <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;"/>
+                        <p:menuitem action="#{login.clientGeneral}" value="General" />
+                        <p:menuitem action="#{login.clientInvoices}" value="Invoices" />
+                        <p:menuitem action="#{login.clientReciepts()}" value="Receipts" />
+                        <p:menuitem action="#{login.clientProjects}" value="Projects" />
+                        <p:menuitem action="#{login.clientServices()}" value="Services" />
+                        <p:menuitem action="#{login.clientSharedDocs()}" value="Shared Documents" />                        
+                    </p:submenu>                            
+                    <p:submenu label="Accounting" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.accountingDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.accountsPayable}" value="Payable" />
+                        <p:menuitem action="#{login.accountsReceivable}" value="Receivable" />
+                        <p:menuitem action="#{login.newAccount(session)}" value="New Account" />
+                        <p:menuitem action="#{accountData.findAccount(session)}" value="Search Account" />
+                        <p:menuitem action="#{login.accountsJournal}" value="Edit Journal" />
+                        <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;" />
+                        <p:menuitem action="#{login.accountingGeneral}" value="General" />                      
+                        <p:menuitem action="#{login.accountingType}" value="Type" />                      
+                        <p:menuitem action="#{login.accountsJournalReport}" value="Journal" />                      
+                    </p:submenu>
+                    <p:submenu label="Project Management" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{projectDetails.VTimeline()}" value="Timeline" />
+                        <p:menuitem action="#{projectDetails.VKanban(session)}" value="Kanban" />
+                        <p:menuitem action="#{login.newProject()}" value="New" />
+                        <p:menuitem action="#{login.findProject(session)}" value="Search" />                       
+                        <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;" />
+                        <p:menuitem action="#{login.projectStatus}" value="Status" />                      
+                        <p:menuitem action="#{login.projectGeneral}" value="All" />                      
+                        <p:menuitem action="#{login.projectSingle}" value="Single" />                      
+                    </p:submenu>
+                    <p:submenu label="Human Resources" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.hrmDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.newEmployee(session)}" value="New Employee" />
+                        <p:menuitem action="#{login.findEmployee(session)}" value="Search Employee" />                       
+                        <p:menuitem value="-" />
+                        <p:menuitem action="/hr/payroll/dashboard" value="PAYROLL" />
+                        <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;" />
+                        <p:menuitem action="#{login.hrGeneral}" value="Employees" />  
+                        <p:menuitem action="#{login.hrPayroll}" value="Payroll" />                      
+                        <p:menuitem action="#{login.hrBenefits}" value="Benefits" />                      
+                        <p:menuitem action="#{login.hrDeductions}" value="Deductions" />
+                        <p:menuitem action="#{login.hrLeave}" value="Leave" />
+                        <p:menuitem action="#{login.hrTrainings}" value="Trainings" />
+                        <p:menuitem action="#{login.hrProjects}" value="Projects" />
+                    </p:submenu>
+                    <p:submenu label="Collaboration" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.ocDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.ocLists}" value="Teams" />
+                        <p:menuitem action="#{login.ocFiles}" value="Document Management" />
+                        <p:menuitem action="#{login.ocCalendar}" value="Calendar"/>
+                        <p:menuitem value="-" />
+                        <p:menuitem action="#{login.ocCompliancePolicy}" value="Compliance Management" />
+                        <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;" />
+                        <p:menuitem action="#{login.collaborationTeams}" value="Teams" />                      
+                        <p:menuitem action="#{login.collaborationFiles}" value="Files" />                      
+                        <p:menuitem action="#{login.collaborationTeamFiles}" value="Team Files" />                        
+                    </p:submenu>
+                    <p:submenu label="Workflow" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem actionListener="#{workflowController.prepareC()}" action="#{login.newWorkflow(session)}" value="New" />
+                        <p:menuitem action="#{login.configureWorkflow()}" value="Configure" />
+                        <p:menuitem action="#{login.processWorkflow()}" value="Process" />                                              
+                        <p:menuitem action="#{login.searchWorkflow()}" value="Search" />                                              
+                    </p:submenu>
+                    <p:submenu label="Access Control" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.completeMission}" value="Complete Mission"/>
+                        <p:menuitem action="#{login.accessControlDashboard}" value="Dashboard" />                        
+                        <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;" />
+                        <p:menuitem action="#{login.accessControlDashboard}" value="Reports" />                                              
+                    </p:submenu>
+                    <p:submenu label="Inventory" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.inventoryDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.newInventory(session)}" value="New" />
+                        <p:menuitem action="#{inventoryData.findInventory(session)}" value="Search" />
+                        <p:menuitem action="#{login.selectInventory()}" value="Add To Project" />
+                        <p:menuitem value="REPORTS" />
+                        <p:menuitem action="#{login.inventoryGeneral}" value="General" />
+                        <p:menuitem action="#{login.inventorySupplier}" value="Supplier" />                                        
+                    </p:submenu>
+                    <p:submenu label="Services" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.servicesDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.newService(session)}" value="New" />
+                        <p:menuitem action="#{serviceData.findService(session)}" value="Search" />
+                        <p:menuitem value="REPORTS" class="menu"/>
+                        <p:menuitem action="#{login.servicesGeneral}" value="General" />
+                    </p:submenu>
+                    <p:submenu label="Suppliers" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.suppliersDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.newSupplier()}" value="New" />
+                        <p:menuitem action="#{login.findSupplier(session)}" value="Search" />
+                        <p:menuitem action="#{login.findShipment(session)}" value="Find Shipments" />
+                        <p:menuitem action="#{login.createShipment(session)}" actionListener="#{shipmentController.prepareCreate()}" value="Create Shipment" />
+                        <p:menuitem value="REPORTS" class="menu" />
+                        <p:menuitem action="#{login.suppliersGeneral}" value="General" />                      
+                    </p:submenu>
+                </p:menubar>            
+            </h:form>
+            <p><h1>System Administration</h1></p>
+            <h:form id="OrganisationListForm">                
+                <p:panel header="ORGANISATIONS">
+                    <p:dataTable id="datalist" value="#{organisationController.items}" var="item"
+                                 selectionMode="single" selection="#{organisationController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect" listener="#{organisationController.onOrganisationRowSelect(event)}"  update="createButton viewButton editButton deleteButton :EmployeeListForm:employeeDatalist"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tax Number"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vatNumber}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Telephone"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telephone}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Email"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="City"/>
+                            </f:facet>
+                            <h:outputText value="#{item.city}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="District"/>
+                            </f:facet>
+                            <h:outputText value="#{item.district}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Country"/>
+                            </f:facet>
+                            <h:outputText value="#{item.country}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Interest Rate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.interestRate}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{organisationController.prepareCreate}" update=":OrganisationCreateForm" oncomplete="PF('OrganisationCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":OrganisationViewForm" oncomplete="PF('OrganisationViewDialog').show()" disabled="#{empty organisationController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":OrganisationEditForm" oncomplete="PF('OrganisationEditDialog').show()" disabled="#{empty organisationController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{organisationController.destroy}" update=":growl,datalist" disabled="#{empty organisationController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            <br/>
+            <h:form id="EmployeeListForm">
+
+                <p:panel header="EMPLOYEES">                    
+                    <p:dataTable id="employeeDatalist" value="#{employeeController.employeesDTO}" var="item"
+                                 selectionMode="single" selection="#{employeeController.employeeDTO}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect" listener="#{employeeController.onAdminRowSelect(event)}"  update="createButton viewButton editButton deleteButton :AdministrationListForm:datalist :PasswordManagementListForm:datalist"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idNumber}"/>
+                        </p:column>
+                        <!--p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Employment Date"/>
+                            </f:facet>
+                            <h:outputText value="#{item.employmentDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column-->
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Surname"/>
+                            </f:facet>
+                            <h:outputText value="#{item.surname}"/>
+                        </p:column>
+                        <!--p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Gender"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gender}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Telephone"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telephone}"/>
+                        </p:column-->
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cellphone"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cellphone}"/>
+                        </p:column>
+                        <!--p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Email"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </p:column-->
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{employeeController.prepareCreate}" update="EmployeeCreateForm" oncomplete="PF('EmployeeCreateDialog').show()" disabled="#{empty organisationController.selected}"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EmployeeViewForm" oncomplete="PF('EmployeeViewDialog').show()" disabled="#{empty employeeController.employeeDTO}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EmployeeEditForm" oncomplete="PF('EmployeeEditDialog').show()" disabled="#{empty employeeController.employeeDTO}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{employeeController.destroy}" update=":growl,employeeDatalist" disabled="#{empty employeeController.employeeDTO}"/>
+                            <p:commandButton id="payslipButton" icon="ui-icon-plus" actionListener="#{employeeController.setPayslip(employeeController.selected)}" value="VIEW PAYSLIP" action="view-payslip"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>                            
+
+            </h:form>
+
+            <h:form id="AdministrationListForm">
+
+                <p:panel header="PRIVILEDGES">
+                    <p:dataTable id="datalist" value="#{employeeController.selected.employeeAdministration}" var="item"
+                                 selectionMode="single" selection="#{administrationController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:columnGroup type="header">
+                            <p:row>
+                                <p:column colspan="4" headerText="Stakeholders" />
+                                <p:column colspan="4" headerText="Accounting" />
+                                <p:column colspan="4" headerText="Projects" />
+                                <p:column colspan="4" headerText="Human Resources" />
+                                <p:column colspan="4" headerText="Collaboration" />
+                                <p:column colspan="4" headerText="Workflow" />
+                                <p:column colspan="4" headerText="Inventory" />
+                                <p:column colspan="4" headerText="Services" />
+                                <p:column colspan="4" headerText="Suppliers" />
+                            </p:row>
+                            <p:row>
+                                <p:column headerText="V" />
+                                <p:column headerText="C" />
+                                <p:column headerText="U" />                         
+                                <p:column headerText="D" />                         
+                                <p:column headerText="V" />
+                                <p:column headerText="C" />
+                                <p:column headerText="U" />                         
+                                <p:column headerText="D" />                         
+                                <p:column headerText="V" />
+                                <p:column headerText="C" />
+                                <p:column headerText="U" />                         
+                                <p:column headerText="D" />                         
+                                <p:column headerText="V" />
+                                <p:column headerText="C" />
+                                <p:column headerText="U" />                         
+                                <p:column headerText="D" />                         
+                                <p:column headerText="V" />
+                                <p:column headerText="C" />
+                                <p:column headerText="U" />                         
+                                <p:column headerText="D" />                         
+                                <p:column headerText="V" />
+                                <p:column headerText="C" />
+                                <p:column headerText="U" />                         
+                                <p:column headerText="D" />                         
+                                <p:column headerText="V" />
+                                <p:column headerText="C" />
+                                <p:column headerText="U" />                         
+                                <p:column headerText="D" />                         
+                                <p:column headerText="V" />
+                                <p:column headerText="C" />
+                                <p:column headerText="U" />                         
+                                <p:column headerText="D" />                         
+                                <p:column headerText="V" />
+                                <p:column headerText="C" />
+                                <p:column headerText="U" />                         
+                                <p:column headerText="D" />                                                         
+                            </p:row>
+                        </p:columnGroup>
+
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.stakeholderView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.stakeholderCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.stakeholderEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.stakeholderDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.accountingView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.accountingCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.accountingEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.accountingDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.projectManagementView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.projectManagementCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.projectManagementEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.projectManagementDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.humanResourcesView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.humanResourcesCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.humanResourcesEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.humanResourcesDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.collaborationView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.collaborationCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.collaborationEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.collaborationDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.workflowView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.workflowCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.workflowEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.workflowDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.inventoryView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.inventoryCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.inventoryEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.inventoryDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.servicesView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.servicesCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.servicesEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.servicesDelete}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.suppliersView}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.suppliersCreate}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.suppliersEdit}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <p:selectBooleanCheckbox value="#{item.suppliersDelete}" disabled="true"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Create" actionListener="#{administrationController.prepareCreate}" update="" oncomplete="PF('AdministrationCreateDialog').show()" disabled="#{!empty employeeController.selected.employeeAdministration}"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="View" update="" oncomplete="PF('AdministrationViewDialog').show()" disabled="#{empty administrationController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Edit" update="AdministrationEditForm" oncomplete="PF('AdministrationEditDialog').show()" disabled="#{empty administrationController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Delete" actionListener="#{administrationController.destroy}" update=":growl,datalist" disabled="#{empty administrationController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>    
+            
+            <h:form id="PasswordManagementListForm">
+                <p:panel header="PASSWORD MANAGEMENT">
+                    <p:dataTable id="datalist" value="#{employeeController.selected.passwordManagement}" var="item"
+                                 selectionMode="single" selection="#{passwordManagementController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Rule Type"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ruleType}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Two Factor"/>
+                            </f:facet>
+                            <h:outputText value="#{item.twoFactor}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Change Interval"/>
+                            </f:facet>
+                            <h:outputText value="#{item.changeInterval}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{passwordManagementController.prepareCreate}" update=":PasswordManagementCreateForm" oncomplete="PF('PasswordManagementCreateDialog').show()" disabled="#{!empty employeeController.selected.passwordManagement}"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PasswordManagementViewForm" oncomplete="PF('PasswordManagementViewDialog').show()" disabled="#{empty passwordManagementController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PasswordManagementEditForm" oncomplete="PF('PasswordManagementEditDialog').show()" disabled="#{empty passwordManagementController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{passwordManagementController.destroy}" update=":growl,datalist" disabled="#{empty passwordManagementController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <div id="bottom">
+                <center><ui:insert name="bottom"><p:outputLabel value="Copyright &copy; Maestro IT (Pty) Ltd 2007 - #{login.currDate}"/>  
+                        | Version 3.1 | <a href="https://www.machuzu.com" target="_blank">www.machuzu.com</a></ui:insert></center>
+            </div>
+        </div>
+    </h:body>
+</html>

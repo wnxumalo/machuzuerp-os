@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmployeeTrainingEditDlg" widgetVar="EmployeeTrainingEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEmployeeTrainingTitle}">
+            <h:form id="EmployeeTrainingEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{employeeTrainingController.selected != null}">
+                        <p:outputLabel value="Description" for="description" />
+                        <p:inputText id="description" value="#{employeeTrainingController.selected.description}" title="Description" />
+                        <p:outputLabel value="Outputs" for="outputs" />
+                        <p:inputText id="outputs" value="#{employeeTrainingController.selected.outputs}" title="Outputs" />                        
+                        <p:outputLabel value="Start Date" for="startDate" />
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{employeeTrainingController.selected.startDate}" title="Employment Date"  showOn="button"/>
+                        <p:outputLabel value="End Date" for="endDate" />
+                        <p:calendar id="endDate" pattern="MM/dd/yyyy" value="#{employeeTrainingController.selected.endDate}" title="#{bundle.EditEmployeeTitle_employmentDate}"  showOn="button"/>                        
+                        <p:outputLabel value="Status" for="status" />
+                        <p:selectOneMenu id="status" value="#{employeeTrainingController.selected.status}" style="width:125px">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Planned" itemValue="Planned" />
+                            <f:selectItem itemLabel="Complete" itemValue="Complete" />                            
+                            <f:selectItem itemLabel="Cancelled" itemValue="Cancelled" />                                                        
+                        </p:selectOneMenu>                        
+                        <p:outputLabel value="Comments" for="comments" />
+                        <p:inputText id="comments" value="#{employeeTrainingController.selected.comments}" title="Comments" />                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{employeeTrainingController.update}" value="#{bundle.Save}" update="display,:EmployeeTrainingListForm:trainingDatalist,:growl"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EmployeeTrainingEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

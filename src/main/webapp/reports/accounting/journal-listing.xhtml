@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Journal Report</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+                    <p:fieldset legend="FILTER">
+                        
+                        <h:panelGrid columns="2" cellpadding="2" style="width:741px;">                                                               
+                            <h:outputText value="Begin" style="width:741px;font-weight:bold;"/>
+                            <p:calendar id="startDate" value="#{journalReport.dateFrom}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                            <h:outputText value="End" style="width:741px;font-weight:bold;"/>
+                            <p:calendar id="endDate" value="#{journalReport.dateTo}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                            <p:commandButton value="Export as Excel" ajax="false">
+                                <p:dataExporter type="xls" target="journalDT" fileName="Journal"/>
+                            </p:commandButton>
+                            <p:commandButton value="View" action="#{journalReport.searchJournal()}" update="journalDT">
+                            
+                            
+                        </p:commandButton>   
+                        </h:panelGrid>
+                                                                         
+                        
+                        <br/><br/>
+                        <p:dataTable id="journalDT" var="journ" value="#{journalReport.journal}" style="width:100%">
+
+                            
+                                                         
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Account Number" />
+                                </f:facet>                       
+                                <h:outputText value="#{journ.accountNumber}" />                                
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Type" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{journ.accType}" />                             
+                            </p:column>  
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Description" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{journ.description}" />                                
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Debit" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{journ.debit}" />                                
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Credit" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{journ.credit}" />                                
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Date" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{journ.transactionDate}" />                                
+                            </p:column>  
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Comment" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{journ.comments}" />                                
+                            </p:column>  
+                        </p:dataTable>
+                    </p:fieldset>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

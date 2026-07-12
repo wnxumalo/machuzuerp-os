@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Add Inventory To Project</h1>
+
+                <h:form styleClass="ui-fluid">
+
+                    <p:outputPanel id="opInvoice">
+
+
+                        <div align="right">                        
+                            <p:button value="Inventory Dashboard" outcome="#{login.inventoryDashboard()}">
+                                
+                                
+                            </p:button> &nbsp;&nbsp;                                   
+                            <br></br><br></br>
+                        </div>
+
+                        <p:fieldset id="fsInvoice" legend="PROJECT INVENTORY" style="font-size:20px;">
+
+                            <p:outputPanel style="font-size:20px;font-family:Tahoma;border-bottom: solid;">                                        
+                                <h:outputText value="#{invoice.orgName}" style="font-size:30px;"/><br></br>
+                                <h:outputText value="Project: #{inventory.projectName}"/><br></br>
+                                <h:outputText value="Actual Start: #{inventory.actualStart}"/><br></br>
+                                <h:outputText value="Actual End #{inventory.actualEnd}"/><br></br>                                        
+                            </p:outputPanel><br></br>
+                            <p>
+                                <h:panelGrid columns="2"> 
+                                    <h:outputLabel value="ACTIVITY" style="font-weight: bold"/>
+                                    <h:outputLabel value="#{projectActivities.activityName}"/>
+                                    <h:outputLabel value="Priority"/>
+                                    <h:outputLabel value="#{projectActivities.priority}"/>
+                                    <h:outputLabel value="Planned Start"/>
+                                    <h:outputLabel value="#{projectActivities.plannedStart}"/>
+                                    <h:outputLabel value="Planned End"/>
+                                    <h:outputLabel value="#{projectActivities.plannedEnd}"/>                        
+                                    <h:outputLabel value="Actual Start"/>
+                                    <h:outputLabel value="#{projectActivities.actualStart}"/>
+                                    <h:outputLabel value="Actual End"/>
+                                    <h:outputLabel value="#{projectActivities.actualEnd}"/>
+                                    <h:outputLabel value="Planned Budget"/>
+                                    <h:outputLabel value="#{projectActivities.plannedBudget}"/>                        
+                                    <h:outputLabel value="Actual Budget"/>
+                                    <h:outputLabel value="#{projectActivities.actualBudget}"/>
+                                    <h:outputLabel value="Description"/>
+                                    <h:outputLabel value="#{projectActivities.description}"/>                                           
+                                </h:panelGrid>                
+                            </p>
+                            <p:outputPanel id="outputServices">                                                                                 
+
+                                <ui:repeat value="#{inventory.projectInventory}" var="invs">
+                                    <h:panelGrid columns="5" cellpadding="2">
+                                        <h:outputText value="#{invs.description}" style="display:block;width:300px"/>                                        
+                                        <h:outputText value="#{invs.quantity}" style="display:block;width:300px"/>                                        
+                                    </h:panelGrid>
+                                </ui:repeat>
+                            </p:outputPanel><br></br>                            
+
+                        </p:fieldset>
+
+                    </p:outputPanel>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

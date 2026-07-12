@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SupplierViewDlg" widgetVar="SupplierViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSupplierTitle}">
+            <h:form id="SupplierViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{supplierController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSupplierLabel_id}"/>
+                        <h:outputText value="#{supplierController.selected.id}" title="#{bundle.ViewSupplierTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_vatNum}"/>
+                        <h:outputText value="#{supplierController.selected.vatNum}" title="#{bundle.ViewSupplierTitle_vatNum}"/>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_description}"/>
+                        <h:outputText value="#{supplierController.selected.description}" title="#{bundle.ViewSupplierTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_country}"/>
+                        <h:outputText value="#{supplierController.selected.country}" title="#{bundle.ViewSupplierTitle_country}"/>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_website}"/>
+                        <h:outputText value="#{supplierController.selected.website}" title="#{bundle.ViewSupplierTitle_website}"/>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_productsServices}"/>
+                        <h:outputText value="#{supplierController.selected.productsServices}" title="#{bundle.ViewSupplierTitle_productsServices}"/>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_paymentTerms}"/>
+                        <h:outputText value="#{supplierController.selected.paymentTerms}" title="#{bundle.ViewSupplierTitle_paymentTerms}"/>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_leadTime}"/>
+                        <h:outputText value="#{supplierController.selected.leadTime}" title="#{bundle.ViewSupplierTitle_leadTime}"/>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_qualityRating}"/>
+                        <h:outputText value="#{supplierController.selected.qualityRating}" title="#{bundle.ViewSupplierTitle_qualityRating}"/>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_deliveryPerformance}"/>
+                        <h:outputText value="#{supplierController.selected.deliveryPerformance}" title="#{bundle.ViewSupplierTitle_deliveryPerformance}"/>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_certifications}"/>
+                        <h:outputText value="#{supplierController.selected.certifications}" title="#{bundle.ViewSupplierTitle_certifications}"/>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_creationDate}"/>
+                        <h:outputText value="#{supplierController.selected.creationDate}" title="#{bundle.ViewSupplierTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_status}"/>
+                        <h:outputText value="#{supplierController.selected.status}" title="#{bundle.ViewSupplierTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewSupplierLabel_notes}"/>
+                        <h:outputText value="#{supplierController.selected.notes}" title="#{bundle.ViewSupplierTitle_notes}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SupplierViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

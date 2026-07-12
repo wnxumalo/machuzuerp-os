@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InventoryStorageSpaceViewDlg" widgetVar="InventoryStorageSpaceViewDialog" modal="true" resizable="false" appendTo="@(dialog)" header="#{bundle.ViewInventoryStorageSpaceTitle}">
+            <h:form id="InventoryStorageSpaceViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_id}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.id}" title="#{bundle.ViewInventoryStorageSpaceTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_inventoryStorageId}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.inventoryStorageId}" title="#{bundle.ViewInventoryStorageSpaceTitle_inventoryStorageId}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_description}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.description}" title="#{bundle.ViewInventoryStorageSpaceTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_type}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.type}" title="#{bundle.ViewInventoryStorageSpaceTitle_type}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_label}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.label}" title="#{bundle.ViewInventoryStorageSpaceTitle_label}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_totalArea}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.totalArea}" title="#{bundle.ViewInventoryStorageSpaceTitle_totalArea}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_occupiedArea}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.occupiedArea}" title="#{bundle.ViewInventoryStorageSpaceTitle_occupiedArea}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_availableArea}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.availableArea}" title="#{bundle.ViewInventoryStorageSpaceTitle_availableArea}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_rackingType}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.rackingType}" title="#{bundle.ViewInventoryStorageSpaceTitle_rackingType}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_rackingCapacity}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.rackingCapacity}" title="#{bundle.ViewInventoryStorageSpaceTitle_rackingCapacity}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_utilizedCapacity}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.utilizedCapacity}" title="#{bundle.ViewInventoryStorageSpaceTitle_utilizedCapacity}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_accessType}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.accessType}" title="#{bundle.ViewInventoryStorageSpaceTitle_accessType}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_accessibilityScore}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.accessibilityScore}" title="#{bundle.ViewInventoryStorageSpaceTitle_accessibilityScore}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_temperatureRequirements}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.temperatureRequirements}" title="#{bundle.ViewInventoryStorageSpaceTitle_temperatureRequirements}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_securityLevel}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.securityLevel}" title="#{bundle.ViewInventoryStorageSpaceTitle_securityLevel}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_lastOptimized}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.lastOptimized}" title="#{bundle.ViewInventoryStorageSpaceTitle_lastOptimized}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_responsibleManager}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.responsibleManager}" title="#{bundle.ViewInventoryStorageSpaceTitle_responsibleManager}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_implementationDate}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.implementationDate}" title="#{bundle.ViewInventoryStorageSpaceTitle_implementationDate}"/>
+                        <h:outputText value="#{bundle.ViewInventoryStorageSpaceLabel_status}"/>
+                        <h:outputText value="#{inventoryStorageController.selectedInventoryStorageSpace.status}" title="#{bundle.ViewInventoryStorageSpaceTitle_status}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="InventoryStorageSpaceViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AuditLoggingCreateDlg" widgetVar="AuditLoggingCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAuditLoggingTitle}">
+            <h:form id="AuditLoggingCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{auditLoggingController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAuditLoggingLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{auditLoggingController.selected.id}" title="#{bundle.CreateAuditLoggingTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateAuditLoggingLabel_organisation}" for="organisation" />
+                        <p:inputText id="organisation" value="#{auditLoggingController.selected.organisation}" title="#{bundle.CreateAuditLoggingTitle_organisation}" required="true" requiredMessage="#{bundle.CreateAuditLoggingRequiredMessage_organisation}"/>
+                        <p:outputLabel value="#{bundle.CreateAuditLoggingLabel_employeeIdDate}" for="employeeIdDate" />
+                        <p:inputText id="employeeIdDate" value="#{auditLoggingController.selected.employeeIdDate}" title="#{bundle.CreateAuditLoggingTitle_employeeIdDate}" />
+                        <p:outputLabel value="#{bundle.CreateAuditLoggingLabel_userAction}" for="userAction" />
+                        <p:inputText id="userAction" value="#{auditLoggingController.selected.userAction}" title="#{bundle.CreateAuditLoggingTitle_userAction}" />
+                        <p:outputLabel value="#{bundle.CreateAuditLoggingLabel_appModule}" for="appModule" />
+                        <p:inputText id="appModule" value="#{auditLoggingController.selected.appModule}" title="#{bundle.CreateAuditLoggingTitle_appModule}" />
+                        <p:outputLabel value="#{bundle.CreateAuditLoggingLabel_actionResponse}" for="actionResponse" />
+                        <p:inputText id="actionResponse" value="#{auditLoggingController.selected.actionResponse}" title="#{bundle.CreateAuditLoggingTitle_actionResponse}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{auditLoggingController.create}" value="#{bundle.Save}" update="display,:AuditLoggingListForm:datalist,:growl" oncomplete="handleSubmit(args,'AuditLoggingCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AuditLoggingCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

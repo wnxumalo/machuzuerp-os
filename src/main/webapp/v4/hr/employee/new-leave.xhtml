@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+
+                <h:form styleClass="ui-fluid">
+                    <p:commandButton value="Back" action="#{employeesData.refreshEmployee(param['recnum'])}"  style="width:100%" global="true">
+                        
+                        
+                        <f:param name="recnum" value="#{employeesData.recNum}" />
+                    </p:commandButton>
+                </h:form>
+                <h:form styleClass="ui-fluid">
+                    <h1>New Leave</h1>
+
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+                    
+                    <p:panelGrid columns="2" >                        
+                        <p:outputLabel for="type" value="Type"/>
+                        <p:selectOneMenu id="type" value="#{leave.type}" style="width:125px">
+                            <f:selectItem itemLabel="Accumulated" itemValue="Accumulated" />
+                            <f:selectItem itemLabel="Vocational" itemValue="Vocational" />                                        
+                            <f:selectItem itemLabel="Carry-Over" itemValue="Carry-Over" />                            
+                            <f:selectItem itemLabel="Sick" itemValue="Sick" /> 
+                            <f:selectItem itemLabel="Maternity" itemValue="Maternity" />
+                            <f:selectItem itemLabel="Compassionate" itemValue="Compassionate" />
+                            <f:selectItem itemLabel="Casual" itemValue="Casual" />
+                            <f:selectItem itemLabel="Study" itemValue="Study" />
+                            <f:selectItem itemLabel="Other" itemValue="Other" />                                        
+                        </p:selectOneMenu>                       
+                        <p:outputLabel for="StartDate" value="Start Date" />
+                        <p:calendar id="StartDate" value="#{leave.startDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                        <p:outputLabel for="EndDate" value="End Date" />
+                        <p:calendar id="EndDate" value="#{leave.endDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                        <p:outputLabel for="Comments" value="Comments"/>
+                        <p:inputTextarea id="Comments" value="#{leave.comments}" />
+                    </p:panelGrid>
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Save" action="#{leave.saveLeave()}"  style="width:100%" global="true">
+                        
+                        
+                        <f:param name="recnum" value="#{employeesData.recNum}" />
+                    </p:commandButton>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

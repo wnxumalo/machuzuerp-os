@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Quotation Preview</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <div align="center">
+                        <p>
+                            <p:commandButton value="Create Invoice" action="#{invoice.QuoteInvSummary(quotationData.selectedServs, quotationData.selectedInvs, quotationData.totCost, quotationData.custId, quotationData.vatNum, quotationData.CName, 
+                                                                              quotationData.CSurname, quotationData.tel, quotationData.cell, quotationData.fax, quotationData.email, quotationData.posAdd, quotationData.physAdd, quotationData.recNum)}" icon="ui-icon-print" />                            
+                            <p:button value="Back To Dashboard" outcome="#{login.accountsReceivable()}">
+                                
+                                
+                            </p:button> &nbsp;&nbsp;  
+                        </p>
+                        <p:commandButton value="Print" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                            <p:printer target="fsQuotation" />
+                        </p:commandButton> 
+                   
+                    </div>
+
+
+                    <p:fieldset id="fsQuotation" legend="Quotation" style="font-size:20px;">
+
+                        <div align="left">
+                        <p:outputPanel style="font-size:20px;font-family:Tahoma">                                        
+                            <h:outputText value="#{quotationData.orgName}" style="font-size:30px;"/><br></br>
+                            <h:outputText value="#{quotationData.orgTel}"/><br></br>
+                            <h:outputText value="#{quotationData.orgFax}"/><br></br>
+                            <h:outputText value="#{quotationData.orgEmail}"/><br></br>
+                            <h:outputText value="#{quotationData.orgPosAdd}"/><br></br>
+                            <h:outputText value="#{quotationData.orgPhysAdd}"/><br></br>
+                            <h:outputText value="#{quotationData.orgNumber}"/><br></br>
+                        </p:outputPanel><br></br>
+
+                        <h:panelGrid columns="2" cellpadding="2" style="width:100%;">  
+                            <h:outputText value="Number" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{quotationData.recNum}"/>                            
+                            <h:outputText value="Date" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{quotationData.IDate}"/>                                        
+                        </h:panelGrid><br></br>
+
+                        <h:outputLabel value="Stakeholder Details " style="color:#999999;font-weight:bold;font-family:Calibri;font-size:25px;width:100%;"/><br></br>
+                        <h:panelGrid columns="2" cellpadding="2" style="width:100%;">   
+                            <h:outputLabel for="cID" value="#" style="font-weight:bold;font-size:16px;"/><h:outputText id="cID" value="#{quotationData.custId}" style="font-size:15px;"/>                                    
+                            <h:outputLabel for="vatNum" value="VAT Number" style="font-weight:bold;font-size:16px;width:400px"/><h:outputText id="vatNum" value="#{quotationData.vatNum}" style="font-size:15px;"/>                                                                            
+                            <h:outputLabel for="name" value="Name" style="font-weight:bold;font-size:16px"/><h:outputText id="name" value="#{quotationData.CName}" style="font-size:15px;"/>                                    
+                            <h:outputLabel for="surname" value="Surname" style="font-weight:bold;font-size:16px" /><h:outputText id="surname" value="#{quotationData.CSurname}" style="font-size:15px;"/>                                                                   
+                            <h:outputLabel for="tel" value="Telephone" style="font-weight:bold;font-size:16px" /><h:outputText id="tel" value="#{quotationData.tel}" style="font-size:15px;"/>                                    
+                            <h:outputLabel for="cell" value="Cellphone" style="font-weight:bold;font-size:16px" /><h:outputText id="cell" value="#{quotationData.cell}" style="font-size:15px;"/>                                   
+                            <h:outputLabel for="fax" value="Fax" style="font-weight:bold;font-size:16px" /><h:outputText id="fax" value="#{quotationData.fax}" style="font-size:15px;"/>                                   
+                            <h:outputLabel for="email" value="Email" style="font-weight:bold;font-size:16px" /><h:outputText id="email" value="#{quotationData.email}" style="font-size:15px;"/>                                   
+                            <h:outputLabel for="posAdd" value="Postal Address" style="font-weight:bold;font-size:16px" /><h:outputText id="posAdd" value="#{quotationData.posAdd}" style="font-size:15px;"/>                                  
+                            <h:outputLabel for="physAdd" value="Physical Address" style="font-weight:bold;font-size:16px" /><h:outputText id="physAdd" value="#{quotationData.physAdd}" style="font-size:15px;"/>
+                        </h:panelGrid><br></br>
+                        <p:outputPanel id="outputServices" style="width:100%;">
+                            <table width="100%" align="center">
+                                <th>#</th><th>Description</th><th>Qty</th><th>Price</th><th>Amount</th>
+                                <ui:repeat value="#{quotationData.selectedServs}" var="svs">
+                                    <tr align="center">
+                                        <td><h:outputText value="#{svs.recNum}" style="display:block;width:50px"/></td>
+                                        <td><h:outputText value="#{svs.description}" style="display:block;width:300px"/></td>
+                                        <td><h:outputText value="#{svs.qty}" style="display:block;width:50px"/></td>
+                                        <td><h:outputText value="#{svs.cost}" style="display:block;width:100px"/></td>
+                                        <td><h:outputText value="#{svs.totCost}" style="display:block;width:100px"/></td>
+                                    </tr>
+                                </ui:repeat>
+
+                                <ui:repeat value="#{quotationData.selectedInvs}" var="invs">
+                                    <tr align="center">
+                                        <td><h:outputText value="#{invs.recNum}" style="display:block;width:50px"/></td>
+                                        <td><h:outputText value="#{invs.description}" style="display:block;width:300px"/></td>
+                                        <td><h:outputText value="#{invs.quantity}" style="display:block;width:50px"/></td>
+                                        <td><h:outputText value="#{invs.sellingPrice}" style="display:block;width:100px"/></td>
+                                        <td><h:outputText value="#{invs.totCost}" style="display:block;width:100px"/></td>
+                                    </tr>
+                                </ui:repeat>
+                            </table>
+                        </p:outputPanel><br></br>
+
+                        <h:panelGrid columns="2" cellpadding="2" style="width:10%;">                               
+                            <h:outputText value="Total" style="color:#D98880;font-weight:bold;width:1300px"/>
+                            <h:outputText value="#{quotationData.totCost}" style="display:block;color:#D98880;font-weight:bold;"/>                          
+                        </h:panelGrid><br></br>        
+
+                        </div>
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

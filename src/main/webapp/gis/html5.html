@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+    </head>
+    
+    <body onload="getLocation();">
+
+        <p>Click the button to get your coordinates.</p>
+
+        <button onclick="getLocation()">Try It</button>
+
+        <p id="demo"></p>
+        
+        <script>
+
+            var x = document.getElementById("demo");
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                }
+            }
+
+            function showPosition(position) {
+                x.innerHTML = "Latitude: " + position.coords.latitude +
+                        "<br>Longitude: " + position.coords.longitude;
+                document.getElementById("coordinates").value = position.coords.longitude + ',' + position.coords.latitude;
+            }
+        </script>
+
+        <form action="https://www.machuzu.com/rest/ecobuzz/sendgis.php" method="post">
+            Organisation<br>
+            <input type="text" name="organisation" placeholder="Organisation" required=""/><br>
+            Telephone<br>
+            <input type="text" name="telephone" placeholder="Telephone" required=""/><br>
+            Cellphone<br>
+            <input type="text" name="cellphone" placeholder="Cellphone" required=""/><br>
+            Email Address<br>
+            <input type="text" name="emailaddress" placeholder="Email" required=""/><br>           
+            Coordinates<br/>
+            <input type="text" id="coordinates" name="coordinates" />           
+            <input type="hidden" id="uuid" name="uuid" value="ecobuzz-html" />         
+            <input type="submit" value="Register"/>
+            	
+        </form>
+
+    </body>
+</html>

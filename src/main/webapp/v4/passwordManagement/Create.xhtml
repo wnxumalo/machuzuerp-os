@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PasswordManagementCreateDlg" widgetVar="PasswordManagementCreateDialog" modal="true" resizable="false" appendTo="@(dialog)" header="Create Password Management">
+            <h:form id="PasswordManagementCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{passwordManagementController.selected != null}">
+                        <p:outputLabel value="Rule Type" for="ruleType" />
+                        <p:selectOneMenu id="ruleType" value="#{passwordManagementController.selected.ruleType}" title="Rule Type" >
+                            <f:selectItem itemLabel="Select Rule Type" itemValue="" />
+                            <f:selectItem itemLabel="Administrator" itemValue="Administrator" />                                        
+                            <f:selectItem itemLabel="User" itemValue="User" />                                        
+                            <f:selectItem itemLabel="Operator" itemValue="Operator" />                                                        
+                        </p:selectOneMenu>       
+                        <p:outputLabel value="Two Factor" for="twoFactor" />
+                        <p:selectBooleanCheckbox id="twoFactor" value="#{passwordManagementController.selected.twoFactor}" title="Two Factor" />
+                        <p:outputLabel value="Password Change Interval" for="changeInterval" />
+                        <p:selectOneMenu id="changeInterval" value="#{passwordManagementController.selected.changeInterval}" title="Change Interval">
+                            <f:selectItem itemLabel="Select Interval (months)" itemValue="" />
+                            <f:selectItem itemLabel="3" itemValue="3" />                                        
+                            <f:selectItem itemLabel="6" itemValue="6" />                                        
+                            <f:selectItem itemLabel="12" itemValue="12" />                                                        
+                        </p:selectOneMenu>       
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{passwordManagementController.create(employeeController.selected)}" value="#{bundle.Save}" update="display,:PasswordManagementListForm:datalist,:growl" oncomplete="handleSubmit(args,'PasswordManagementCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PasswordManagementCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

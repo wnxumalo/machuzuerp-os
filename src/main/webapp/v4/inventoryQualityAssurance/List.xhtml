@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListQualityAssuranceTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <p:growl id="growl">
+                <p:autoUpdate/>
+            </p:growl>
+            <h:form id="QualityAssuranceListForm">
+                <p:panel header="#{bundle.ListQualityAssuranceTitle}">
+                    <p:dataTable id="datalist" value="#{qualityAssuranceController.items}" var="item"
+                                 selectionMode="single" selection="#{qualityAssuranceController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_shippingTerms}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.shippingTerms}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_inspectionDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inspectionDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_shippingMethod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.shippingMethod}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_inventoryId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inventoryId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_metadata}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.metadata}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_inspectionStatus}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inspectionStatus}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_inspectionNotes}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inspectionNotes}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_correctiveAction}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.correctiveAction}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_productDisposition}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.productDisposition}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_sampleSize}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sampleSize}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_testMethod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.testMethod}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_equipmentUsed}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.equipmentUsed}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_discrepancyReasons}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.discrepancyReasons}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_creationDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.creationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_updateDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.updateDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQualityAssuranceTitle_notes}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.notes}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{qualityAssuranceController.prepareCreate}" update=":QualityAssuranceCreateForm" oncomplete="PF('QualityAssuranceCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":QualityAssuranceViewForm" oncomplete="PF('QualityAssuranceViewDialog').show()" disabled="#{empty qualityAssuranceController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":QualityAssuranceEditForm" oncomplete="PF('QualityAssuranceEditDialog').show()" disabled="#{empty qualityAssuranceController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{qualityAssuranceController.destroy}" update=":growl,datalist" disabled="#{empty qualityAssuranceController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

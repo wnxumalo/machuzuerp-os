@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="/css/default.css"/>        
+        <h:outputStylesheet name="/css/cssLayout.css"/>
+        <title>Clocking</title>
+    </h:head>
+    <h:body>
+        <center>
+            <h1>Clocking System</h1>
+            <h3>Capture Mission Details</h3>
+            <p:growl id="messages" showDetail="true" >
+                        <p:autoUpdate/>
+                    </p:growl>
+
+            <h:form id="form" styleClass="ui-fluid">
+                
+                <p:outputLabel for="uniqueId" value="Employee #"/><br/>
+                <p:inputText id='uniqueId' value="#{clocking.employeeId}" required="true"/><br/>
+                <p:outputLabel for="exitDate" value="Date"/><br/>
+                <p:calendar id="exitDate" value="#{clocking.exitDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" /><br/>                
+                <p:outputLabel for="description" value="Description"/><br/>
+                <p:inputTextarea cols="50" id='description' value="#{clocking.workDescription}"></p:inputTextarea><br/>
+                <p:outputLabel for="outputs" value="Outputs"/><br/>
+                <p:inputTextarea cols="50" id='outputs' value="#{clocking.outputs}"></p:inputTextarea><br/><br/>
+                <p:commandButton value="Save" action="#{clocking.saveClocking()}" title="Save" update="messages"/>                   
+
+            </h:form>
+        </center>
+    </h:body>
+</html>

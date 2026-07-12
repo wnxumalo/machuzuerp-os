@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Services</h1>
+
+                <h:form styleClass="ui-fluid">
+                    
+                    <p:messages id="messages" showDetail="true" closable="true" >                        
+                        <p:autoUpdate />                        
+                    </p:messages>
+
+                        <table cellpadding="10"><td v-align="top">
+                                <h:outputText value="Code"/><br></br>
+                                <p:inputText id="code" value="#{services.code}" /><br></br>                            
+                                <h:outputText value="Description" /><br></br>
+                                <p:inputText id="description" value="#{services.description}" required="true"/><br></br>
+                                <h:outputText value="Cost"/><br></br>
+                                <p:inputNumber id="cost" value="#{services.cost}"  required="true"/></td><td v-align="top">                            
+                            </td></table>
+                        &nbsp;&nbsp;&nbsp;
+                        <p:commandButton value="Save" icon="ui-icon-disk" action="#{services.saveService}">
+                            
+                            
+                        </p:commandButton>
+                    </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

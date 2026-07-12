@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="QualityAssuranceEditDlg" widgetVar="QualityAssuranceEditDialog" modal="true" resizable="false" appendTo="@(dialog)" header="#{bundle.EditQualityAssuranceTitle}">
+            <h:form id="QualityAssuranceEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{qualityAssuranceController.selected != null}">
+                        <p:outputLabel value="Inspection Date" for="inspectionDate" />
+                        <p:calendar id="inspectionDate" pattern="MM/dd/yyyy" value="#{qualityAssuranceController.selected.inspectionDate}" title="Inspection Date"  showOn="button"/>
+                        <p:outputLabel value="Shipping Method" for="shippingMethod" />
+                        <p:selectOneMenu id="shippingMethod" value="#{qualityAssuranceController.selected.shippingMethod}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Road" itemValue="Road" />
+                            <f:selectItem itemLabel="Rail" itemValue="Rail" />                            
+                            <f:selectItem itemLabel="Airplane" itemValue="Airplane" />                            
+                            <f:selectItem itemLabel="Maritime" itemValue="Maritime" />                            
+                            <f:selectItem itemLabel="Pipepline" itemValue="Pipepline" />                            
+                            <f:selectItem itemLabel="Multimodal" itemValue="Multimodal" />                            
+                            <f:selectItem itemLabel="Intermodal" itemValue="Intermodal" />                            
+                        </p:selectOneMenu>                                                                                                
+                        <p:outputLabel value="Inspector Name" for="inspectorName" />
+                        <h:selectOneMenu id="inspectorName" value="#{qualityAssuranceController.selected.inspectorId}">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItems value="#{employeeController.items}" var="emp" 
+                                          itemValue="#{emp.id}"
+                                          itemLabel="#{emp.empName} #{emp.surname}"/>
+                        </h:selectOneMenu>   
+                        <p:outputLabel value="Inspection Status" for="inspectionStatus" />
+                        <p:selectOneMenu id="inspectionStatus" value="#{qualityAssuranceController.selected.inspectionStatus}" title="" >
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Pending" itemValue="Pending" />
+                            <f:selectItem itemLabel="In Progress" itemValue="In Progress" />
+                            <f:selectItem itemLabel="Passed" itemValue="Passed" />                            
+                            <f:selectItem itemLabel="Failed" itemValue="Failed" />                            
+                            <f:selectItem itemLabel="On Hold" itemValue="On Hold" />                            
+                            <f:selectItem itemLabel="Cleared" itemValue="Cleared" />
+                            <f:selectItem itemLabel="Reviewed" itemValue="Reviewed" />
+                            <f:selectItem itemLabel="Rework Required" itemValue="Rework Required" />
+                            <f:selectItem itemLabel="Returned" itemValue="Returned" />
+                            <f:selectItem itemLabel="Scrapped" itemValue="Scrapped" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Inspection Notes" for="inspectionNotes" />
+                        <p:inputText id="inspectionNotes" value="#{qualityAssuranceController.selected.inspectionNotes}" title="" />
+                        <p:outputLabel value="Corrective Action" for="correctiveAction" />
+                        <p:selectOneMenu id="correctiveAction" value="#{qualityAssuranceController.selected.correctiveAction}" title="" >
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Rework" itemValue="Rework" />
+                            <f:selectItem itemLabel="Training and Education" itemValue="Training and Education" />
+                            <f:selectItem itemLabel="Process Improvement" itemValue="Process Improvement" />                            
+                            <f:selectItem itemLabel="Supplier Evaluation" itemValue="Supplier Evaluation" />                            
+                            <f:selectItem itemLabel="Inventory Reassessment" itemValue="Inventory Reassessment" />
+                            <f:selectItem itemLabel="Product Recalls" itemValue="Product Recalls" />
+                            <f:selectItem itemLabel="Documentation Review" itemValue="Documentation Review" />
+                            <f:selectItem itemLabel="Root Cause Analysis" itemValue="Root Cause Analysis" />
+                            <f:selectItem itemLabel="Quality Control Enhancements" itemValue="Quality Control Enhancements" />
+                            <f:selectItem itemLabel="Reporting and Feedback Loops" itemValue="Reporting and Feedback Loops" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Product Disposition" for="productDisposition" />
+                        <p:selectOneMenu id="productDisposition" value="#{qualityAssuranceController.selected.productDisposition}" title="" >
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Accept" itemValue="Accept" />
+                            <f:selectItem itemLabel="Rework" itemValue="Rework" />                            
+                            <f:selectItem itemLabel="Reject" itemValue="Reject" />                            
+                            <f:selectItem itemLabel="Hold" itemValue="Hold" />
+                            <f:selectItem itemLabel="Return to Vendor" itemValue="Return to Vendor" />
+                            <f:selectItem itemLabel="Hold" itemValue="Hold" />
+                            <f:selectItem itemLabel="Salvage" itemValue="Salvage" />
+                            <f:selectItem itemLabel="Donate" itemValue="Donate" />
+                            <f:selectItem itemLabel="Scrap" itemValue="Scrap" />
+                            <f:selectItem itemLabel="Recycling" itemValue="Recycling" />
+                            <f:selectItem itemLabel="Hold" itemValue="Hold" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Sample Size" for="sampleSize" />
+                        <p:inputText id="sampleSize" value="#{qualityAssuranceController.selected.sampleSize}" title="" />
+                        <p:outputLabel value="Test Method" for="testMethod" />
+                        <p:selectOneMenu id="testMethod" value="#{qualityAssuranceController.selected.testMethod}" title="" >
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Visual Inspection" itemValue="Visual Inspection" />
+                            <f:selectItem itemLabel="Dimensional Verification" itemValue="Dimensional Verification" />
+                            <f:selectItem itemLabel="Functional Testing" itemValue="Functional Testing" />
+                            <f:selectItem itemLabel="Sampling Inspection" itemValue="Sampling Inspection" />
+                            <f:selectItem itemLabel="Chemical Testing" itemValue="Chemical Testing" />
+                            <f:selectItem itemLabel="Weight Check" itemValue="Weight Check" />
+                            <f:selectItem itemLabel="Expiration Date Check" itemValue="Expiration Date Check" />
+                            <f:selectItem itemLabel="Environmental Testing" itemValue="Environmental Testing" />
+                            <f:selectItem itemLabel="Barcode and RFID Scanning" itemValue="Barcode and RFID Scanning" />
+                            <f:selectItem itemLabel="Customer Feedback Analysis" itemValue="Customer Feedback Analysis" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Equipment Used" for="equipmentUsed" />
+                        <p:selectOneMenu id="equipmentUsed" value="#{qualityAssuranceController.selected.equipmentUsed}" title="" >
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Calipers" itemValue="Calipers" />
+                            <f:selectItem itemLabel="Scale/Balance" itemValue="Scale/Balance" />
+                            <f:selectItem itemLabel="Micrometers" itemValue="Micrometers" />
+                            <f:selectItem itemLabel="Visual Inspection Tools" itemValue="Visual Inspection Tools" />
+                            <f:selectItem itemLabel="Testing Jigs and Fixtures" itemValue="Testing Jigs and Fixtures" />
+                            <f:selectItem itemLabel="Spectrophotometers" itemValue="Spectrophotometers" />
+                            <f:selectItem itemLabel="Hardness Testers" itemValue="Hardness Testers" />
+                            <f:selectItem itemLabel="Environmental Chambers" itemValue="Environmental Chambers" />
+                            <f:selectItem itemLabel="X-Ray or Ultrasound Equipment" itemValue="X-Ray or Ultrasound Equipment" />
+                            <f:selectItem itemLabel="Barcode Scanners and RFID Readers" itemValue="Barcode Scanners and RFID Readers" />
+                            <f:selectItem itemLabel="Data Logging Equipment" itemValue="Data Logging Equipment" />
+                            <f:selectItem itemLabel="Quality Control Software" itemValue="Quality Control Software" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Discrepancy Reasons" for="discrepancyReasons" />
+                        <p:selectOneMenu id="discrepancyReasons" value="#{qualityAssuranceController.selected.discrepancyReasons}" title="" >
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Data Entry Errors" itemValue="Data Entry Errors" />
+                            <f:selectItem itemLabel="Theft or Shrinkage" itemValue="Theft or Shrinkage" />
+                            <f:selectItem itemLabel="Supplier Errors" itemValue="Supplier Errors" />
+                            <f:selectItem itemLabel="Damage or Spoilage" itemValue="Damage or Spoilage" />
+                            <f:selectItem itemLabel="Improper Stock Rotation" itemValue="Improper Stock Rotation" />
+                            <f:selectItem itemLabel="Returns Processing Errors" itemValue="Returns Processing Errors" />
+                            <f:selectItem itemLabel="Inventory Counting Errors" itemValue="Inventory Counting Errors" />
+                            <f:selectItem itemLabel="Mislabeling or Misplacement" itemValue="Mislabeling or Misplacement" />
+                            <f:selectItem itemLabel="Software/System Issues" itemValue="Software/System Issues" />
+                            <f:selectItem itemLabel="Changes in Demand" itemValue="Changes in Demand" />
+                            <f:selectItem itemLabel="Poor Inventory Management Practices" itemValue="Poor Inventory Management Practices" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Shipping Terms" for="shippingTerms" />
+                        <p:selectOneMenu id="shippingTerms" value="#{qualityAssuranceController.selected.shippingTerms}" title="" >
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Free on Board (FOB)" itemValue="Free on Board (FOB)" />
+                            <f:selectItem itemLabel="Cost, Insurance, and Freight (CIF)" itemValue="Cost, Insurance, and Freight (CIF)" />
+                            <f:selectItem itemLabel="Delivered Duty Paid (DDP)" itemValue="Delivered Duty Paid (DDP)" />
+                            <f:selectItem itemLabel="Ex Works (EXW)" itemValue="Ex Works (EXW)" />
+                            <f:selectItem itemLabel="Cost and Freight (CFR)" itemValue="Cost and Freight (CFR)" />
+                            <f:selectItem itemLabel="Landed Cost" itemValue="Landed Cost" />
+                            <f:selectItem itemLabel="Shipping Point" itemValue="Shipping Point" />
+                            <f:selectItem itemLabel="Incoterms" itemValue="Incoterms" />
+                            <f:selectItem itemLabel="Bill of Lading (BOL)" itemValue="Bill of Lading (BOL)" />
+                            <f:selectItem itemLabel="Return Policy" itemValue="Return Policy" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Notes" for="notes" />
+                        <p:inputText id="notes" value="#{qualityAssuranceController.selected.notes}" title="" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{qualityAssuranceController.update}" value="#{bundle.Save}" update="display,:qaForm:qualityAssuranceDatalist,:growl" />
+                    <p:commandButton value="#{bundle.Cancel}" onclick="QualityAssuranceEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

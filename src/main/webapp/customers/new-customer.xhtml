@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Stakeholder</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="VatNum" value="VAT/ID Number"/>
+                        <p:inputText id="VatNum" value="#{customer.vatNum}" required="true" />   
+                        <p:outputLabel for="Type" value="Type" />                            
+                        <p:selectOneMenu id="Type" value="#{customer.type}" style="width:125px" required="true">
+                            <f:selectItem itemLabel="Select Type" itemValue="" />
+                            <f:selectItem itemLabel="Client" itemValue="Client" />
+                            <f:selectItem itemLabel="Partner" itemValue="Partner" />                                        
+                            <f:selectItem itemLabel="Supply Chain Contact" itemValue="Supply Chain Contact" />                                        
+                        </p:selectOneMenu>    
+                        <p:outputLabel for="supplier" value="Supplier"/>
+                        <h:selectOneMenu id="supplier" value="#{customer.supplierId}">
+                            <f:selectItem itemLabel="" itemValue="0" />
+                        <f:selectItems value="#{supplierController.items}" var="supp" 
+                                      itemValue="#{supp.id}"
+                                      itemLabel="#{supp.description}"/>
+                    </h:selectOneMenu>   
+                        <p:outputLabel for="Status" value="Status"/>
+                        <p:selectOneMenu id="Status" value="#{customer.status}" style="width:125px" required="true">
+                            <f:selectItem itemLabel="Select Status" itemValue="" />
+                            <f:selectItem itemLabel="Active" itemValue="Active" />
+                            <f:selectItem itemLabel="Inactive" itemValue="Inactive" />                            
+                        </p:selectOneMenu>
+                        <p:outputLabel for="Name" value="Name"/>
+                        <p:inputText id="Name" value="#{customer.customerName}" required="true" />                            
+                        <p:outputLabel for="Surname" value="Surname" />
+                        <p:inputText id="Surname" value="#{customer.surname}" />
+                        <p:outputLabel for="Gender" value="Gender"/>
+                        <p:selectOneMenu id="Gender" value="#{customer.gender}" style="width:125px">
+                            <f:selectItem itemLabel="Select Gender" itemValue="" />
+                            <f:selectItem itemLabel="Male" itemValue="Male" />
+                            <f:selectItem itemLabel="Female" itemValue="Female" />                            
+                            <f:selectItem itemLabel="Undisclosed" itemValue="Undisclosed" />                                                        
+                        </p:selectOneMenu>
+                        <p:outputLabel for="Telephone" value="Telephone" />
+                        <p:inputNumber id="Telephone" value="#{customer.telephone}" decimalPlaces="0" />
+                            <p:outputLabel for="Cellphone" value="Cellphone" />
+                        <p:inputNumber id="Cellphone" value="#{customer.cellphone}" required="true" decimalPlaces="0" />
+                        <p:outputLabel for="Email" value="Email" />
+                        <p:inputText id="Email" value="#{customer.email}" required="true">
+                            <f:validator validatorId="custom.emailValidator" />
+                        </p:inputText>                        
+                        <p:outputLabel for="Fax" value="Fax" />
+                        <p:inputNumber id="Fax" value="#{customer.fax}" decimalPlaces="0" />
+                        <p:outputLabel for="PostalAddress" value="Postal Address" />
+                        <p:inputText id="PostalAddress" value="#{customer.postalAddress}" />
+                        <p:outputLabel for="PhysicalAddress" value="Physical Address" />
+                        <p:inputText id="PhysicalAddress" value="#{customer.physicalAddress}" />
+                        <p:outputLabel for="Country" value="Country" />
+                        <p:inputText id="Country" value="#{customer.country}" />                            
+                        <p:outputLabel for="JoiningDate" value="Joining Date" />
+                        <p:calendar id="JoiningDate" value="#{customer.JDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" >
+                            <p:ajax event="dateSelect" listener="#{customer.onDateSelect}"/>
+                        </p:calendar>
+                    </p:panelGrid>
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton icon="ui-icon-disk" value="Save" action="#{customer.saveCustomer(administrationController.selected)}" global="true" disabled="#{!administrationController.selected.stakeholderCreate}"/>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Requisition Preview</h1>
+
+                <h:form id="raForm" styleClass="ui-fluid">
+                    <p:messages id="rmsgs" closable="true">
+                        <p:autoUpdate/>
+                    </p:messages>
+
+                    <p:commandButton icon="ui-icon-refresh" value="Refresh" action="#{requisitionData.refreshRequisitions()}" update="pnlReceipts pnlJustifications pnlApprovals pnlApprovals" style="display:block;margin-bottom: 20px"/>
+
+                    <p:panel id="pnlReceipts" header="Receipts" style="background-color: #{requisitionData.approvalColor};">
+                        <p>                               
+                            <ui:repeat id="otVal" value="#{requisitionData.uploadedReceipts}" var="val" >
+                                <h:outputLabel style="color: #FFFFFF;" value="#{val.filename}"  />&nbsp;<h:outputLink value="#{val.viewFile}" target="_blank" style="color: #1AA11A;">view</h:outputLink><br/>
+                            </ui:repeat>
+                        </p>
+                            
+                        <p:commandButton value="Upload Receipt" action="upload-receipt" style="display:block;margin-bottom: 20px"/>
+
+                    </p:panel>
+
+                    <p:panel id="pnlJustifications" header="Justifications" style="background-color: #{requisitionData.approvalColor};">
+                        <ui:repeat value="#{requisitionData.uploadedJustifications}" var="val" >
+                            <h:outputLabel id="otReqVal" value="#{val.filename}" style="color: #FFFFFF;"/>&nbsp;<h:outputLink value="#{val.viewFile}" target="_blank" style="color: #1AA11A;">view</h:outputLink><br/>
+                        </ui:repeat>
+                    </p:panel>
+
+                    <p:panel id="pnlApprovals" header="Approvals" style="background-color: #{requisitionData.approvalColor};">
+                        <table style="color: #FFFFFF;">
+                                <th>Id</th><th width="20%">Approver</th><th width="10%">Position</th><th width="10%">Department</th><th width="10%">Funds</th><th width="10%">Status</th><th width="30%">Comments</th><th></th>
+                                <ui:repeat id="rptApprovals" value="#{requisitionData.approvalItems}" var="ais" >
+                                    <tr align="center">
+                                        <td><h:outputText value="#{ais.approvalId}"/></td>
+                                        <td><h:outputText value="#{ais.employeeName}"/>&nbsp;
+                                        <h:outputText value="#{ais.employeeSurname}"/></td>
+                                        <td><h:outputText value="#{ais.position}"/></td>
+                                        <td><h:outputText value="#{ais.department}"/></td>
+                                        <td><p:inputNumber value="#{ais.availablefunds}" size="4"/></td>
+                                        <td><h:selectOneMenu id="Approved" value="#{ais.approvalStatus}">
+                                            <f:selectItem itemLabel="" itemValue="" />
+                                            <f:selectItem itemLabel="Approved" itemValue="Approved" />
+                                            <f:selectItem itemLabel="Unapproved" itemValue="Unapproved" />                                        
+                                        </h:selectOneMenu></td>
+                                        <td><h:inputTextarea value="#{ais.comments}"/></td>                                        
+                                        <td><p:commandLink value="update" action="#{requisitionData.submitApproval(ais.approvalId, ais.requisitionId,ais.availablefunds, ais.approvalStatus, ais.comments, ais.employeeId, session)}" update=":raForm:pnlApprovals,:raForm:pnlReceipts,:raForm:pnlJustifications,rptApprovals,:raForm:rmsgs" style="color: #FFFFFF; text-decoration: underline"/></td>
+                                    </tr>
+                                </ui:repeat>
+                            </table>
+
+                    </p:panel>
+                </h:form>               
+
+                <h:form id="rForm" styleClass="ui-fluid">
+                    <p>
+                        <div align="center">
+                            <p:commandButton value="Print" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                                <p:printer target="fsRequisition" />
+                            </p:commandButton>&nbsp;                        
+                        </div>
+                    </p>
+                    <p:fieldset id="fsRequisition" legend="Requisition" style="font-size:20px;">
+
+                        <p:outputPanel style="font-size:20px;font-family:Tahoma">                                        
+                            <h:outputText value="#{requisitionData.orgNumber}" style="font-size:30px;"/><br></br>
+                            <h:outputText value="#{requisitionData.orgName}"/><br></br>
+                            <h:outputText value="#{requisitionData.orgTel}"/><br></br>
+                            <h:outputText value="#{requisitionData.orgFax}"/><br></br>
+                            <h:outputText value="#{requisitionData.orgEmail}"/><br></br>
+                            <h:outputText value="#{requisitionData.orgPosAdd}"/><br></br>
+                            <h:outputText value="#{requisitionData.orgPhysAdd}"/><br></br>
+                        </p:outputPanel><br></br>
+                        <hr/>
+                        <h:panelGrid columns="2" cellpadding="2" style="width:100%;">  
+                            <h:outputText value="Number" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisitionData.recnum}"/>
+                            <h:outputText value="Date" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisitionData.requestDate}"/>              
+                            <h:outputText value="Delivery Date" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisitionData.requestedDeliveryDate}"/>     
+                            <h:outputText value="Deliver To" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisitionData.deliverTo}"/>     
+                            <h:outputText value="Requestors Name" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisitionData.requestorName}"/>     
+                            <h:outputText value="Accounts Manager" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisitionData.accountsManagerName}"/> 
+                            <h:outputText value="Remarks" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisitionData.remarks}"  style="width:100%"/>                            
+
+                        </h:panelGrid><br></br>
+
+                        <div align="left">
+                            <h:outputLabel value="Supplier Details " style="color:#999999;font-weight:bold;font-family:Calibri;font-size:25px;"/><br></br>
+                            <h:panelGrid columns="2" cellpadding="2">   
+                                <h:outputLabel for="vatNum" value="VAT Number" style="font-weight:bold;font-size:16px;width:400px"/><h:outputText id="vatNum" value="#{requisitionData.vatNum}" style="font-size:15px;"/>                                                                            
+                                <h:outputLabel for="name" value="Name" style="font-weight:bold;font-size:16px"/><h:outputText id="name" value="#{requisitionData.supplierName}" style="font-size:15px;"/>                                    
+                                <h:outputLabel for="tel" value="Telephone" style="font-weight:bold;font-size:16px" /><h:outputText id="tel" value="#{requisitionData.telephone}" style="font-size:15px;"/>                                    
+                                <h:outputLabel for="cell" value="Cellphone" style="font-weight:bold;font-size:16px" /><h:outputText id="cell" value="#{requisitionData.cellphone}" style="font-size:15px;"/>                                   
+                                <h:outputLabel for="email" value="Email" style="font-weight:bold;font-size:16px" /><h:outputText id="email" value="#{requisitionData.email}" style="font-size:15px;"/>                                   
+                                <h:outputLabel for="posAdd" value="Postal Address" style="font-weight:bold;font-size:16px" /><h:outputText id="posAdd" value="#{requisitionData.postalAddress}" style="font-size:15px;"/>                                  
+                                <h:outputLabel for="physAdd" value="Physical Address" style="font-weight:bold;font-size:16px" /><h:outputText id="physAdd" value="#{requisitionData.physicalAddress}" style="font-size:15px;"/>                            
+                            </h:panelGrid><br></br>
+                            <p:outputPanel id="outputRequisitions">
+
+                                <table width="100%" align="center">
+                                    <th>Description</th><th>Qty</th><th>Price</th><th>Amount</th>
+                                    <ui:repeat value="#{requisitionData.loadItems(requisitionData.recnum)}" var="req">
+                                        <tr align="center">
+                                            <td><h:outputText value="#{req.itemService}" style="display:block;width:300px"/></td>
+                                            <td><h:outputText value="#{req.quantity}" style="display:block;width:50px"/></td>
+                                            <td><h:outputText value="#{req.estUnitPrice}" style="display:block;width:100px"/></td>
+                                            <td><h:outputText value="#{req.estAmount}" style="display:block;width:100px"/></td>
+                                        </tr>
+                                    </ui:repeat>
+                                </table>
+
+                            </p:outputPanel><br></br>
+                            <h:panelGrid columns="2" cellpadding="2" >                               
+                                <h:outputText value="Total" style="color:#D98880;font-weight:bold;"/>
+                                <h:outputText value="#{requisitionData.totalAmount}" style="display:block;color:#D98880;font-weight:bold;"/>                          
+                            </h:panelGrid><br></br>    
+                        </div>
+
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

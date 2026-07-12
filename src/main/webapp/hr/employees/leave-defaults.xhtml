@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Human Resources - Leave Defaults</h1>
+                <h:form id="form" styleClass="ui-fluid">
+                    <p:messages id="msgs" showDetail="true" closable="true" />                   
+                    <p:dataTable var="defs" value="#{leaveDefaults.leaveDefaults}" editable="true">
+                        <f:facet name="header">
+                            In-Cell Editing
+                        </f:facet>
+                        
+                        <p:ajax event="rowEdit" listener="#{leaveDefaults.onRowEdit}" update="form:msgs" />
+                        <p:ajax event="rowEditCancel" listener="#{leaveDefaults.onRowCancel}" update="form:msgs" />
+
+                        <p:column headerText="Type">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{defs.type}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:selectOneMenu id="type" value="#{defs.type}" style="width:125px">
+                                        <f:selectItem itemLabel="Accumulated" itemValue="Accumulated" />
+                                        <f:selectItem itemLabel="Vocational" itemValue="Vocational" />                                        
+                                        <f:selectItem itemLabel="Carry-Over" itemValue="Carry-Over" />                            
+                                        <f:selectItem itemLabel="Sick" itemValue="Sick" /> 
+                                        <f:selectItem itemLabel="Maternity" itemValue="Maternity" />
+                                        <f:selectItem itemLabel="Compassionate" itemValue="Compassionate" />
+                                        <f:selectItem itemLabel="Casual" itemValue="Casual" />
+                                        <f:selectItem itemLabel="Study" itemValue="Study" />
+                                        <f:selectItem itemLabel="Other" itemValue="Other" />                                        
+                                    </p:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Description">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{defs.description}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{defs.description}"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Days">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{defs.days}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputNumber value="#{defs.days}"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Comments">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{defs.comments}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{defs.comments}"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>                        
+                        <p:column>
+                            <p:rowEditor />
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="Save" action="#{leaveDefaults.saveDefaults(defs.recNum)}"  global="true">
+                        
+                        
+                    </p:commandButton>
+                    
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

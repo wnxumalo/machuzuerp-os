@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Quotation</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:fieldset legend="Quotation Details" style="margin-bottom:20px">
+                        <h:panelGrid columns="2" cellpadding="2">                                 
+                            <h:outputLabel for="cID" value="#" style="font-weight:bold"/><h:outputText id="cID" value="#{quotation.CID}"/>                                    
+                            <h:outputLabel for="vatNum" value="VAT Number" style="font-weight:bold;font-size:16px;width:400px"/><h:outputText id="vatNum" value="#{quotation.vatNum}" style="font-size:15px;"/>                                                                            
+                            <h:outputLabel for="name" value="Name" style="font-weight:bold"/><h:outputText id="name" value="#{quotation.CName}"/>                                    
+                            <h:outputLabel for="surname" value="Surname" style="font-weight:bold" /><h:outputText id="surname" value="#{quotation.CSurname}"/>                                                                   
+                            <h:outputLabel for="tel" value="Telephone" style="font-weight:bold" /><h:outputText id="tel" value="#{quotation.tel}"/>                                    
+                            <h:outputLabel for="cell" value="Cellphone" style="font-weight:bold" /><h:outputText id="cell" value="#{quotation.cell}"/>                                   
+                            <h:outputLabel for="fax" value="Fax" style="font-weight:bold" /><h:outputText id="fax" value="#{quotation.fax}"/>                                   
+                            <h:outputLabel for="email" value="email" style="font-weight:bold" /><h:outputText id="email" value="#{quotation.email}"/>                                   
+                            <h:outputLabel for="posAdd" value="Postal Address" style="font-weight:bold" /><h:outputText id="posAdd" value="#{quotation.posAdd}"/>                                  
+                            <h:outputLabel for="physAdd" value="Physical Address" style="font-weight:bold" /><h:outputText id="physAdd" value="#{quotation.physAdd}"/>
+                        </h:panelGrid>
+                    </p:fieldset>
+
+                    <p:dataTable id="servicesDT" var="invServs" value="#{dtServEditView.services}" editable="true" editMode="cell" selection="#{quotation.selectedServs}" 
+                                 rowKey="#{invServs.recNum}"  
+                                 widgetVar="cellServs" 
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 style="margin-bottom:0;height:100%">                            
+
+                        <f:facet name="header">
+                            Select Services
+                        </f:facet>
+                        
+                        
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>                            
+                        <p:column style="width:15px">
+                            <f:facet name="header">
+                                <h:outputText value="#"/>
+                            </f:facet>
+                            <h:outputText value="#{invServs.recNum}"/>
+                        </p:column>                           
+                        <p:column filterBy="#{invServs.description}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Description" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{invServs.description}"/>                             
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cost" />                                    
+                            </f:facet>
+                            <h:outputText value="#{invServs.cost}" />
+                        </p:column>
+                        <p:column headerText="Quantity">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{invServs.qty}" /></f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{invServs.qty}" />                                    
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <f:facet name="footer">                                
+                            <p:commandButton process="servicesDT" action="#{quotation.selectInventory()}" value="Next" >
+                                
+                                
+                                <f:param name="cID" value="#{quotation.CID}" />
+                                <f:param name="cName" value="#{quotation.CName}" />
+                                <f:param name="cSurname" value="#{quotation.CSurname}" />
+                                <f:param name="tel" value="#{quotation.tel}" />
+                                <f:param name="cell" value="#{quotation.cell}" />
+                                <f:param name="fax" value="#{quotation.fax}" />
+                                <f:param name="posAdd" value="#{quotation.posAdd}" />
+                                <f:param name="physAdd" value="#{quotation.physAdd}" />                                    
+                                <f:param name="vatNum" value="#{quotation.vatNum}" />     
+                                <f:param name="email" value="#{quotation.email}" />                                   
+                            </p:commandButton>
+                        </f:facet>
+
+                    </p:dataTable> 
+
+                    <p:contextMenu for="servicesDT" widgetVar="sMenu">   
+                        <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellServs').showCellEditor();return false;"/>  
+                        <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('sMenu').hide()"/>  
+                    </p:contextMenu> 
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

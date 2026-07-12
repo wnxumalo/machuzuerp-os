@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/erpbyw-template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSupplierTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <p:growl id="growl">
+                <p:autoUpdate/>
+            </p:growl>
+
+            <ui:include src="../inventoryAddition/Create.xhtml"/>
+            <ui:include src="../inventoryAddition/Edit.xhtml"/>
+            <ui:include src="../inventoryAddition/View.xhtml"/>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+            <ui:include src="../inventoryStorage/Create.xhtml"/>
+            <ui:include src="../inventoryStorage/Edit.xhtml"/>
+            <ui:include src="../inventoryStorage/View.xhtml"/>
+            <ui:include src="../inventoryStorageSpace/Create.xhtml"/>
+            <ui:include src="../inventoryStorageSpace/Edit.xhtml"/>
+            <ui:include src="../inventoryStorageSpace/View.xhtml"/>            
+            <ui:include src="../inventoryQualityAssurance/Create.xhtml"/>
+            <ui:include src="../inventoryQualityAssurance/Edit.xhtml"/>
+            <ui:include src="../inventoryQualityAssurance/View.xhtml"/>
+
+            <h1>INVENTORY LISTING</h1>
+            
+            <p:panel id="mainPanel" header="#{inventoryController.selectedTitle}">
+                <h:form id="InventoryFilterForm">
+                    
+            <p:commandButton value="Print" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                <p:printer target=":mainPanel" />
+            </p:commandButton> 
+
+                    <p:selectOneRadio id="filterInventory" value="#{inventoryController.filterInventory}" >
+                        <p:ajax listener="#{inventoryController.onInventoryFilter(inventoryController.filterInventory)}" update=":InventoryListForm:datalist :mainPanel"/>
+                        <f:selectItem itemLabel="Reorders" itemValue="1" />
+                        <f:selectItem itemLabel="Expired" itemValue="2" />
+                        <f:selectItem itemLabel="Active" itemValue="3" />
+                        <f:selectItem itemLabel="Inactive" itemValue="4" />
+                        <f:selectItem itemLabel="All" itemValue="5" />
+                    </p:selectOneRadio>
+                </h:form>
+
+                <h:form id="InventoryListForm">
+                    
+                    <p:focus context=":InventoryFilterForm"/>
+
+                        <p:commandButton value="Export as Excel" ajax="false">
+                            <p:dataExporter type="xls" target="datalist" fileName="InventoryList"/>
+                        </p:commandButton>
+
+                        <p:dataTable id="datalist" widgetVar="dlInventory" value="#{inventoryController.inventoryList}" var="item"
+                                     selectionMode="single" selection="#{inventoryController.inventoryDTO}"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+
+                            <p:ajax event="rowSelect" listener="#{inventoryController.onRowSelect}" update="createButton viewButton editButton deleteButton updateButton viewUpdatesButton :storageForm:inventoryStorageDatalist :qaForm:qualityAssuranceDatalist"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <p:column filterBy="#{item.code}">
+                                <f:facet name="header">
+                                    <h:outputText value="Code"/>
+                                </f:facet>
+                                <h:outputText value="#{item.code}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.description}">
+                                <f:facet name="header">
+                                    <h:outputText value="Description"/>
+                                </f:facet>
+                                <h:outputText value="#{item.description}"/>
+                            </p:column>                        
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Cost"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cost}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Selling Price"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sellingPrice}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Available"/>
+                                </f:facet>
+                                <h:outputText value="#{item.atHand}" style="background-color: #{item.lowColor}; color: #{item.normal};"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Reorder Level"/>
+                                </f:facet>
+                                <h:outputText value="#{item.reorderLevel}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Markup"/>
+                                </f:facet>
+                                <h:outputText value="#{item.markup}"/>
+                            </p:column>                        
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Size"/>
+                                </f:facet>
+                                <h:outputText value="#{item.size}"/>
+                            </p:column>                        
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Expiry"/>
+                                </f:facet>
+                                <h:outputText value="#{item.expiryDate}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Status"/>
+                                </f:facet>
+                                <h:outputText value="#{item.status}"/>
+                            </p:column>                                                
+                            <f:facet name="footer">
+                                <p:panelGrid columns="4">
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="Create" actionListener="#{inventoryController.prepareCreate}" update=":InventoryCreateForm" oncomplete="PF('InventoryCreateDialog').show()"/>
+                                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="View" update=":InventoryViewForm" oncomplete="PF('InventoryViewDialog').show()" disabled="#{empty inventoryController.inventoryDTO}"/>
+                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Edit" update=":InventoryEditForm" oncomplete="PF('InventoryEditDialog').show()" disabled="#{empty inventoryController.inventoryDTO}"/>
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Delete" actionListener="#{inventoryController.destroy}" update=":InventoryListForm" disabled="#{empty inventoryController.inventoryDTO}"/>
+                                    <p:commandButton id="updateButton" value="Add Stock" actionListener="#{inventoryAdditionController.prepareCreate}" update="InventoryAdditionCreateForm" oncomplete="PF('InventoryAdditionCreateDialog').show()" disabled="#{empty inventoryController.current}"/>
+                                    <p:commandButton id="viewUpdatesButton" value="View Stock Additions" actionListener="#{inventoryAdditionController.inventoryList(inventoryController.inventoryDTO.id)}" update=":InventoryAdditionViewForm" oncomplete="PF('InventoryAdditionViewDialog').show()" disabled="#{empty inventoryController.current}"/>
+                                </p:panelGrid>
+                            </f:facet>
+                        </p:dataTable>               
+                </h:form>
+            </p:panel>
+            <h:form id="qaForm">
+                <h3>QUALITY ASSURANCE</h3>
+                <p:dataTable id="qualityAssuranceDatalist" value="#{inventoryController.current.qualityAssuranceList}" var="item"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+                    <p:column filterBy="#{item.shippingTerms}">
+                        <f:facet name="header">
+                            <h:outputText value="Shipping Terms"/>
+                        </f:facet>
+                        <h:outputText value="#{item.shippingTerms}"/>
+                    </p:column>
+                    <p:column filterBy="#{item.inspectionDate}">
+                        <f:facet name="header">
+                            <h:outputText value="Inspection Date"/>
+                        </f:facet>
+                        <h:outputText value="#{item.inspectionDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column filterBy="#{item.shippingMethod}">
+                        <f:facet name="header">
+                            <h:outputText value="Shipping Method"/>
+                        </f:facet>
+                        <h:outputText value="#{item.shippingMethod}"/>
+                    </p:column>
+                    <p:column filterBy="#{item.inspectionStatus}">
+                        <f:facet name="header">
+                            <h:outputText value="Inspection Status"/>
+                        </f:facet>
+                        <h:outputText value="#{item.inspectionStatus}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Corrective Action"/>
+                        </f:facet>
+                        <h:outputText value="#{item.correctiveAction}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Product Disposition"/>
+                        </f:facet>
+                        <h:outputText value="#{item.productDisposition}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Sample Size"/>
+                        </f:facet>
+                        <h:outputText value="#{item.sampleSize}"/>
+                    </p:column>
+                    <p:column filterBy="#{item.testMethod}">
+                        <f:facet name="header">
+                            <h:outputText value="Test Method"/>
+                        </f:facet>
+                        <h:outputText value="#{item.testMethod}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Equipment Used"/>
+                        </f:facet>
+                        <h:outputText value="#{item.equipmentUsed}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Discrepancy Reasons"/>
+                        </f:facet>
+                        <h:outputText value="#{item.discrepancyReasons}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{qualityAssuranceController.prepareCreate}" disabled="#{empty inventoryController.current}" oncomplete="PF('QualityAssuranceCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":QualityAssuranceViewForm" oncomplete="PF('QualityAssuranceViewDialog').show()" disabled="#{empty qualityAssuranceController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":QualityAssuranceEditForm" oncomplete="PF('QualityAssuranceEditDialog').show()" disabled="#{empty qualityAssuranceController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{qualityAssuranceController.destroy}" update=":growl" disabled="#{empty qualityAssuranceController.selected}"/>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+            <h:form id="storageForm">
+                <h3>INVENTORY STORAGE</h3>
+
+                <h4>INVENTORY STORAGE LIST</h4>
+
+                <p:dataTable id="inventoryStorageDatalist" value="#{inventoryController.current.inventoryStorageList}" var="invStorage"
+                             selectionMode="single" selection="#{inventoryStorageController.selected}"
+                             paginator="true"
+                             rowKey="#{invStorage.id}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+                    <p:ajax event="rowSelect" listener="#{inventoryStorageController.onRowSelect}" update="createButton viewButton editButton deleteButton storageSpaceForm:inventoryStorageSpaceDatalist"/>
+                    <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                    <p:column filterBy="#{invStorage.type}">
+                        <f:facet name="header">
+                            <h:outputText value="Type"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorage.type}"/>
+                    </p:column>
+                    <p:column filterBy="#{invStorage.category}">
+                        <f:facet name="header">
+                            <h:outputText value="Category"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorage.category}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Quantity"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorage.quantity}"/>
+                    </p:column>
+                    <p:column filterBy="#{invStorage.location}">
+                        <f:facet name="header">
+                            <h:outputText value="Location"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorage.location}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Arrival Date"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorage.arrivalDate}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Expiration Date"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorage.expirationDate}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Item Condition"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorage.itemCondition}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Status"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorage.status}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{inventoryStorageController.prepareCreate(inventoryController.current.atHand)}" update=":InventoryStorageCreateForm" disabled="#{empty inventoryController.current}" oncomplete="PF('InventoryStorageCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InventoryStorageViewForm" disabled="#{empty inventoryStorageController.selected}" oncomplete="PF('InventoryStorageViewDialog').show()"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InventoryStorageEditForm" oncomplete="PF('InventoryStorageEditDialog').show()" disabled="#{empty inventoryStorageController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{inventoryStorageController.destroy}" update=":growl" disabled="#{empty inventoryStorageController.selected}"/>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+            <h:form id="storageSpaceForm">
+                <h4>INVENTORY STORAGE SPACE</h4>
+                <p:dataTable id="inventoryStorageSpaceDatalist" value="#{inventoryStorageController.selected.inventoryStorageSpaceList}" var="invStorageSpace"
+                             selectionMode="single" selection="#{inventoryStorageSpaceController.selected}"
+                             paginator="true"
+                             rowKey="#{invStorageSpace.id}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+                    <p:ajax event="rowSelect" update="createStorageSpaceButton viewButton editButton deleteButton"/>
+                    <p:ajax event="rowUnselect" update="createStorageSpaceButton viewButton editButton deleteButton"/>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Description"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.description}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Type"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.type}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Label"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.label}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Total Area"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.totalArea}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Occupied Area"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.occupiedArea}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Available Area"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.availableArea}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Racking Type"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.rackingType}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Racking Capacity"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.rackingCapacity}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Utilised Capacity"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.utilizedCapacity}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Access Type"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.accessType}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Accessibility Score"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.accessibilityScore}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Temperature Requirements"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.temperatureRequirements}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Security Level"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.securityLevel}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Last Optimised"/>
+                        </f:facet>
+                        <h:outputText value="#{invStorageSpace.lastOptimized}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Status"/>
+                        </f:facet>
+                        <h:outputText id="test" value="#{invStorageSpace.status}" />
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="createStorageSpaceButton" icon="ui-icon-plus" value="#{bundle.Create}" actionListener="#{inventoryStorageSpaceController.prepareCreate}" disabled="#{empty inventoryController.current}" oncomplete="PF('InventoryStorageSpaceCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InventoryStorageSpaceViewForm:display" oncomplete="PF('InventoryStorageSpaceViewDialog').show()" disabled="#{empty inventoryStorageSpaceController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InventoryStorageSpaceEditForm" oncomplete="PF('InventoryStorageSpaceEditDialog').show()" disabled="#{empty inventoryStorageSpaceController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{inventoryStorageSpaceController.destroy}" update=":growl" disabled="#{empty inventoryStorageSpaceController.selected}"/>
+                    </f:facet>
+                </p:dataTable>
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

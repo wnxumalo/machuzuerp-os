@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Accounting Sales Report</h1>
+                <h:form id="frmDailySales" styleClass="ui-fluid">
+
+                    <h:panelGrid columns="2" cellpadding="2" style="width:741px;">                                                               
+                        <h:outputText value="Begin" style="width:741px;font-weight:bold;"/>
+                        <p:calendar id="startDate" value="#{accountsReport.dateFrom}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                        <h:outputText value="End" style="width:741px;font-weight:bold;"/>
+                        <p:calendar id="endDate" value="#{accountsReport.dateTo}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />                                                
+                    </h:panelGrid>
+
+                    <p:commandButton value="View" action="#{accountsReport.getDailySalesTotals()}" update="pnlDates pnlInvoices pnlReceipts receiptDT invoicesDT pnlTotals totSales totTransactions" />
+                    <p:commandButton value="Print" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                        <p:printer target="fsSalesReport" />
+                    </p:commandButton> 
+
+                    <p:fieldset id="fsSalesReport" legend="FILTER">
+
+                        <h1>Sales Summary Report</h1>
+                        <p>
+                            <p:panel id="pnlDates">
+                                <p:outputLabel value="Date:" style="font-weight: bold;"/><p:outputLabel value="#{accountsReport.dateFrom} - #{accountsReport.dateTo}" style="font-weight: bold;"/>
+                            </p:panel>
+                        </p>
+
+                        <p>                            
+                            <p:panel id="pnlTotals">
+                                <h3>Total Sales Overview</h3>
+                                <p:outputLabel id="totSales" value="Total Sales Amount: " style="font-weight: bold; color: #CC0000;"/><br/><p:outputLabel value="#{accountsReport.totalSales}" style="font-weight: bold;"/><br/>
+                                <p:outputLabel id ="totTransactions" value="Total Transactions: " style="font-weight: bold; color: #CC0000;"/><br/><p:outputLabel value="#{accountsReport.totalTransactions}" style="font-weight: bold;"/>
+                            </p:panel>
+                        </p>
+
+                        <p:panel id="pnlReceipts" header="RECEIPTS">
+                            <p:dataTable id="receiptDT" var="rcpts" value="#{accountsReport.receipts}" rowKey="#{rcpts.recNum}">
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Recnum" />
+                                    </f:facet>
+                                    <h:outputText value="#{rcpts.recNum}" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Date" />
+                                    </f:facet>                       
+                                    <h:outputText value="#{rcpts.IDate}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{rcpts.CName}" />                             
+                                </p:column>  
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Surname" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{rcpts.CSurname}" />                                
+                                </p:column>                                                  
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Received" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{rcpts.amtPaid}" />                                
+                                </p:column> 
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Outstanding" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{rcpts.outstandingAmount}" />                                
+                                </p:column>   
+                            </p:dataTable>
+                            <p:outputLabel value="Total: " style="font-weight: bold; color: #CC0000;"/><br/><p:outputLabel value="#{accountsReport.receiptSales}" style="font-weight: bold;"/><br/>
+                        </p:panel>
+                        
+                        <p:panel id="pnlInvoices" header="INVOICES">                        
+                            <p:dataTable id="invoicesDT" var="invoices" value="#{accountsReport.invoices}" rowKey="#{invoices.recNum}">
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Recnum" />
+                                </f:facet>
+                                <h:outputText value="#{invoices.recNum}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Date" />
+                                </f:facet>                       
+                                <h:outputText value="#{invoices.IDate}" />                                
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Name" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{invoices.CName}" />                             
+                            </p:column>  
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Surname" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{invoices.CSurname}" />                                
+                            </p:column> 
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Total Received" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{invoices.totCost}" />                                
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Outstanding" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{invoices.outstanding}" />                                
+                            </p:column>                         
+                        </p:dataTable>
+                        <p:outputLabel value="Total: " style="font-weight: bold; color: #CC0000;"/><br/><p:outputLabel value="#{accountsReport.invoiceSales}" style="font-weight: bold;"/><br/>
+                    </p:panel>
+                    
+                    </p:fieldset>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

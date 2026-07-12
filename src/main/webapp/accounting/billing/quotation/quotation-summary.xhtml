@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Quotation - Summary</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:button value="Back To Dashboard" outcome="#{login.accountingDashboard()}">
+                        
+                        
+                    </p:button><br></br><br></br>                                       
+                    
+                    <p:fieldset legend="Quotation">  
+                        <p:messages id="messages" showDetail="true" closable="true">
+                            <p:autoUpdate />
+                        </p:messages>
+                        <h:outputLabel for="outputServices" value="CUSTOMER" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:17px"/><br></br>                            
+                        <h:panelGrid columns="2" cellpadding="2">                                 
+                            <h:outputLabel for="cID" value="#" style="font-weight:bold"/><h:outputText id="cID" value="#{quotation.CID}"/>                                    
+                            <h:outputLabel for="vatNum" value="VAT Number" style="font-weight:bold;font-size:16px;width:400px"/><h:outputText id="vatNum" value="#{quotation.vatNum}" style="font-size:15px;"/>                                                                            
+                            <h:outputLabel for="name" value="Name" style="font-weight:bold"/><h:outputText id="name" value="#{quotation.CName}"/>                                    
+                            <h:outputLabel for="surname" value="Surname" style="font-weight:bold" /><h:outputText id="surname" value="#{quotation.CSurname}"/>                                                                   
+                            <h:outputLabel for="tel" value="Telephone" style="font-weight:bold" /><h:outputText id="tel" value="#{quotation.tel}"/>                                    
+                            <h:outputLabel for="cell" value="Cellphone" style="font-weight:bold" /><h:outputText id="cell" value="#{quotation.cell}"/>                                   
+                            <h:outputLabel for="fax" value="Fax" style="font-weight:bold" /><h:outputText id="fax" value="#{quotation.fax}"/>                                   
+                            <h:outputLabel for="email" value="email" style="font-weight:bold" /><h:outputText id="email" value="#{quotation.email}"/>                                   
+                            <h:outputLabel for="posAdd" value="Postal Address" style="font-weight:bold" /><h:outputText id="posAdd" value="#{quotation.posAdd}"/>                                  
+                            <h:outputLabel for="physAdd" value="Physical Address" style="font-weight:bold" /><h:outputText id="physAdd" value="#{quotation.physAdd}"/>
+                        </h:panelGrid><br></br>
+                        <h:outputLabel for="outputServices" value="SERVICES" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:17px"/><br></br>                            
+                        <p:outputPanel id="outputServices">
+                            <ui:repeat value="#{quotation.selectedServs}" var="svs">
+                                <h:panelGrid columns="5" cellpadding="2">
+                                    <h:outputText value="#{svs.recNum}" style="display:block;width:50px"/>
+                                    <h:outputText value="#{svs.description}" style="display:block;width:300px"/>
+                                    <h:outputText value="#{svs.qty}" style="display:block;width:50px"/>
+                                    <h:outputText value="#{svs.cost}" style="display:block;width:100px"/>                                        
+                                    <h:outputText value="#{svs.totCost}" style="display:block;width:100px"/>                                        
+                                </h:panelGrid>
+                            </ui:repeat>
+                        </p:outputPanel><br></br>
+                        <!--h:panelGrid columns="2" cellpadding="2" style="width:1315px;">
+                            <h:outputText value="Total" style="width:1020px;color:#D98880;font-weight:bold;"/>
+                            <h:outputText value="#{quotation.totServCost}" style="display:block;color:#D98880;"/>                          
+                        </h:panelGrid><br></br-->
+                        <h:outputLabel for="outputInventory" value="INVENTORY" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:17px"/><br></br>                            
+                        <p:outputPanel id="outputInventory">
+                            <ui:repeat value="#{quotation.selectedInvs}" var="invs">
+                                <h:panelGrid columns="5" cellpadding="2">
+                                    <h:outputText value="#{invs.recNum}" style="display:block;width:50px"/>
+                                    <h:outputText value="#{invs.description}" style="display:block;width:300px"/>                                        
+                                    <h:outputText value="#{invs.quantity}" style="display:block;width:50px"/>
+                                    <h:outputText value="#{invs.sellingPrice}" style="display:block;width:100px"/>
+                                    <h:outputText value="#{invs.totCost}" style="display:block;width:100px"/>
+                                </h:panelGrid>
+                            </ui:repeat>
+                        </p:outputPanel><br></br>                        
+                        <h:panelGrid columns="2" cellpadding="2" style="width:1400px;">                               
+                            <h:outputText value="Total" style="color:#D98880;font-weight:bold;width:1300px"/>
+                            <h:outputText value="#{quotation.totCost}" style="display:block;color:#D98880;font-weight:bold;"/>                          
+                        </h:panelGrid><br></br>                            
+                        <h:outputLabel value="FINALISE" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:17px"/><br></br>                            
+
+                        <h:panelGrid columns="2" cellpadding="2" style="width:741px;">                                                           
+                            <h:outputText value="Date" style="width:741px;font-weight:bold;"/>
+                            <p:calendar id="invDate" value="#{quotation.IDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" >
+                                <p:ajax event="dateSelect" listener="#{quotation.onDateSelect}"/>
+                            </p:calendar>
+                            <h:outputText value="Notes" style="width:741px;font-weight:bold;"/>
+                            <p:inputTextarea cols="100" id="notes" value="#{quotation.notes}"/><br></br>
+                        </h:panelGrid><br></br>
+
+
+                        <p:commandButton action="#{quotation.invComplete(quotation.selectedServs,quotation.selectedInvs)}" value="Save" >
+                            
+                            
+                            <f:param name="cID" value="#{quotation.CID}" />
+                            <f:param name="cName" value="#{quotation.CName}" />
+                            <f:param name="cSurname" value="#{quotation.CSurname}" />
+                            <f:param name="tel" value="#{quotation.tel}" />
+                            <f:param name="cell" value="#{quotation.cell}" />
+                            <f:param name="fax" value="#{quotation.fax}" />
+                            <f:param name="posAdd" value="#{quotation.posAdd}" />
+                            <f:param name="physAdd" value="#{quotation.physAdd}" />   
+                            <f:param name="vatNum" value="#{quotation.vatNum}" />     
+                            <f:param name="email" value="#{quotation.email}" />
+                        </p:commandButton>
+                    </p:fieldset>
+
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

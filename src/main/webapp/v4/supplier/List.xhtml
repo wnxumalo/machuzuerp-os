@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/erpbyw-template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSupplierTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="content">
+            <p:growl id="growl">
+                <p:autoUpdate/>
+            </p:growl>
+            
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+            <ui:include src="../location/Create.xhtml"/>
+            <ui:include src="../location/Edit.xhtml"/>
+            <ui:include src="ViewLocations.xhtml"/>
+            <ui:include src="../payment/Create.xhtml"/>
+            <ui:include src="../payment/Edit.xhtml"/>            
+            <ui:include src="ViewPayments.xhtml"/>
+            <ui:include src="../shipment/Create.xhtml"/>
+            <ui:include src="../shipment/Edit.xhtml"/>            
+                        
+            <h1>Supplier Management</h1>
+            <h:form id="SupplierListForm">
+                <p:panel header="SUPPLIERS">
+                    <p:dataTable id="supplierDatalist" value="#{supplierController.items}" var="item"
+                                 selectionMode="single" selection="#{supplierController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect" listener="#{supplierController.onRowSelect}" update="createButton viewButton editButton deleteButton :SupplierListForm:createLocationButton :SupplierListForm:createPaymentButton :LocationViewForm :SupplierListForm:locationsDatalist :SupplierListForm:paymentsDatalist :SupplierListForm:shipmentsDatalist"/>                                                
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton :SupplierListForm:createLocationButton :SupplierListForm:createPaymentButton :SupplierListForm:locationsDatalist :SupplierListForm:paymentsDatalist :SupplierListForm:shipmentsDatalist"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tax Number"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vatNum}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.description}">
+                            <f:facet name="header">
+                                <h:outputText value="Description"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.country}">
+                            <f:facet name="header">
+                                <h:outputText value="Country"/>
+                            </f:facet>
+                            <h:outputText value="#{item.country}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Website"/>
+                            </f:facet>
+                            <h:outputText value="#{item.website}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Products and Services"/>
+                            </f:facet>
+                            <h:outputText value="#{item.productsServices}"/>
+                        </p:column>                        
+                        <p:column filterBy="#{item.leadTime}">
+                            <f:facet name="header">
+                                <h:outputText value="Lead Time"/>
+                            </f:facet>
+                            <h:outputText value="#{item.leadTime}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.qualityRating}">
+                            <f:facet name="header">
+                                <h:outputText value="Quality Rating"/>
+                            </f:facet>
+                            <h:outputText value="#{item.qualityRating}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.deliveryPerformance}">
+                            <f:facet name="header">
+                                <h:outputText value="Delivery Performance"/>
+                            </f:facet>
+                            <h:outputText value="#{item.deliveryPerformance}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.certifications}">
+                            <f:facet name="header">
+                                <h:outputText value="Certifications"/>
+                            </f:facet>
+                            <h:outputText value="#{item.certifications}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.status}">
+                            <f:facet name="header">
+                                <h:outputText value="Status"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Payment Terms"/>
+                            </f:facet>
+                            <h:outputText value="#{item.paymentTerms}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:panelGrid columns="4">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{supplierController.prepareCreate}" update=":SupplierCreateForm" oncomplete="PF('SupplierCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SupplierViewForm" oncomplete="PF('SupplierViewDialog').show()" disabled="#{empty supplierController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SupplierEditForm" oncomplete="PF('SupplierEditDialog').show()" disabled="#{empty supplierController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{supplierController.destroy}" update=":growl,supplierDatalist" disabled="#{empty supplierController.selected}"/>                                                
+                            </p:panelGrid>                            
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+                <h3>LOCATIONS</h3>
+                    <p:dataTable id="locationsDatalist" value="#{supplierController.selected.locations}" var="loc"
+                                 selectionMode="single" selection="#{locationController.selected}"
+                                 paginator="true"
+                                 rowKey="#{loc.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update=":SupplierListForm:locationEditButton :SupplierListForm:locationViewButton :SupplierListForm:locationDeleteButton"/>
+                        <p:ajax event="rowUnselect" update=":SupplierListForm:locationEditButton :SupplierListForm:locationViewButton :SupplierListForm:locationDeleteButton"/>
+
+                        <p:column filterBy="#{loc.description}">
+                            <f:facet name="header">
+                                <h:outputText value="Description"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.description}"/>
+                        </p:column>
+                        <p:column filterBy="#{loc.country}">
+                            <f:facet name="header">
+                                <h:outputText value="Country"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.country}"/>
+                        </p:column>
+                        <p:column filterBy="#{loc.city}">
+                            <f:facet name="header">
+                                <h:outputText value="City"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.city}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="District"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.district}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Postal Code"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.postalCode}"/>
+                        </p:column>
+                        <p:column filterBy="#{loc.currency}">
+                            <f:facet name="header">
+                                <h:outputText value="Currency"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.currency}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Latitude"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.latitude}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Longitude"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.longitude}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Contact Person"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.contactPerson}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Contact Person Phone"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.contactPhone}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Contact Person Email"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.contactEmail}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Capacity"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.capacity}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Area"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.area}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Location Method"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.locationMethod}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Location Method Details}"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.locationMethodDetails}"/>
+                        </p:column>
+                        <p:column filterBy="#{loc.status}">
+                            <f:facet name="header">
+                                <h:outputText value="Status"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.status}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Notes"/>
+                            </f:facet>
+                            <h:outputText value="#{loc.notes}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:commandButton id="createLocationButton" value="New Location" actionListener="#{locationController.prepareCreate()}" oncomplete="PF('LocationCreateDialog').show()" disabled="#{empty supplierController.selected}"/>
+                    <p:commandButton id="locationViewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LocationViewForm" oncomplete="PF('LocationViewDialog').show()" disabled="#{empty locationController.selected}"/>
+                    <p:commandButton id="locationEditButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update="" oncomplete="PF('LocationEditDialog').show()" disabled="#{empty locationController.selected}"/>
+                    <p:commandButton id="locationDeleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{locationController.destroy}" update=":growl,locationsDatalist" disabled="#{empty locationController.selected}"/>
+                
+                <h3>PAYMENTS</h3>
+                    <p:dataTable id="paymentsDatalist" value="#{supplierController.selected.payments}" var="pay"
+                                 selectionMode="single" selection="#{paymentController.selected}"
+                                 paginator="true"
+                                 rowKey="#{pay.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update=":LocationViewForm:editButton :LocationViewForm:viewButton :LocationViewForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":LocationViewForm:editButton :LocationViewForm:viewButton :LocationViewForm:deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Purchase Order Id"/>
+                            </f:facet>
+                            <h:outputText value="#{pay.purchaseOrderId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Invoice Id"/>
+                            </f:facet>
+                            <h:outputText value="#{pay.invoiceId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Amount"/>
+                            </f:facet>
+                            <h:outputText value="#{pay.amount}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Currency"/>
+                            </f:facet>
+                            <h:outputText value="#{pay.currency}"/>
+                        </p:column>
+                        <p:column filterBy="#{pay.dueDate}">
+                            <f:facet name="header">
+                                <h:outputText value="Due Date"/>
+                            </f:facet>
+                            <h:outputText value="#{pay.dueDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column filterBy="#{pay.paymentDate}">
+                            <f:facet name="header">
+                                <h:outputText value="Payment Date"/>
+                            </f:facet>
+                            <h:outputText value="#{pay.paymentDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column filterBy="#{pay.actualDeliveryDate}">
+                            <f:facet name="header">
+                                <h:outputText value="Actual Delivery Date"/>
+                            </f:facet>
+                            <h:outputText value="#{pay.actualDeliveryDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column filterBy="#{pay.paymentMethod}">
+                            <f:facet name="header">
+                                <h:outputText value="Payment Method"/>
+                            </f:facet>
+                            <h:outputText value="#{pay.paymentMethod}"/>
+                        </p:column>
+                        <p:column filterBy="#{pay.paymentMethodDetails}">
+                            <f:facet name="header">
+                                <h:outputText value="Payment Terms"/>
+                            </f:facet>
+                            <h:outputText value="#{pay.paymentMethodDetails}"/>
+                        </p:column>
+                        <p:column filterBy="#{pay.status}">
+                            <f:facet name="header">
+                                <h:outputText value="Status"/>
+                            </f:facet>
+                            <h:outputText value="#{pay.status}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Notes"/>
+                            </f:facet>
+                            <h:outputText value="#{pay.notes}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:commandButton id="createPaymentButton" value="New Payment" actionListener="#{paymentController.prepareCreate()}" action="/v4/payment/ListPurchaseOrders.xhtml" disabled="#{empty supplierController.selected}"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LocationViewForm" oncomplete="PF('LocationViewDialog').show()" disabled="#{empty locationController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update="" oncomplete="PF('LocationEditDialog').show()" disabled="#{empty locationController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{locationController.destroy}" update=":growl,paymentsDatalist" disabled="#{empty locationController.selected}"/>
+
+                    <h3>SHIPMENTS</h3>
+                    <p:dataTable id="shipmentsDatalist" value="#{supplierController.selected.shipments}" var="ship"
+                                 selectionMode="single" selection="#{shipmentController.selected}"
+                                 paginator="true"
+                                 rowKey="#{ship.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Purchase Order Id"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.purchaseOrderId}"/>
+                        </p:column>
+                        <p:column filterBy="#{ship.shippingTerms}">
+                            <f:facet name="header">
+                                <h:outputText value="Shipping Terms"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.shippingTerms}"/>
+                        </p:column>
+                        <p:column filterBy="#{ship.shippingMethod}">
+                            <f:facet name="header">
+                                <h:outputText value="Shipping Method"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.shippingMethod}"/>
+                        </p:column>
+                        <p:column filterBy="#{ship.paymentTerms}">
+                            <f:facet name="header">
+                                <h:outputText value="Payment Terms"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.paymentTerms}"/>
+                        </p:column>                        
+                        <p:column filterBy="#{ship.shippingDate}">
+                            <f:facet name="header">
+                                <h:outputText value="Shipping Date"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.shippingDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column filterBy="#{ship.estimateDeliveryDate}">
+                            <f:facet name="header">
+                                <h:outputText value="Estimated Delivery Date"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.estimateDeliveryDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column filterBy="#{ship.actualDeliveryDate}">
+                            <f:facet name="header">
+                                <h:outputText value="Actual Delivery Date"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.actualDeliveryDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Quantity Shipped"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.quantityShipped}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Quantity Received"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.quantityReceived}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Discrepancy"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.discrepancy}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Discrepancy Reasons"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.discrepancyReasons}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Status"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.status}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Notes"/>
+                            </f:facet>
+                            <h:outputText value="#{ship.notes}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{shipmentController.prepareCreate}" update=":ShipmentCreateForm" oncomplete="PF('ShipmentCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update="" oncomplete="PF('ShipmentViewDialog').show()" disabled="#{empty shipmentController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ShipmentEditForm" oncomplete="PF('ShipmentEditDialog').show()" disabled="#{empty shipmentController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{shipmentController.destroy}" update=":growl" disabled="#{empty shipmentController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InventoryStorageCreateDlg" widgetVar="InventoryStorageCreateDialog" modal="true" resizable="false" appendTo="@(dialog)" header="Create Inventory Storage">
+            <h:form id="InventoryStorageCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{inventoryStorageController.selected != null}">
+                        <p:outputLabel value="Type" for="type" />
+                        <p:selectOneMenu id="type" value="#{inventoryStorageController.selected.type}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Static" itemValue="Static" />
+                            <f:selectItem itemLabel="Mobile" itemValue="Mobile" />                            
+                            <f:selectItem itemLabel="Automated Storage and Retrieval Systems (AS/RS)" itemValue="Automated Storage and Retrieval Systems (AS/RS)" />                            
+                            <f:selectItem itemLabel="Cold" itemValue="Cold" />                            
+                            <f:selectItem itemLabel="Bulk" itemValue="Bulk" />                            
+                            <f:selectItem itemLabel="Rack" itemValue="Rack" />                            
+                            <f:selectItem itemLabel="Bin" itemValue="Bin" />
+                            <f:selectItem itemLabel="Floor" itemValue="Floor" />
+                            <f:selectItem itemLabel="Cross-Docking" itemValue="Cross-Docking" />
+                            <f:selectItem itemLabel="Shelf" itemValue="Shelf" />
+                            <f:selectItem itemLabel="FIFO and LIFO Storage" itemValue="FIFO and LIFO Storage" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Category" for="category" />
+                        <p:selectOneMenu id="category" value="#{inventoryStorageController.selected.category}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Raw Materials" itemValue="Raw Materials" />
+                            <f:selectItem itemLabel="Work-in-Progress (WIP)" itemValue="Work-in-Progress (WIP)" />                            
+                            <f:selectItem itemLabel="Finished Goods" itemValue="Finished Goods" />                            
+                            <f:selectItem itemLabel="Maintenance, Repair, and Operations (MRO) Supplies" itemValue="Maintenance, Repair, and Operations (MRO) Supplies" />                            
+                            <f:selectItem itemLabel="Transit Inventory" itemValue="Transit Inventory" />                            
+                            <f:selectItem itemLabel="Cycle Stock" itemValue="Cycle Stock" />                            
+                            <f:selectItem itemLabel="Safety Stock" itemValue="Safety Stock" />
+                            <f:selectItem itemLabel="Dead Stock" itemValue="Dead Stock" />
+                            <f:selectItem itemLabel="Consignment Inventory" itemValue="Consignment Inventory" />
+                            <f:selectItem itemLabel="Seasonal Inventory" itemValue="Seasonal Inventory" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Quantity (#{inventoryStorageController.selected.quantity} in stock)" for="quantity" />
+                        <p:inputNumber id="quantity" value="#{inventoryStorageController.selected.quantity}" title="#{bundle.CreateInventoryStorageTitle_quantity}" />
+                        <p:outputLabel value="Location" for="location" />                        
+                        <p:selectOneMenu id="location" value="#{inventoryStorageController.selected.location}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Warehouse" itemValue="Warehouse" />
+                            <f:selectItem itemLabel="Distribution Center" itemValue="Distribution Center" />
+                            <f:selectItem itemLabel="Storage Room" itemValue="Storage Room" />
+                            <f:selectItem itemLabel="Cold Storage Facility" itemValue="Cold Storage Facility" />
+                            <f:selectItem itemLabel="Retail Store" itemValue="Retail Store" />
+                            <f:selectItem itemLabel="Point of Sale Displays" itemValue="Point of Sale Displays" />
+                            <f:selectItem itemLabel="Fulfillment Center" itemValue="Fulfillment Center" />
+                            <f:selectItem itemLabel="Cross-Docking Area" itemValue="Cross-Docking Area" />
+                            <f:selectItem itemLabel="Mobile Storage Solutions" itemValue="Mobile Storage Solutions" />
+                            <f:selectItem itemLabel="Offsite Storage" itemValue="Offsite Storage" />
+                            <f:selectItem itemLabel="Shelf or Rack Systems" itemValue="Shelf or Rack Systems" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Arrival Date" for="arrivalDate" />
+                        <p:calendar id="arrivalDate" pattern="MM/dd/yyyy" value="#{inventoryStorageController.selected.arrivalDate}" title="Arrival Date"  showOn="button"/>                        
+                        <p:outputLabel value="Expiration Date" for="expirationDate" />
+                        <p:calendar id="expirationDate" pattern="MM/dd/yyyy" value="#{inventoryStorageController.selected.expirationDate}" title="Expiration Date"  showOn="button"/>                        
+                        <p:outputLabel value="Condition" for="itemCondition" />
+                        <p:selectOneMenu id="itemCondition" value="#{inventoryStorageController.selected.itemCondition}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="New" itemValue="New" />
+                            <f:selectItem itemLabel="Used" itemValue="Used" />
+                            <f:selectItem itemLabel="Damaged" itemValue="Damaged" />
+                            <f:selectItem itemLabel="Refurbished" itemValue="Refurbished" />                            
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Status" for="status" />
+                        <p:selectOneMenu id="status" value="#{inventoryStorageController.selected.status}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Available" itemValue="Available" />
+                            <f:selectItem itemLabel="On Hold" itemValue="On Hold" />
+                            <f:selectItem itemLabel="In Transit" itemValue="In Transit" />
+                            <f:selectItem itemLabel="Backordered" itemValue="Backordered" />
+                            <f:selectItem itemLabel="Reserved" itemValue="Reserved" />
+                            <f:selectItem itemLabel="Damaged" itemValue="Damaged" />
+                            <f:selectItem itemLabel="Expired" itemValue="Expired" />
+                            <f:selectItem itemLabel="Discontinued" itemValue="Discontinued" />
+                            <f:selectItem itemLabel="Under Inspection" itemValue="Under Inspection" />
+                            <f:selectItem itemLabel="Discontinued" itemValue="Discontinued" />
+                            <f:selectItem itemLabel="In Production" itemValue="In Production" />
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{inventoryStorageController.create(inventoryController.inventoryDTO.id)}" value="#{bundle.Save}" update="display,:storageForm:inventoryStorageDatalist,:growl"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InventoryStorageCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

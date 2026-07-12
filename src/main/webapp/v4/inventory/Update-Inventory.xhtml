@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Update Inventory</h1>
+
+                <h:form styleClass="ui-fluid">
+                    <p:messages id="messages" showDetail="true" closable="true" >
+                        <p:autoUpdate/>
+                    </p:messages>                    
+
+                    <p:panelGrid columns="2">
+                        <h:outputLabel for="dDate" value="Delivery Date" />
+                        <p:calendar id="dDate" value="#{inventoryController.deliveryDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />    
+                        <h:outputLabel for="iNumber" value="Purchase Order Number" />
+                        <p:inputText id="iNumber" value="#{inventoryController.invoiceNumber}" required="true" style="width:350px"/>
+                        <h:outputLabel for="quantity" value="Quantity" />
+                        <p:inputText id="quantity" value="#{inventoryController.comments}"  style="width:350px"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Save" action="#{inventoryController.saveDeliveryNote()}">
+
+                        <f:param name="supplierId" value="#{deliveryNote.recNum}" />
+                        <f:param name="supplierName" value="#{deliveryNote.supplierName}" />
+                        <f:param name="vatNum" value="#{deliveryNote.vatNum}" />                       
+                        <f:param name="tel" value="#{deliveryNote.telephone}" />
+                        <f:param name="cell" value="#{deliveryNote.cellphone}" />
+                        <f:param name="fax" value="#{deliveryNote.fax}" />
+                        <f:param name="email" value="#{deliveryNote.email}" />
+                        <f:param name="posAdd" value="#{deliveryNote.postalAddress}" />
+                        <f:param name="physAdd" value="#{deliveryNote.physicalAddress}" />
+                    </p:commandButton>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

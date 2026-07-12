@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InventoryAdditionEditDlg" widgetVar="InventoryAdditionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditInventoryAdditionTitle}">
+            <h:form id="InventoryAdditionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{inventoryAdditionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditInventoryAdditionLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{inventoryAdditionController.selected.id}" title="#{bundle.EditInventoryAdditionTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditInventoryAdditionLabel_supplierId}" for="supplierId" />
+                        <p:inputText id="supplierId" value="#{inventoryAdditionController.selected.supplierId}" title="#{bundle.EditInventoryAdditionTitle_supplierId}" />
+                        <p:outputLabel value="#{bundle.EditInventoryAdditionLabel_deliveryNoteId}" for="deliveryNoteId" />
+                        <p:inputText id="deliveryNoteId" value="#{inventoryAdditionController.selected.deliveryNoteId}" title="#{bundle.EditInventoryAdditionTitle_deliveryNoteId}" required="true" requiredMessage="#{bundle.EditInventoryAdditionRequiredMessage_deliveryNoteId}"/>
+                        <p:outputLabel value="#{bundle.EditInventoryAdditionLabel_quantity}" for="quantity" />
+                        <p:inputText id="quantity" value="#{inventoryAdditionController.selected.quantity}" title="#{bundle.EditInventoryAdditionTitle_quantity}" />
+                        <p:outputLabel value="#{bundle.EditInventoryAdditionLabel_deliveryDate}" for="deliveryDate" />
+                        <p:inputText id="deliveryDate" value="#{inventoryAdditionController.selected.deliveryDate}" title="#{bundle.EditInventoryAdditionTitle_deliveryDate}" />
+                        <p:outputLabel value="#{bundle.EditInventoryAdditionLabel_comments}" for="comments" />
+                        <p:inputText id="comments" value="#{inventoryAdditionController.selected.comments}" title="#{bundle.EditInventoryAdditionTitle_comments}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{inventoryAdditionController.update}" value="#{bundle.Save}" update=":growl" oncomplete="handleSubmit(args, 'InventoryAdditionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InventoryAdditionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

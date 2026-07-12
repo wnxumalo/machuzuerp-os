@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Stakeholder Service Enrollment Listing</h1>  
+                <br></br>
+                <p:panelGrid columns="8" styleClass="ui-fluid">
+                    <h:outputLabel value="ID" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.recnum}" />
+                    <h:outputLabel value="Type" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.type}" />
+                    <h:outputLabel value="Status" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.status}" />
+                    <h:outputLabel value="Vat Number" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.vatNum}" />
+                    <h:outputLabel value="Name" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.customerName}" />
+                    <h:outputLabel value="Surname" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.surname}" />
+                    <h:outputLabel value="Gender" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.gender}" />
+                    <h:outputLabel value="Telephone" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.telephone}" />
+                    <h:outputLabel value="Cellphone" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.cellphone}" />
+                    <h:outputLabel value="Email" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.email}" />
+                    <h:outputLabel value="Fax" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.fax}" />
+                    <h:outputLabel value="Postal Address" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.postalAddress}" />
+                    <h:outputLabel value="Physical Address" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.physicalAddress}" />
+                    <h:outputLabel value="Country" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.country}" />
+                    <h:outputLabel value="Joining Date" style="font-weight: bold"/>
+                    <h:outputText value="#{enrolledServices.JDate}" />                                        
+                </p:panelGrid>
+                <br></br>
+                <h:form id="form" styleClass="ui-fluid">
+                    <p:commandButton icon="ui-icon-refresh" title="Refresh Donors" action="#{enrolledServices.refresh()}" update="servicesDT">
+                        <f:param name="crecnum" value="#{param['crecnum']}" /> 
+                    </p:commandButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Enrol To Service" onclick="PF('dlgEnrollService').show()" title="New Enrollment">
+                        
+                                               
+                    </p:commandButton>
+                    <p:commandButton value="Discontinue Service" action="#{enrolledServices.discontinueService()}" title="Discontinue" update="servicesDT">
+                        <f:param name="crecnum" value="#{param['crecnum']}" />                      
+                    </p:commandButton>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Create Invoice" action="#{enrolledServices.newInvoice()}" title="New Invoice">
+                        <f:param name="crecnum" value="#{param['crecnum']}" />                                             
+                    </p:commandButton>                   
+                    <p:commandButton value="Back To Stakeholders" action="#{login.customerDetailedListing()}" title="Stakeholders">
+                        
+                                               
+                    </p:commandButton>
+                    <br></br>
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+                        
+                    <br></br>
+                    
+                    <p:dataTable id="servicesDT" var="serv" value="#{enrolledServices.services}"  selectionMode="single" selection="#{enrolledServices.selectedEnrolledService}" rowKey="#{serv.recNum}">
+                        <p:ajax event="rowSelect" listener="#{enrolledServices.onRowSelect}"/>  
+                        
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id" />
+                            </f:facet>
+                            <h:outputText value="#{serv.recNum}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Description" />
+                            </f:facet>                       
+                            <h:outputText value="#{serv.description}" />                                
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cost" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{serv.cost}" />                             
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Interest Rate" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{serv.interestRate}" />                                
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Recurring Maturity Date" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{serv.recurringMaturityDate}" />                                
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Enrollment Date" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{serv.enrolmentDate}" />                                
+                        </p:column>
+
+                    </p:dataTable>
+                
+                </h:form>
+
+                <h:form id="enrollServiceForm" styleClass="ui-fluid">                                                  
+                    <p:dialog header="Select Services" id="dlgEnrollService" widgetVar="dlgEnrollService" resizable="false"> 
+                        <p:messages id="StakeholderMessages" showDetail="true" closable="true" >
+                            <p:autoUpdate />
+                        </p:messages>
+                        <h:panelGrid columns="1" cellpadding="2" id="enrollServicesDlgPanel">                                                                                            
+
+                            <h:outputText value="Select Service" />                                    
+                            <h:selectOneMenu value="#{enrolledServices.selectedService}" converter="serviceConverter" required="true">
+                                <f:selectItems value="#{servicesBean.services}" var="servs" 
+                                               itemValue="#{servs}"
+                                               itemLabel="#{servs.description}"/>
+                            </h:selectOneMenu> 
+                            
+                            <h:outputText value="Cost" />
+                            <h:inputText value="#{enrolledServices.cost}" required="true"/> 
+
+                            <h:outputText value="Interest Rate" />
+                            <h:inputText value="#{enrolledServices.interestRate}" /> 
+                            
+                            <h:outputText value="Recurring Maturity Date" />                                                       
+                            <p:calendar id="MaturityDate" value="#{enrolledServices.recurringMaturityDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true"  />                                
+                            <h:outputText value="Enrolment Date" />   
+                            <p:calendar id="EnrolmentDate" value="#{enrolledServices.enrolmentDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true"  />                                
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Save" update="form:servicesDT" actionListener="#{enrolledServices.newEnrollment(session, enrolledServices.selectedService)}" onclick="PF('dlgEnrollService').hide()" >
+                                    <f:param name="crecnum" value="#{param['crecnum']}" />                                              
+                                </p:commandButton>
+                            </f:facet>
+
+                        </h:panelGrid>
+                    </p:dialog>                            
+                </h:form>      
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
+

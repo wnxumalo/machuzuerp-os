@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Delivery Note Listing</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+                    <div align="right">
+                        <p:button value="Back To Dashboard" outcome="/accounting/payable/dashboard">
+                            
+                            
+                        </p:button> &nbsp;&nbsp;                                   
+                        <br></br><br></br>
+                    </div>                   
+                    <p:dataTable id="deliverynotesDT" var="dnotes" value="#{deliveryNote.deliveryNotes}"  selectionMode="single" selection="#{deliveryNote.selectedDeliveryNote}" rowKey="#{dnotes.recNum}">
+                        <p:ajax event="rowSelect" listener="#{deliveryNote.onRowSelectMain(event)}"/>
+                        
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id" />
+                            </f:facet>
+                            <h:outputText value="#{dnotes.recNum}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Delivery Date" />
+                            </f:facet>
+                            <h:outputText value="#{dnotes.deliveryDate}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Supplier" />
+                            </f:facet>
+                            <h:outputText value="#{dnotes.supplierName}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Invoice Number" />
+                            </f:facet>                       
+                            <h:outputText value="#{dnotes.invoiceNumber}" />                                
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Filename" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{dnotes.filename}" />                             
+                        </p:column>                          
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Comments" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{dnotes.comments}" />                                
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>
+

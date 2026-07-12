@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LocationViewDlg1" widgetVar="LocationViewDialog1" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLocationTitle}">
+            <h:form id="LocationViewFormA">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{locationController.selected != null}">
+                        <h:outputText value="#{bundle.ViewLocationLabel_id}"/>
+                        <h:outputText value="#{locationController.selected.id}" title="#{bundle.ViewLocationTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_description}"/>
+                        <h:outputText value="#{locationController.selected.description}" title="#{bundle.ViewLocationTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_city}"/>
+                        <h:outputText value="#{locationController.selected.city}" title="#{bundle.ViewLocationTitle_city}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_district}"/>
+                        <h:outputText value="#{locationController.selected.district}" title="#{bundle.ViewLocationTitle_district}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_invoiceId}"/>
+                        <h:outputText value="#{locationController.selected.invoiceId}" title="#{bundle.ViewLocationTitle_invoiceId}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_postalCode}"/>
+                        <h:outputText value="#{locationController.selected.postalCode}" title="#{bundle.ViewLocationTitle_postalCode}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_currency}"/>
+                        <h:outputText value="#{locationController.selected.currency}" title="#{bundle.ViewLocationTitle_currency}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_latitude}"/>
+                        <h:outputText value="#{locationController.selected.latitude}" title="#{bundle.ViewLocationTitle_latitude}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_longitude}"/>
+                        <h:outputText value="#{locationController.selected.longitude}" title="#{bundle.ViewLocationTitle_longitude}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_contactPerson}"/>
+                        <h:outputText value="#{locationController.selected.contactPerson}" title="#{bundle.ViewLocationTitle_contactPerson}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_contactPhone}"/>
+                        <h:outputText value="#{locationController.selected.contactPhone}" title="#{bundle.ViewLocationTitle_contactPhone}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_contactEmail}"/>
+                        <h:outputText value="#{locationController.selected.contactEmail}" title="#{bundle.ViewLocationTitle_contactEmail}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_capacity}"/>
+                        <h:outputText value="#{locationController.selected.capacity}" title="#{bundle.ViewLocationTitle_capacity}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_area}"/>
+                        <h:outputText value="#{locationController.selected.area}" title="#{bundle.ViewLocationTitle_area}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_locationMethod}"/>
+                        <h:outputText value="#{locationController.selected.locationMethod}" title="#{bundle.ViewLocationTitle_locationMethod}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_locationMethodDetails}"/>
+                        <h:outputText value="#{locationController.selected.locationMethodDetails}" title="#{bundle.ViewLocationTitle_locationMethodDetails}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_creationDate}"/>
+                        <h:outputText value="#{locationController.selected.creationDate}" title="#{bundle.ViewLocationTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewLocationLabel_updateDate}"/>
+                        <h:outputText value="#{locationController.selected.updateDate}" title="#{bundle.ViewLocationTitle_updateDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewLocationLabel_status}"/>
+                        <h:outputText value="#{locationController.selected.status}" title="#{bundle.ViewLocationTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_notes}"/>
+                        <h:outputText value="#{locationController.selected.notes}" title="#{bundle.ViewLocationTitle_notes}"/>
+                        <h:outputText value="#{bundle.ViewLocationLabel_metadata}"/>
+                        <h:outputText value="#{locationController.selected.metadata}" title="#{bundle.ViewLocationTitle_metadata}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="LocationViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

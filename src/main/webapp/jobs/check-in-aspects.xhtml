@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Check In Aspects</h1>
+                
+                    <h:form id="frm" styleClass="ui-fluid">
+    <p:growl id="msgs" showDetail="true"/>
+    
+    <p:outputLabel id="jId" value="#{checkIn.jobId}" binding="#{olJobId}"/><br/>
+    <p:outputLabel id="ciId" value="#{checkIn.recNum}" binding="#{olCheckInId}"/>
+ 
+    <p:dataTable id="ckAspects" var="ciaspects" value="#{checkInAspects.checkInAspects}" editable="true" style="margin-bottom:20px">
+        <f:facet name="header">
+            Check In Aspects
+        </f:facet>
+
+        <p:ajax event="rowEdit" listener="#{checkInAspects.onRowEdit}" update=":frm:msgs" />
+        <p:ajax event="rowEditCancel" listener="#{checkInAspects.onRowCancel}" update=":frm:msgs" />         
+
+        <p:column headerText="Planned vs Actual Action Root Cause">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{ciaspects.rootCause}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{ciaspects.rootCause}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Planned vs Actual Action Recommendation">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{ciaspects.actionRecommendation}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{ciaspects.actionRecommendation}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Planned vs Actual Target Root Cause">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{ciaspects.targetRootCause}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{ciaspects.targetRootCause}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Planned vs Actual Target Recommendation">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{ciaspects.targetRecommendation}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{ciaspects.targetRecommendation}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Planned vs Actual Resources Root Cause">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{ciaspects.resourcesRootCause}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{ciaspects.resourcesRootCause}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Planned vs Actual Resources Recommendation">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{ciaspects.resourcesRecommendation}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{ciaspects.resourcesRecommendation}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+       
+        <p:column style="width:35px">
+            <p:rowEditor />
+        </p:column>
+    </p:dataTable>                                                                 
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Next" action="#{checkInAspects.completeJob(olJobId.value, olCheckInId.value, checkInActions.checkInActions)}"  global="true">
+                        
+                        
+                    </p:commandButton>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

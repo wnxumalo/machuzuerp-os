@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Invoice</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+                    <p:fieldset legend="Invoice Details" style="margin-bottom:20px">
+                        <h:outputLabel for="outputServices" value="CUSTOMER" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:17px"/><br></br>
+                        <h:panelGrid columns="2" cellpadding="2">       
+                            <h:outputLabel for="cID" value="#" style="font-weight:bold"/><h:outputText id="cID" value="#{customerData.selectedCustomer.recnum}"/>                                    
+                            <h:outputLabel for="vatNum" value="VAT Number" style="font-weight:bold;font-size:16px;width:400px"/><h:outputText id="vatNum" value="#{customerData.selectedCustomer.vatNum}" style="font-size:15px;"/>                                                                            
+                            <h:outputLabel for="name" value="Name" style="font-weight:bold"/><h:outputText id="name" value="#{customerData.selectedCustomer.customerName}"/>                                    
+                            <h:outputLabel for="surname" value="Surname" style="font-weight:bold" /><h:outputText id="surname" value="#{customerData.selectedCustomer.surname}"/>                                                                   
+                            <h:outputLabel for="tel" value="Telephone" style="font-weight:bold" /><h:outputText id="tel" value="#{customerData.selectedCustomer.telephone}"/>                                    
+                            <h:outputLabel for="cell" value="Cellphone" style="font-weight:bold" /><h:outputText id="cell" value="#{customerData.selectedCustomer.cellphone}"/>                                   
+                            <h:outputLabel for="fax" value="Fax" style="font-weight:bold" /><h:outputText id="fax" value="#{customerData.selectedCustomer.fax}"/>                                   
+                            <h:outputLabel for="email" value="Email" style="font-weight:bold" /><h:outputText id="email" value="#{customerData.selectedCustomer.email}"/>                                   
+                            <h:outputLabel for="posAdd" value="Postal Address" style="font-weight:bold" /><h:outputText id="posAdd" value="#{customerData.selectedCustomer.postalAddress}"/>                                  
+                            <h:outputLabel for="physAdd" value="Physical Address" style="font-weight:bold" /><h:outputText id="physAdd" value="#{customerData.selectedCustomer.physicalAddress}"/>
+                        </h:panelGrid><br></br>
+                        <h:outputLabel for="outputServices" value="SERVICES" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:17px"/><br></br>                            
+                        <p:outputPanel id="outputServices">
+                            <ui:repeat value="#{invoice.selectedServs}" var="svs">
+                                <h:panelGrid columns="5" cellpadding="2">
+                                    <h:outputText value="#{svs.recNum}" style="display:block;width:50px"/>
+                                    <h:outputText value="#{svs.description}" style="display:block;width:300px"/>
+                                    <h:outputText value="#{svs.qty}" style="display:block;width:50px"/>
+                                    <h:outputText value="#{svs.cost}" style="display:block;width:100px"/>                                        
+                                    <h:outputText value="#{svs.totCost}" style="display:block;width:100px"/>                                        
+                                </h:panelGrid>
+                            </ui:repeat>
+                        </p:outputPanel><br></br>
+                        <h:panelGrid columns="2" cellpadding="2" style="width:1315px;">
+                            <h:outputText value="Total" style="width:1020px;color:#D98880;font-weight:bold;"/>
+                            <h:outputText value="#{invoice.totServCost}" style="display:block;color:#D98880;"/>                          
+                        </h:panelGrid><br></br>
+                    </p:fieldset>
+
+                    <p:dataTable id="inventoryDT" var="invs" value="#{dtInvEditView.inventoryList}"  editable="true" editMode="cell" selection="#{invoice.selectedInvs}" 
+                                 rowKey="#{invs.recNum}"  widgetVar="cellInvs"
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 style="margin-bottom:0;height:100%">                        
+                        <f:facet name="header">
+                            Select Inventory
+                        </f:facet>
+                        <p:ajax event="cellEdit" listener="#{invoice.onCellEdit}" />                        
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>                            
+                        <p:column style="width:15px">
+                            <f:facet name="header">
+                                <h:outputText value="#"/>
+                            </f:facet>
+                            <h:outputText value="#{invs.recNum}"/>
+                        </p:column>                           
+                        <p:column filterBy="#{invs.description}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Description" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{invs.description}" />                             
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Selling Price" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{invs.sellingPrice}" />                                
+                        </p:column>            
+                        <p:column headerText="Quantity">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{invs.quantity}" /></f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{invs.quantity}" />                                            
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton process="inventoryDT" action="#{invoice.invSummary(invoice.selectedServs)}" value="Next" >                             
+                                <f:param name="cID" value="#{invoice.CID}" />
+                                <f:param name="cName" value="#{invoice.CName}" />
+                                <f:param name="cSurname" value="#{invoice.CSurname}" />
+                                <f:param name="tel" value="#{invoice.tel}" />
+                                <f:param name="cell" value="#{invoice.cell}" />
+                                <f:param name="fax" value="#{invoice.fax}" />
+                                <f:param name="email" value="#{invoice.email}" />
+                                <f:param name="posAdd" value="#{invoice.posAdd}" />
+                                <f:param name="physAdd" value="#{invoice.physAdd}" /> 
+                                <f:param name="vatNum" value="#{invoice.vatNum}" />
+                            </p:commandButton>
+                        </f:facet>
+                    </p:dataTable> 
+
+                    <p:contextMenu for="inventoryDT" widgetVar="sMenu">   
+                        <p:menuitem value="Edit Cell" icon="ui-icon-search" onclick="PF('cellInvs').showCellEditor();return false;"/>  
+                        <p:menuitem value="Hide Menu" icon="ui-icon-close" onclick="PF('sMenu').hide()"/>  
+                    </p:contextMenu>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

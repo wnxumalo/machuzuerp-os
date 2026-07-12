@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SupplierCreateDlg" widgetVar="SupplierCreateDialog" modal="true" resizable="false" appendTo="@(dialog)" header="Create Supplier">
+            <h:form id="SupplierCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{supplierController.selected != null}">
+                        <p:outputLabel value="Vat Number" for="vatNum" />
+                        <p:inputText id="vatNum" value="#{supplierController.selected.vatNum}" title="#{bundle.CreateSupplierTitle_vatNum}" />
+                        <p:outputLabel value="Description" for="description" />
+                        <p:inputText id="description" value="#{supplierController.selected.description}" title="#{bundle.CreateSupplierTitle_description}" />
+                        <p:outputLabel value="Type" for="supplierType" />
+                        <p:inputText id="supplierType" value="#{supplierController.selected.supplierType}" title="Supplier Type" />
+                        <p:outputLabel value="Contact Person" for="contactPerson" />
+                        <p:inputText id="contactPerson" value="#{supplierController.selected.contactPerson}" title="Contact Person" />
+                        <p:outputLabel value="Contact Title" for="contactTitle" />
+                        <p:inputText id="contactTitle" value="#{supplierController.selected.contactTitle}" title="Contact Title" />
+                        <p:outputLabel value="Contact Email" for="contactEmail" />
+                        <p:inputText id="contactEmail" value="#{supplierController.selected.contactEmail}" title="Contact Email" />
+                        <p:outputLabel value="Contact Phone" for="contactPhone" />
+                        <p:inputText id="contactPhone" value="#{supplierController.selected.contactPhone}" title="Contact Phone" />
+                        <p:outputLabel value="Physical Address" for="physicalAddress" />
+                        <p:inputText id="physicalAddress" value="#{supplierController.selected.physicalAddress}" title="Physical Address" />
+                        <p:outputLabel value="Country" for="country" />
+                        <p:inputText id="country" value="#{supplierController.selected.country}" title="Country" />
+                        <p:outputLabel value="City" for="city" />
+                        <p:inputText id="city" value="#{supplierController.selected.city}" title="City" />
+                        <p:outputLabel value="District" for="district" />
+                        <p:inputText id="district" value="#{supplierController.selected.district}" title="District" />
+                        <p:outputLabel value="Postal Address" for="postalAddress" />
+                        <p:inputText id="postalAddress" value="#{supplierController.selected.postalAddress}" title="Postal Address" />
+                        <p:outputLabel value="Website" for="website" />
+                        <p:inputText id="website" value="#{supplierController.selected.website}" title="Website" />
+                        <p:outputLabel value="Products and Services" for="productsServices" />
+                        <p:inputText id="productsServices" value="#{supplierController.selected.productsServices}" title="Products and Services" />
+                        <p:outputLabel value="Payment Terms" for="paymentTerms" />
+                        <p:inputText id="paymentTerms" value="#{supplierController.selected.paymentTerms}" title="Payment Terms" />
+                        <p:outputLabel value="Lead Time" for="leadTime" />
+                        <p:inputText id="leadTime" value="#{supplierController.selected.leadTime}" title="Lead Time" />
+                        <p:outputLabel value="Quality Rating" for="qualityRating" />
+                        <p:inputText id="qualityRating" value="#{supplierController.selected.qualityRating}" title="Quality Rating" />
+                        <p:outputLabel value="Delivery Performance" for="deliveryPerformance" />
+                        <p:inputText id="deliveryPerformance" value="#{supplierController.selected.deliveryPerformance}" title="Delivery Performance" />
+                        <p:outputLabel value="Certifications" for="certifications" />
+                        <p:inputText id="certifications" value="#{supplierController.selected.certifications}" title="Certifications" />
+                        <p:outputLabel value="Status" for="status" />
+                        <p:inputText id="status" value="#{supplierController.selected.status}" title="Status" />
+                        <p:outputLabel value="Notes" for="notes" />
+                        <p:inputText id="notes" value="#{supplierController.selected.notes}" title="Notes" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{supplierController.create}" value="#{bundle.Save}" update=":SupplierListForm :growl"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

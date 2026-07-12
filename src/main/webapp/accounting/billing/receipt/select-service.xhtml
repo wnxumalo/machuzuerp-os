@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Receipt</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:fieldset legend="Receipt Details" style="margin-bottom:20px">
+                        <h:panelGrid columns="2" cellpadding="2">                                 
+                            <h:outputLabel for="cID" value="#" style="font-weight:bold"/><h:outputText id="cID" value="#{receipt.CID}"/>                                    
+                            <h:outputLabel for="vatNum" value="VAT #" style="font-weight:bold"/><h:outputText id="vatNum" value="#{receipt.vatNum}"/>                                    
+                            <h:outputLabel for="name" value="Name" style="font-weight:bold"/><h:outputText id="name" value="#{receipt.CName}"/>                                    
+                            <h:outputLabel for="surname" value="Surname" style="font-weight:bold" /><h:outputText id="surname" value="#{receipt.CSurname}"/>                                                                   
+                            <h:outputLabel for="tel" value="Telephone" style="font-weight:bold" /><h:outputText id="tel" value="#{receipt.tel}"/>                                    
+                            <h:outputLabel for="cell" value="Cellphone" style="font-weight:bold" /><h:outputText id="cell" value="#{receipt.cell}"/>                                   
+                            <h:outputLabel for="fax" value="Fax" style="font-weight:bold" /><h:outputText id="fax" value="#{receipt.fax}"/>                                   
+                            <h:outputLabel for="email" value="Email" style="font-weight:bold" /><h:outputText id="email" value="#{receipt.email}"/>                                   
+                            <h:outputLabel for="posAdd" value="Postal Address" style="font-weight:bold" /><h:outputText id="posAdd" value="#{receipt.posAdd}"/>                                  
+                            <h:outputLabel for="physAdd" value="Physical Address" style="font-weight:bold" /><h:outputText id="physAdd" value="#{receipt.physAdd}"/>
+                        </h:panelGrid>
+                    </p:fieldset>
+
+                    <p:dataTable id="servicesDT" var="invServs" value="#{dtServEditView.services}" 
+                                 editable="true" editMode="cell" selection="#{receipt.selectedServs}" 
+                                 rowKey="#{invServs.recNum}"  widgetVar="cellServs" 
+                                 paginator="true"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 style="margin-bottom:0;height:100%">                            
+
+                        <f:facet name="header">
+                            Select Services
+                        </f:facet>
+
+                        <p:ajax event="cellEdit" listener="#{receipt.onCellEdit}" />
+
+                        
+                        
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>                            
+                        <p:column style="width:15px">
+                            <f:facet name="header">
+                                <h:outputText value="#"/>
+                            </f:facet>
+                            <h:outputText value="#{invServs.recNum}"/>
+                        </p:column>                           
+                        <p:column filterBy="#{invServs.description}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Description" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{invServs.description}"/>                             
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cost" />                                    
+                            </f:facet>
+                            <h:outputText value="#{invServs.cost}" />
+                        </p:column>
+                        <p:column headerText="Quantity">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{invServs.qty}" /></f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{invServs.qty}" />                                    
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <f:facet name="footer">                                
+                            <p:commandButton process="servicesDT" action="#{receipt.selectInventory()}" value="Next" >
+                                
+                                
+                                <f:param name="cID" value="#{receipt.CID}" />
+                                <f:param name="cName" value="#{receipt.CName}" />
+                                <f:param name="cSurname" value="#{receipt.CSurname}" />
+                                <f:param name="tel" value="#{receipt.tel}" />
+                                <f:param name="cell" value="#{receipt.cell}" />
+                                <f:param name="fax" value="#{receipt.fax}" />
+                                <f:param name="posAdd" value="#{receipt.posAdd}" />
+                                <f:param name="physAdd" value="#{receipt.physAdd}" />                                    
+                                <f:param name="email" value="#{receipt.email}" />                                    
+                                <f:param name="vatNum" value="#{receipt.vatNum}" />                                    
+                            </p:commandButton>
+                        </f:facet>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

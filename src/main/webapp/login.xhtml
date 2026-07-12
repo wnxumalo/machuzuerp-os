@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <title>Machuzu ERP | Enterprise Resource Planning software</title>
+        <h:outputStylesheet name="css/style.css"/> 
+        <meta name="description" content="ERP Software containing standard functions to automate business processes common to all organisations. Customisable to unique processes."/>
+        <meta name="keywords" content="software, system, erp, enterprise, resource, planning, process, business, re-engineering, engineering, corporate, sme, smme, data"/>
+    </h:head>
+    <h:body>
+        <h:graphicImage value="/images/erpbyw.png" width="108" height="36"></h:graphicImage>
+        <h:form styleClass="ui-fluid">
+            <p:toolbar>                
+                <f:facet name="right">
+                    <p:button outcome="index" value="Home"/>
+                    <p:button outcome="/marketing/ERPbyW-Project-Management.pdf" value="Overview" target="_blank"/>
+                    <p:button outcome="/marketing/ERPbyW-Implementation-Support-Plan.pdf" value="Support Plan" target="_blank"/>
+                    <p:button outcome="downloads" value="Downloads"/>
+                    <p:button outcome="support-request" value="Contact"/> 
+                    <p:button outcome="login" value="Login"/>
+                </f:facet>
+            </p:toolbar>
+        </h:form><br></br>
+
+        <center styleClass="ui-fluid">            
+            <p:fieldset legend="Enterprise Resource Planning by Wandile" styleClass="ui-fluid"> 
+                 
+                <h:panelGrid><br></br>
+                    <h:form id="frmLogin">
+                        <p:messages id="messages" showDetail="true" closable="true" >
+                            <p:autoUpdate/>
+                        </p:messages>
+                        <h:outputText value="Email" /><br></br>
+                        <p:inputText value="#{login.email}"/><br></br>
+                        <h:outputText value="Password" /><br></br>
+                        <p:password id="password2" value="#{login.password}"
+                                            label="Password" required="true" /><br></br><br></br>
+                        <p:commandButton id="submitButton" value="Login" action="#{administrationConroller.loginUser}" global="true" actionListener="#{login.loginError}"/><br></br><br></br>
+                    </h:form>
+
+                    <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+                        <f:facet name="default">
+                            <h:outputText value="" />
+                        </f:facet>
+
+                    </p:ajaxStatus>
+
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <img src="images/ajax-loader.gif" />
+                    </p:dialog>                                                            
+                </h:panelGrid>
+            </p:fieldset> 
+
+            </center>
+        <h:outputText value= "Made in "/><h:graphicImage value="/images/sdflag.png" alt="eSwatini flag, Made in eSwatini"/><br></br>
+          <h:outputText value= "Copyright &copy; ERPbyW 2019"/>        <br></br>
+    </h:body>
+</html>
+
+

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdministrationViewDlg" widgetVar="AdministrationViewDialog" modal="true" resizable="false" appendTo="@(dialog)" header="#{bundle.ViewAdministrationTitle}">
+            <h:form id="AdministrationViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{administrationController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_id}"/>
+                        <h:outputText value="#{administrationController.selected.id}" title="#{bundle.ViewAdministrationTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_organisation}"/>
+                        <h:outputText value="#{administrationController.selected.organisation}" title="#{bundle.ViewAdministrationTitle_organisation}"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_employeeIdDate}"/>
+                        <h:outputText value="#{administrationController.selected.employeeId}" title="#{bundle.ViewAdministrationTitle_employeeIdDate}"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_stakeholderView}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.stakeholderView}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_stakeholderCreate}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.stakeholderCreate}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_stakeholderEdit}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.stakeholderEdit}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_stakeholderDelete}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.stakeholderDelete}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_accountingView}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.accountingView}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_accountingCreate}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.accountingCreate}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_accountingEdit}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.accountingEdit}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_accountingDelete}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.accountingDelete}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_projectManagementView}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.projectManagementView}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_projectManagementCreate}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.projectManagementCreate}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_projectManagementEdit}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.projectManagementEdit}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_projectManagementDelete}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.projectManagementDelete}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_humanResourcesView}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.humanResourcesView}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_humanResourcesCreate}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.humanResourcesCreate}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_humanResourcesEdit}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.humanResourcesEdit}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_humanResourcesDelete}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.humanResourcesDelete}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_collaborationView}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.collaborationView}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_collaborationCreate}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.collaborationCreate}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_collaborationEdit}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.collaborationEdit}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_collaborationDelete}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.collaborationDelete}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_workflowView}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.workflowView}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_workflowCreate}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.workflowCreate}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_workflowEdit}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.workflowEdit}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_workflowDelete}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.workflowDelete}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_inventoryView}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.inventoryView}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_inventoryCreate}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.inventoryCreate}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_inventoryEdit}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.inventoryEdit}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_inventoryDelete}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.inventoryDelete}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_servicesView}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.servicesView}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_servicesCreate}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.servicesCreate}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_servicesEdit}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.servicesEdit}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_servicesDelete}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.servicesDelete}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_suppliersView}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.suppliersView}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_suppliersCreate}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.suppliersCreate}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_suppliersEdit}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.suppliersEdit}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_suppliersDelete}"/>
+                        <p:selectBooleanCheckbox value="#{administrationController.selected.suppliersDelete}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_dateCreated}"/>
+                        <h:outputText value="#{administrationController.selected.dateCreated}" title="#{bundle.ViewAdministrationTitle_dateCreated}"/>
+                        <h:outputText value="#{bundle.ViewAdministrationLabel_dateUpdated}"/>
+                        <h:outputText value="#{administrationController.selected.dateUpdated}" title="#{bundle.ViewAdministrationTitle_dateUpdated}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AdministrationViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

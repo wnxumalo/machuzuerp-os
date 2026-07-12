@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPurchaseRequisitionTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="PurchaseRequisitionListForm">
+                <p:panel header="#{bundle.ListPurchaseRequisitionTitle}">
+                    <p:dataTable id="datalist" value="#{purchaseRequisitionController.items}" var="item"
+                                 selectionMode="single" selection="#{purchaseRequisitionController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchaseRequisitionTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchaseRequisitionTitle_PODate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.PODate}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchaseRequisitionTitle_deliveryDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.deliveryDate}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchaseRequisitionTitle_shippingTerms}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.shippingTerms}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchaseRequisitionTitle_shippingMethod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.shippingMethod}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchaseRequisitionTitle_paymentTerms}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.paymentTerms}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchaseRequisitionTitle_supplierId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.supplierId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchaseRequisitionTitle_inventoryId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.inventoryId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchaseRequisitionTitle_deliveryEmployeeId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.deliveryEmployeeId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchaseRequisitionTitle_creationDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.creationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchaseRequisitionTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPurchaseRequisitionTitle_notes}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.notes}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{purchaseRequisitionController.prepareCreate}" update=":PurchaseRequisitionCreateForm" oncomplete="PF('PurchaseRequisitionCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PurchaseRequisitionViewForm" oncomplete="PF('PurchaseRequisitionViewDialog').show()" disabled="#{empty purchaseRequisitionController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PurchaseRequisitionEditForm" oncomplete="PF('PurchaseRequisitionEditDialog').show()" disabled="#{empty purchaseRequisitionController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{purchaseRequisitionController.destroy}" update=":growl,datalist" disabled="#{empty purchaseRequisitionController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Account Receivable</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <h:outputLabel for="menu" value="Debit" /><br></br>
+                    <p:selectOneListbox id="advanced" value="#{accountView.account}" converter="accountConverter" var="t" filter="true" filterMatchMode="contains" binding="#{soAccountBind}" style="width:550px">
+                        <f:selectItems value="#{accountView.accounts}" var="account" itemLabel="#{account.description}" itemValue="#{account}" />
+
+                        <p:column>
+                            <h:outputText value="#{t.description}" />
+                        </p:column>
+                    </p:selectOneListbox>
+
+                    <h:outputText value="Amount" /><br></br>
+                    <p:inputText id="amount" value="#{accounts.balance}"  style="width:350px"/><br></br>
+                    <h:outputText value="Comments" /><br></br>
+                    <p:inputText id="comments" value="#{accounts.comments}"  style="width:350px"/><br></br>
+                    <h:outputText value="Date" /><br></br>
+                    <p:calendar id="pDate" value="#{accounts.PDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" >                                   
+                        <p:ajax event="dateSelect" listener="#{accounts.onDateSelect}"/>
+                    </p:calendar><br></br>
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Save" action="#{accounts.saveAccountReceivable(soAccountBind.value)}" actionListener="#{accounts.click}">
+                        
+                                                       
+                    </p:commandButton>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

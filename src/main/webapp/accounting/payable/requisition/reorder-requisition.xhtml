@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Purchase Requisition</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:messages id="messages" showDetail="true" closable="true" >
+                        <p:autoUpdate/>
+                    </p:messages>
+                    
+                    <h:panelGrid columns="2">      
+                            <h:outputText value="Date" />
+                            <p:calendar id="pDate" value="#{requisition.requestDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />                 
+                        <h:outputText value="Requested Delivery Date" />
+                        <p:calendar value="#{requisition.requestedDeliveryDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                        <h:outputText value="Deliver To" />
+                        <h:selectOneMenu value="#{requisition.deliveryEmployeeId}">
+                           <f:selectItems value="#{employeesBean.employees}" var="employee" 
+                                          itemValue="#{employee.id}"
+                                           itemLabel="#{employee.name} #{employee.surname}"/>
+                        </h:selectOneMenu>        
+                        <h:outputText value="Requestors Name" />
+                        <p:inputText value="#{requisition.requestorName}" readonly="true"  />
+                        <h:outputText value="Supplier" />
+                        <h:selectOneMenu value="#{requisition.selectedSupplierId}">
+                             <f:selectItems value="#{supplierListBean.supplierList}" var="supp" 
+                                            itemValue="#{supp.id}"
+                                           itemLabel="#{supp.name}"/>                            
+                        </h:selectOneMenu>
+                        <h:outputText value="Accounts Manager Name" />
+                        <h:selectOneMenu value="#{requisition.selectedAccountManagerId}">
+                           <f:selectItems value="#{employeesBean.employees}" var="emp" 
+                                          itemValue="#{emp.id}"
+                                           itemLabel="#{emp.name} #{emp.surname}"/>
+                        </h:selectOneMenu>                            
+                        <h:outputText value="Available Funds" rendered="false" />
+                        <p:inputText value="#{requisition.availableFunds}"  style="width:350px" rendered="false"/>
+                        <h:outputText value="Accounting Data" rendered="false" />
+                        <p:inputText value="#{requisition.accountingData}"  style="width:350px" rendered="false"/>
+                        <h:outputText value="Approver Name" rendered="false" />
+                        <p:inputText value="#{requisition.approverName}"  style="width:350px" rendered="false"/>
+                        <h:outputText value="Approver Job Title" rendered="false" />
+                        <p:inputText value="#{requisition.approverJobTitle}"  style="width:350px" rendered="false"/>
+                        <h:outputText value="Approval Date"  rendered="false"/>
+                        <p:calendar id="aDate" value="#{requisition.approvalDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" rendered="false" />   
+                        <h:outputText value="Remarks" />
+                        <p:inputTextarea value="#{requisition.remarks}"  style="width:100%"/>                        
+                    </h:panelGrid><br></br>
+                    <p:dataTable id="rItems" var="item" value="#{requisition.orderRequisitions}" editable="true" style="margin-bottom:20px">
+                        <f:facet name="header">
+                            REQUISITION ITEMS
+                        </f:facet>        
+                        
+                        <p:ajax event="rowEdit" listener="#{requisition.onRowEdit}" update=":form:messages" />
+                        <p:ajax event="rowEditCancel" listener="#{requisition.onRowCancel}" update=":form:messages" />
+
+                        <p:column headerText="Item/Service" style="width: 80%">
+                            <p:cellEditor>                                
+                                <f:facet name="output"><h:outputText value="#{item.itemService}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{item.itemService}" style="width:100%" label="Item/Service"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>              
+
+                        <p:column id="budget" headerText="Quantity">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.quantity}" /></f:facet>
+                                <f:facet name="input"><p:inputNumber value="#{item.quantity}" style="width:100%" label="Quantity"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>               
+
+                        <p:column headerText="Est. Unit Price">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.estUnitPrice}" /></f:facet>
+                                <f:facet name="input"><p:inputNumber value="#{item.estUnitPrice}" style="width:100%" label="Year"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>                                              
+
+                        <p:column style="width:35px">
+                            <p:rowEditor />
+                        </p:column>
+                    </p:dataTable>
+
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Save" action="add-orderrequisition-approvers.xhtml">
+                        
+                                                       
+                    </p:commandButton>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

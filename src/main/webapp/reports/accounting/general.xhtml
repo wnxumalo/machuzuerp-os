@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Accounts Report</h1>
+                <h:form styleClass="ui-fluid">
+                    <p:fieldset legend="FILTER">
+                                               
+                        <p:commandButton value="Export as Excel" ajax="false">
+                            <p:dataExporter type="xls" target="serviceDT" fileName="Accounts"/>
+                        </p:commandButton>
+                        <br/><br/>
+
+                        <p:dataTable id="accountsDT" var="acc" value="#{accountsReport.allAccounts}" 
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                     rowsPerPageTemplate="20">
+
+                            <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id" />
+                            </f:facet>                       
+                            <h:outputText value="#{acc.recNum}" />                                
+                        </p:column>
+                            <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#" />
+                            </f:facet>                       
+                                <h:outputText value="#{acc.accountNumber}" />                                
+                        </p:column>
+                            <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Type" />                                    
+                            </f:facet>                       
+                                <h:outputText value="#{acc.accType}" />                             
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Description" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{acc.description}" />                             
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Balance" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{acc.balance}" />                                
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Comment" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{acc.comments}" />                                
+                        </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

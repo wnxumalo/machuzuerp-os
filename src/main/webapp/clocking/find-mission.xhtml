@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Find Missions</h1>
+
+                <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+
+                <h:form id="form" styleClass="ui-fluid">
+                    
+                    <p:panel>
+                        <f:facet name="header" >
+                            <h:outputText value="Missions"/>
+                        </f:facet>
+                        <h:outputText value="Employee #" /><br/>
+                        <p:inputText value="#{clockingData.employeeId}"/><br/>
+                        <h:outputText value="Date From" /><br/>
+                        <p:calendar id="DateFrom" value="#{clockingData.dateFrom}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true"/><br/>                           
+                        <h:outputText value="Date To" /><br/>
+                        <p:calendar id="DateTo" value="#{clockingData.dateTo}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true"/><br/>
+                        &nbsp;&nbsp;&nbsp;<br/>
+                        <p:commandButton value="Find" action="#{clockingData.searchMission}">
+                            
+                            
+                        </p:commandButton>
+                    </p:panel>     
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

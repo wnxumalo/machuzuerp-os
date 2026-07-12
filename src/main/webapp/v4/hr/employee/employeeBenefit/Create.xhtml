@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmployeeBenefitCreateDlg" widgetVar="EmployeeBenefitCreateDialog" modal="true" resizable="false" appendTo="@(dialog)" header="Create Benefit">
+            <p:growl id="growl">
+                <p:autoUpdate/>
+            </p:growl>
+            <h:form id="EmployeeBenefitCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{employeeBenefitController.selected != null}">
+                        <p:outputLabel value="Description" for="description" />
+                        <p:selectOneMenu id="description" value="#{employeeBenefitController.selected.description}" style="width:125px" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Medical" itemValue="Medical" />
+                            <f:selectItem itemLabel="Housing" itemValue="Housing" />
+                            <f:selectItem itemLabel="Travelling" itemValue="Travelling" />
+                            <f:selectItem itemLabel="Stand-By" itemValue="Stand-By" />
+                            <f:selectItem itemLabel="Entertainment" itemValue="Entertainment" />
+                            <f:selectItem itemLabel="Vehicle" itemValue="Vehicle" />
+                            <f:selectItem itemLabel="Cellphone" itemValue="Cellphone" />                            
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Amount" for="amount" />
+                        <p:inputNumber id="amount" value="#{employeeBenefitController.selected.amount}" title="#{bundle.CreateEmployeeBenefitTitle_amount}" />                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{employeeBenefitController.create(employeeController.selected.id)}" value="Save" update="growl"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EmployeeBenefitCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

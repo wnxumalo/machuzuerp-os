@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Upload Delivery Note</h1>
+
+                <h:form styleClass="ui-fluid"><div align="right"><p:commandButton value="Back To Dashboard" action="/accounting/payable/dashboard"/></div>
+                    <p:messages id="messages" showDetail="true" closable="true" >
+                        <p:autoUpdate/>
+                    </p:messages>                    
+                    
+                    <h:panelGrid columns="2" cellpadding="2">    
+                        <h:outputLabel value="SUPPLIER" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:25px"/><br></br>                    
+                        <h:outputLabel for="supplierId" value="Id" style="font-weight:bold"/><h:outputText id="supplierId" value="#{deliveryNote.recNum}"/>                                                                                                                             
+                        <h:outputLabel for="vatNum" value="VAT Number" style="font-weight:bold;width:400px"/><h:outputText id="vatNum" value="#{deliveryNote.vatNum}" style="font-size:15px;"/>                                                                                                                                    
+                        <h:outputLabel for="name" value="Name" style="font-weight:bold"/><h:outputText id="name" value="#{deliveryNote.supplierName}"/>                                                                                                                             
+                        <h:outputLabel for="tel" value="Telephone" style="font-weight:bold" /><h:outputText id="tel" value="#{deliveryNote.telephone}"/>                                    
+                        <h:outputLabel for="cell" value="Cellphone" style="font-weight:bold" /><h:outputText id="cell" value="#{deliveryNote.cellphone}"/>                                   
+                        <h:outputLabel for="fax" value="Fax" style="font-weight:bold" /><h:outputText id="fax" value="#{deliveryNote.fax}"/>                                   
+                        <h:outputLabel for="email" value="Email" style="font-weight:bold" /><h:outputText id="email" value="#{deliveryNote.email}"/>                                   
+                        <h:outputLabel for="posAdd" value="Postal Address" style="font-weight:bold" /><h:outputText id="posAdd" value="#{deliveryNote.postalAddress}"/>                                  
+                        <h:outputLabel for="physAdd" value="Physical Address" style="font-weight:bold" /><h:outputText id="physAdd" value="#{deliveryNote.physicalAddress}"/>
+                    </h:panelGrid><br></br>   
+                    <p:panelGrid columns="2">
+                        <h:outputLabel for="dDate" value="Delivery Date" />
+                        <p:calendar id="dDate" value="#{deliveryNote.deliveryDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />    
+                        <h:outputLabel for="iNumber" value="Purchase Order Number" />
+                        <p:inputText id="iNumber" value="#{deliveryNote.invoiceNumber}" required="true" style="width:350px"/>
+                        <h:outputLabel for="comments" value="Comments" />
+                        <p:inputText id="comments" value="#{deliveryNote.comments}"  style="width:350px"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Save" action="#{deliveryNote.saveDeliveryNote()}">
+                        
+                        
+                        <f:param name="supplierId" value="#{deliveryNote.recNum}" />
+                        <f:param name="supplierName" value="#{deliveryNote.supplierName}" />
+                        <f:param name="vatNum" value="#{deliveryNote.vatNum}" />                       
+                        <f:param name="tel" value="#{deliveryNote.telephone}" />
+                        <f:param name="cell" value="#{deliveryNote.cellphone}" />
+                        <f:param name="fax" value="#{deliveryNote.fax}" />
+                        <f:param name="email" value="#{deliveryNote.email}" />
+                        <f:param name="posAdd" value="#{deliveryNote.postalAddress}" />
+                        <f:param name="physAdd" value="#{deliveryNote.physicalAddress}" />
+                    </p:commandButton>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

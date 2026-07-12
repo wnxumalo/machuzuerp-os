@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaymentViewDlg" widgetVar="PaymentViewDialog" modal="true" resizable="false" appendTo="@(body)" header="View Locations">
+            <h:form id="PaymentViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{supplierController.selected != null}">
+                        <p:dataTable id="datalist" value="#{supplierController.selected.payments}" var="item"
+                                 selectionMode="single" selection="#{paymentController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update=":LocationViewForm:editButton :LocationViewForm:viewButton :LocationViewForm:deleteButton"/>
+                        <p:ajax event="rowUnselect" update=":LocationViewForm:editButton :LocationViewForm:viewButton :LocationViewForm:deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_supplierId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.supplierId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_purchaseOrderId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.purchaseOrderId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_invoiceId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.invoiceId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_amount}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.amount}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_currency}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.currency}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_dueDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dueDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_paymentDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.paymentDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_actualDeliveryDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.actualDeliveryDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_paymentMethod}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.paymentMethod}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_paymentMethodDetails}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.paymentMethodDetails}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_creationDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.creationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_updateDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.updateDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_notes}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.notes}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPaymentTitle_metadata}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.metadata}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="LocationViewDialog.hide()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LocationViewForm" oncomplete="PF('LocationViewDialog').show()" disabled="#{empty locationController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update="" oncomplete="PF('LocationEditDialog').show()" disabled="#{empty locationController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{locationController.destroy}" update=":growl,datalist" disabled="#{empty locationController.selected}"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

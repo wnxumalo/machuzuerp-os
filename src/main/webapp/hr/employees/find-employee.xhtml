@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Find Employee</h1>
+                <h:form styleClass="ui-fluid">
+                    <table cellpadding="10"><td v-align="top">
+                            <h:outputText value="ID Number" /><br></br>
+                            <p:inputText value="#{employeesData.IDNumber}"/><br></br>
+                            <h:outputText value="Name" /><br></br>
+                            <p:inputText value="#{employeesData.empName}"/><br></br>
+                            <h:outputText value="Surname" /><br></br>
+                            <p:inputText value="#{employeesData.empSurname}" /><br></br>                            
+                        </td></table>
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Search" action="#{employeesData.searchEmployee()}"/>
+                    
+                    <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+                        <f:facet name="default">
+                            <h:outputText value="" />
+                        </f:facet>
+
+                    </p:ajaxStatus>
+
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <img src="../../images/ajax-loader.gif" />
+                    </p:dialog>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

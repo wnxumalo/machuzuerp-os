@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Select Job</h1>
+
+                <h:form styleClass="ui-fluid">
+                    <p:dataTable id="jobsDT" var="jobDat" value="#{jobsData.allJobs}" selection="#{jobsData.selectedJob}" rowKey="#{jobDat.recNum}"  widgetVar="cellProjs" style="margin-bottom:0;height:100%">                                                            
+                        <f:facet name="header">
+                            Select Job
+                        </f:facet>
+                        
+                                                    
+                        <p:column style="width:15px">
+                            <f:facet name="header">
+                                <h:outputText value="#"/>
+                            </f:facet>
+                            <h:outputText value="#{jobDat.recNum}"/>
+                        </p:column>                           
+                        <p:column filterBy="#{jobDat.title}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Name" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{jobDat.title}" />                             
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Owner" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{jobDat.owner}" />                                
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Contact" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{jobDat.contactDetails}" />
+                        </p:column>                             
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Contact Person" />                                    
+                            </f:facet>                       
+                            <h:outputText value="#{jobDat.contactPerson}" />
+                        </p:column>
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton process="jobsDT" action="#{jobsData.checkIn}" icon="ui-icon-check" title="Next">                                
+                                <f:setPropertyActionListener value="#{jobDat}" target="#{jobsData.selectedJob}" />
+                                
+                                
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

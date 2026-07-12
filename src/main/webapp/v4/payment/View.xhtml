@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaymentViewDlg1" widgetVar="PaymentViewDialog1" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPaymentTitle}">
+            <h:form id="PaymentViewForm1">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{paymentController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPaymentLabel_id}"/>
+                        <h:outputText value="#{paymentController.selected.id}" title="#{bundle.ViewPaymentTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_supplierId}"/>
+                        <h:outputText value="#{paymentController.selected.supplierId}" title="#{bundle.ViewPaymentTitle_supplierId}"/>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_purchaseOrderId}"/>
+                        <h:outputText value="#{paymentController.selected.purchaseOrderId}" title="#{bundle.ViewPaymentTitle_purchaseOrderId}"/>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_invoiceId}"/>
+                        <h:outputText value="#{paymentController.selected.invoiceId}" title="#{bundle.ViewPaymentTitle_invoiceId}"/>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_amount}"/>
+                        <h:outputText value="#{paymentController.selected.amount}" title="#{bundle.ViewPaymentTitle_amount}"/>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_currency}"/>
+                        <h:outputText value="#{paymentController.selected.currency}" title="#{bundle.ViewPaymentTitle_currency}"/>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_dueDate}"/>
+                        <h:outputText value="#{paymentController.selected.dueDate}" title="#{bundle.ViewPaymentTitle_dueDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_paymentDate}"/>
+                        <h:outputText value="#{paymentController.selected.paymentDate}" title="#{bundle.ViewPaymentTitle_paymentDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_actualDeliveryDate}"/>
+                        <h:outputText value="#{paymentController.selected.actualDeliveryDate}" title="#{bundle.ViewPaymentTitle_actualDeliveryDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_paymentMethod}"/>
+                        <h:outputText value="#{paymentController.selected.paymentMethod}" title="#{bundle.ViewPaymentTitle_paymentMethod}"/>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_paymentMethodDetails}"/>
+                        <h:outputText value="#{paymentController.selected.paymentMethodDetails}" title="#{bundle.ViewPaymentTitle_paymentMethodDetails}"/>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_creationDate}"/>
+                        <h:outputText value="#{paymentController.selected.creationDate}" title="#{bundle.ViewPaymentTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_updateDate}"/>
+                        <h:outputText value="#{paymentController.selected.updateDate}" title="#{bundle.ViewPaymentTitle_updateDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_status}"/>
+                        <h:outputText value="#{paymentController.selected.status}" title="#{bundle.ViewPaymentTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_notes}"/>
+                        <h:outputText value="#{paymentController.selected.notes}" title="#{bundle.ViewPaymentTitle_notes}"/>
+                        <h:outputText value="#{bundle.ViewPaymentLabel_metadata}"/>
+                        <h:outputText value="#{paymentController.selected.metadata}" title="#{bundle.ViewPaymentTitle_metadata}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PaymentViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

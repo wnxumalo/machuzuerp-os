@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LocationEditDlg" widgetVar="LocationEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditLocationTitle}">
+            <h:form id="LocationEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{locationController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditLocationLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{locationController.selected.id}" title="#{bundle.EditLocationTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{locationController.selected.description}" title="#{bundle.EditLocationTitle_description}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_city}" for="city" />
+                        <p:inputText id="city" value="#{locationController.selected.city}" title="#{bundle.EditLocationTitle_city}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_district}" for="district" />
+                        <p:inputText id="district" value="#{locationController.selected.district}" title="#{bundle.EditLocationTitle_district}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_postalCode}" for="postalCode" />
+                        <p:inputText id="postalCode" value="#{locationController.selected.postalCode}" title="#{bundle.EditLocationTitle_postalCode}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_currency}" for="currency" />
+                        <p:inputText id="currency" value="#{locationController.selected.currency}" title="#{bundle.EditLocationTitle_currency}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_latitude}" for="latitude" />
+                        <p:inputText id="latitude" value="#{locationController.selected.latitude}" title="#{bundle.EditLocationTitle_latitude}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_longitude}" for="longitude" />
+                        <p:inputText id="longitude" value="#{locationController.selected.longitude}" title="#{bundle.EditLocationTitle_longitude}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_contactPerson}" for="contactPerson" />
+                        <p:inputText id="contactPerson" value="#{locationController.selected.contactPerson}" title="#{bundle.EditLocationTitle_contactPerson}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_contactPhone}" for="contactPhone" />
+                        <p:inputText id="contactPhone" value="#{locationController.selected.contactPhone}" title="#{bundle.EditLocationTitle_contactPhone}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_contactEmail}" for="contactEmail" />
+                        <p:inputText id="contactEmail" value="#{locationController.selected.contactEmail}" title="#{bundle.EditLocationTitle_contactEmail}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_capacity}" for="capacity" />
+                        <p:inputText id="capacity" value="#{locationController.selected.capacity}" title="#{bundle.EditLocationTitle_capacity}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_area}" for="area" />
+                        <p:inputText id="area" value="#{locationController.selected.area}" title="#{bundle.EditLocationTitle_area}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_locationMethod}" for="locationMethod" />
+                        <p:inputText id="locationMethod" value="#{locationController.selected.locationMethod}" title="#{bundle.EditLocationTitle_locationMethod}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_locationMethodDetails}" for="locationMethodDetails" />
+                        <p:inputText id="locationMethodDetails" value="#{locationController.selected.locationMethodDetails}" title="#{bundle.EditLocationTitle_locationMethodDetails}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy" value="#{locationController.selected.creationDate}" title="#{bundle.EditLocationTitle_creationDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditLocationLabel_updateDate}" for="updateDate" />
+                        <p:calendar id="updateDate" pattern="MM/dd/yyyy" value="#{locationController.selected.updateDate}" title="#{bundle.EditLocationTitle_updateDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditLocationLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{locationController.selected.status}" title="#{bundle.EditLocationTitle_status}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_notes}" for="notes" />
+                        <p:inputText id="notes" value="#{locationController.selected.notes}" title="#{bundle.EditLocationTitle_notes}" />
+                        <p:outputLabel value="#{bundle.EditLocationLabel_metadata}" for="metadata" />
+                        <p:inputText id="metadata" value="#{locationController.selected.metadata}" title="#{bundle.EditLocationTitle_metadata}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{locationController.update}" value="#{bundle.Save}" update="display,:growl" oncomplete="handleSubmit(args, 'LocationEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LocationEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Purchase Invoice</h1>
+
+                <h4>Purchase Order Details</h4>
+                <p:panelGrid columns="2" styleClass="ui-fluid">
+                    <h:outputText value="Id" style="font-weight: bold" />
+                    <h:outputText value="#{purchaseOrderController.selectedDTO.id}" />
+                    <h:outputText value="Date" />
+                    <h:outputText value="#{purchaseOrderController.selectedDTO.PODate}" />
+                    <h:outputText value="Requisition Id" />
+                    <h:outputText value="#{purchaseOrderController.selectedDTO.requisitionId}" />
+                    <h:outputText value="Supplier" />
+                    <h:outputText value="#{purchaseOrderController.selectedDTO.supplierName}" />
+                    <h:outputText value="Requestors Name" />
+                    <h:outputText value="#{purchaseOrderController.selectedDTO.requestorName}" /> 
+                    <h:outputText value="Remarks" />
+                    <h:outputText value="#{purchaseOrderController.selectedDTO.notes}" />   
+                    <h:outputText value="Notes" />
+                    <h:outputText value="#{purchaseOrderController.selectedDTO.notes}" />                                                 
+                    <!--h:outputText value="Telephone" />
+                    <h:outputText value="#{purchaseOrder.tel}" />
+                    <h:outputText value="Cellphone" />
+                    <h:outputText value="#{purchaseOrder.cell}" />
+                    <h:outputText value="Fax" />
+                    <h:outputText value="#{purchaseOrder.fax}" />
+                    <h:outputText value="Email" />
+                    <h:outputText value="#{purchaseOrder.email}" />
+                    <h:outputText value="Postal Address" />
+                    <h:outputText value="#{purchaseOrder.posAdd}" />
+                    <h:outputText value="Physical Address" />
+                    <h:outputText value="#{purchaseOrder.physAdd}" /-->                                          
+                    
+                </p:panelGrid>                   
+
+                <h:form id="frmNewPurchaseOrder" styleClass="ui-fluid">
+
+                    <p:growl id="messages" showDetail="true" sticky="false" />  
+
+                    <h:panelGrid columns="2">      
+                                         
+                    </h:panelGrid><br></br>
+                    <p:dataTable id="rItems" var="item" value="#{purchaseOrderController.filteredPurchaseOrders}" editable="true" style="margin-bottom:20px">
+                        <f:facet name="header">
+                            PURCHASE INVOICE ITEMS
+                        </f:facet>
+
+                        <p:ajax event="rowEdit" listener="#{purchaseOrderController.onRowEdit}" update=":frmNewPurchaseOrder:messages" />
+                        <p:ajax event="rowEditCancel" listener="#{purchaseOrderController.onRowCancel}" update=":frmNewPurchaseOrder:messages" />
+
+                        <p:column headerText="Item/Service" style="width: 80%">
+                            <p:cellEditor>                                
+                                <f:facet name="output"><h:outputText value="#{item.itemService}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{item.itemService}" style="width:100%" label="Item/Service"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>              
+
+                        <p:column id="budget" headerText="Quantity">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.quantity}" /></f:facet>
+                                <f:facet name="input"><p:inputNumber value="#{item.quantity}" style="width:100%" label="Quantity"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>               
+
+                        <p:column headerText="Est. Unit Price">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.estUnitPrice}" /></f:facet>
+                                <f:facet name="input"><p:inputNumber value="#{item.estUnitPrice}" style="width:100%" label="Year"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Est. Amount">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.estAmount}" /></f:facet>
+                                <f:facet name="input"><p:inputNumber value="#{item.estAmount}" style="width:100%" label="Year"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column style="width:35px">
+                            <p:rowEditor />
+                        </p:column>
+                    </p:dataTable>
+
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Save" action="#{purchaseOrderController.savePurchaseInvoice()}">
+                        
+                                                                            
+                    </p:commandButton>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

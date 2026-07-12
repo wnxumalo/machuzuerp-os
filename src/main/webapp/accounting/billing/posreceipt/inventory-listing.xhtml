@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Point of Sale</h1>
+                
+                <h:form id="printReceiptForm" styleClass="ui-fluid">
+                    <p:dialog header="Print Receipt" id="dlgPrintReceipt" width="200" height="200" widgetVar="dlgPrintReceipt" resizable="false" position="" appendTo="@(dialog)">                        
+                        <h:panelGrid columns="1" cellpadding="2" id="printGrid">                                                                                            
+
+                            <p:commandButton id="posPrinter" value="Print" type="button" icon="pi pi-print" styleClass="p-d-block p-shadow-2 p-mb-3" onclick="PF('dlgPrintReceipt').hide()" update=":frmPOS:inventoryDT :frmPOS:growl :frmPOS:pnlAddedItems" >
+                                <f:ajax execute="@this"/>
+                                <p:printer target=":frmPOS:pnlAddedItems" />
+                            </p:commandButton>
+
+                            <p:commandButton actionListener="#{inventoryData.clearPOSInventory()}" value="Cancel" onclick="PF('dlgPrintReceipt').hide()" update=":frmPOS:inventoryDT :frmPOS:growl :frmPOS:pnlAddedItems" />                                  
+
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="addExpiredInventoryForm" styleClass="ui-fluid">
+                    <p:dialog header="Possibly Expired Inventory" id="dlgAddExpiredInventoryForm" width="200" height="200" widgetVar="AddExpiredInventoryForm" modal="true" resizable="false" appendTo="@(dialog)" position="">
+                        <h:panelGrid columns="1" cellpadding="2" id="printGrid">
+                            <p:outputLabel value="SKU Number #{inventoryData.SKUNumber} stock has expired" style="color: #F03030; font-weight: bolder;"/>
+                            <p:outputLabel value="Kindly check the item you are selling before releasing to customer"/>
+                            <p:outputLabel value="Continue Selling Possibly Expired Inventory?" style="color: #F03030; font-weight: bolder;"/>
+                            <p:commandButton value="Yes" action="#{inventoryData.deductStock()}" update=":frmPOS" onclick="PF('dlgAddExpiredInventoryForm').hide()" />
+                            <p:commandButton value="No" onclick="PF('dlgAddExpiredInventoryForm').hide()"/>                                  
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="showChangeForm" styleClass="ui-fluid">
+                    <p:dialog header="Change" id="dlgShowChange" widgetVar="dlgShowChange" width="200" height="100" resizable="false" position="" appendTo="@(dialog)">
+                        <h:panelGrid columns="1" cellpadding="2" id="changeGrid">
+                            <center>
+                                <h1><p:outputLabel value="CHANGE" style="font-weight: bolder; font-size: 18pt;"/></h1><br/>
+                                <h3><p:outputLabel value="#{inventoryData.showChange}" style="color: red; font-weight: bolder; font-size: 14pt;"/></h3>
+                                <p:commandButton value="Close" onclick="PF('dlgShowChange').hide()"/>                                  
+                            </center>                            
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+
+                <h:form id="frmPOS" styleClass="ui-fluid" onkeypress="if (event.keyCode === 13) {#{inventoryData.onBarcodeChange()}}">
+                <!--h:form id="frmPOS" styleClass="ui-fluid" onkeypress="if (event.keyCode === 13) {'#wvInventoryDT.selectRow(1)'}"-->
+
+                    <p:focus context="inventoryDT:filterCode"/>
+                    <p:growl id="growl" showDetail="true">
+                        <p:autoUpdate />
+                    </p:growl>                    
+                    <p:panel id="fEmpDlgPanel" header="Select Customer" style="font-size: 18px; font-weight: bolder;">
+
+                        <!--p>
+                            <p:inputText id="itIDNumber" value="#{inventoryData.client}" placeholder="ID Number">
+                                <p:ajax process="frmPOS" event="change" listener="#{inventoryData.onClientSelect(inventoryData.client)}" update=":frmPOS:somClient"/>
+                            </p:inputText>
+                        </p-->
+
+                        <h:selectOneMenu id="somClient" value="#{inventoryData.client}" style="font-size: 14px;">
+                            <p:ajax event="change" listener="#{inventoryData.onClientSelect(inventoryData.client)}" update="pnlAddedItems"/>
+                            <f:selectItems value="#{clientsBean.clients}" var="client" 
+                                           itemValue="#{client.id},#{client.name}"
+                                           itemLabel=" #{client.id}: #{client.name}"/>
+                        </h:selectOneMenu>
+
+                        <p:selectOneRadio id="payment" value="#{receipt.cashPayment}">
+                            <f:selectItem itemLabel="Cash" itemValue="Cash"/>
+                            <f:selectItem itemLabel="Credit" itemValue="Credit"/>
+                            <f:selectItem itemLabel="Debit" itemValue="Debit"/>
+                            <f:selectItem itemLabel="Gift Card" itemValue="Gift Card"/>
+                        </p:selectOneRadio>
+
+                    </p:panel>
+
+                    <p:panel id="pnlInv" header="Select Inventory">
+                      
+                        <p><p:outputLabel value="QUANTITY: " style="color: #C00;" /><p:inputText id="itQty" value="#{inventoryData.quantity}" style="color: #C00;"/></p>
+                        <p:dataTable id="inventoryDT" widgetVar="wvInventoryDT" var="inv" value="#{inventoryData.allInventory}" selectionMode="single" selection="#{inventoryData.selectedPOSInventory}" rowKey="#{inv.recNum}" paginator="true" rows="10">
+                            <p:ajax process="frmPOS" event="rowSelect" listener="#{inventoryData.onRowSelectPOS(event)}" update=":frmPOS inventoryDT :addExpiredInventoryForm"/>
+
+                            <p:column id="filterCode" filterBy="#{inv.code}" style="width:20%; color: #C00;"  >
+                                <f:facet name="header">
+                                    <h:outputText value="Code" />
+                                </f:facet>                       
+                                <h:outputText id="invCode" value="#{inv.code}" />                                
+                            </p:column>                        
+                            <p:column filterBy="#{inv.description}" style="width:70%; color: #C00;">
+                                <f:facet name="header">
+                                    <h:outputText value="Description" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{inv.description}" />                             
+                            </p:column>  
+                            <p:column style="width:2.5%;">
+                                <f:facet name="header">
+                                    <h:outputText value="Selling Price" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{inv.sellingPrice}" />                                
+                            </p:column>                            
+                            <p:column style="width:2.5%;">
+                                <f:facet name="header">
+                                    <h:outputText value="Size" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{inv.size}" />                                
+                            </p:column>
+                            <p:column style="width:5%;">
+                                <f:facet name="header">
+                                    <h:outputText value="Available" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{inv.atHand}" />                                
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>                                        
+
+                    <p:panel header="POS Receipt" id="pnlAddedItems" style="font-size: 18px; font-weight: bolder;">
+                        <p:outputLabel value="Print Out" style="color: #C00; font-weight: bolder; margin-left: 10px;" /><p:selectBooleanCheckbox value="#{inventoryData.printReceipt}" />
+                        <table>
+                            <tr><td colspan="5"><p><h:outputLabel value="Customer: #{inventoryData.client}"/></p></td></tr>
+                            <tr><td>Payment Method: #{receipt.cashPayment}</td></tr>
+                            <th width="20%;" style="font-size: 12px; font-weight: bolder;">Code</th><th width="70%" style="font-size: 12px; font-weight: bolder;">Description</th><th width="%5;" style="font-size: 12px; font-weight: bolder;">Quantity</th><th width="5%;" style="font-size: 12px; font-weight: bolder;">Price</th><th width="10%;" style="font-size: 12px; font-weight: bolder;">Amount</th><th width="10%;" style="font-size: 12px; font-weight: bolder;">Available</th>
+                            <ui:repeat var="items" value="#{inventoryData.POSInventory}" id="repeatAddedItems">
+                                <tr style="font-size: 12px; color: #2D3C46;" align="center"><td><h:outputText value="#{items.code}" /></td><td><h:outputText value="#{items.description}" /></td><td><h:outputText value="#{items.quantity}" /></td><td><h:outputText value="#{items.cost}" /></td><td><h:outputText value="#{items.sellingPrice}" /></td><td><h:outputText value="#{items.atHand}" /></td></tr>
+                            </ui:repeat>
+                            <tr style="font-size: 12px; color: #2D3C46;" align="center"><td><h:outputText value="" /></td><td><h:outputText value="" /></td><td><h:outputText value="" /></td><td><h:outputText value="" /></td><td><h:outputText value="" /></td></tr>
+                            <tr style="font-size: 12px; color: #2D3C46;" align="center"><td><h:outputText value="" /></td><td><h:outputText value="" /></td><td><h:outputText value="" /></td><td><h:outputText value="" /></td><td><h:outputText value="#{inventoryData.total}" style="font-weight: bolder;" /></td></tr>
+                            <tr><td><p:outputLabel value="TAX: " style="color: #C00; font-weight: bolder;"/></td><td><p:outputLabel id="lblTax" value="#{inventoryData.tax}" style="color: #C00; font-weight: bolder;"/></td></tr>
+                            <tr><td><p:outputLabel value="SUB TOTAL: " style="color: #F03030; font-weight: bolder;"/></td><td><p:outputLabel id="lblSubCost" value="#{inventoryData.total}" style="color: #F03030; font-weight: bolder;"/></td></tr>                            
+                            <tr><td><p:outputLabel value="GRAND TOTAL: " style="color: #F03030; font-weight: bolder;"/></td><td><p:outputLabel id="lblTotCost" value="#{inventoryData.totCost}" style="color: #F03030; font-weight: bolder;"/></td></tr>                            
+                        </table>
+                    </p:panel>
+                </h:form>
+                <h:form id="frmAmtPaid">
+                    <p:outputLabel value="RECEIVED: " style="color: #000000; font-weight: bolder;"/><br/>
+                    <p:inputText id="amtPaid" value="#{inventoryData.amountPaid}" style="color: #000000; font-weight: bolder;"/><br/>
+                    <p:commandButton action="#{inventoryData.posComplete(inventoryData.POSInventory, inventoryData.client, receipt.cashPayment, session)}" value="Save" style="width: 100%;" update=":frmPOS:inventoryDT :frmPOS:growl :frmPOS:pnlAddedItems :frmPOS:fEmpDlgPanel :showChangeForm:changeGrid amtPaid">
+                        <f:param name="cID" value="#{receipt.CID}" />
+                        <f:param name="cName" value="#{receipt.CName}" />
+                        <f:param name="cSurname" value="#{receipt.CSurname}" />
+                        <f:param name="tel" value="#{receipt.tel}" />
+                        <f:param name="cell" value="#{receipt.cell}" />
+                        <f:param name="fax" value="#{receipt.fax}" />
+                        <f:param name="posAdd" value="#{receipt.posAdd}" />
+                        <f:param name="physAdd" value="#{receipt.physAdd}" /> 
+                        <f:param name="email" value="#{receipt.email}" />                                    
+                        <f:param name="vatNum" value="#{receipt.vatNum}" /> 
+                    </p:commandButton>
+
+                </h:form>
+
+                <h:form id="frmClear" styleClass="ui-fluid">
+                    <p:commandButton id="clearItems" action="#{inventoryData.clearPOSInventory()}" value="Clear" update=":frmPOS:inventoryDT :frmPOS:growl :frmPOS:pnlAddedItems"  style="width: 100%; color: #C00;" />
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

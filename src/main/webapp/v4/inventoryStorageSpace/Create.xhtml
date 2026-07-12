@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InventoryStorageSpaceCreateDlg" widgetVar="InventoryStorageSpaceCreateDialog" modal="true" resizable="false" appendTo="@(dialog)" header="Create Inventory Storage Space">
+            <h:form id="InventoryStorageSpaceCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Description" for="description" />
+                        <p:inputText id="description" value="#{inventoryStorageSpaceController.selected.description}" title="#{bundle.CreateInventoryStorageSpaceTitle_description}" required="true" />
+                        <p:outputLabel value="Type" for="type" />
+                        <p:selectOneMenu id="type" value="#{inventoryStorageSpaceController.selected.type}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Static" itemValue="Static" />
+                            <f:selectItem itemLabel="Dynamic" itemValue="Dynamic" />                            
+                            <f:selectItem itemLabel="Pallet Racking" itemValue="Pallet Racking" />                            
+                            <f:selectItem itemLabel="Shelving Systems" itemValue="Shelving Systems" />                            
+                            <f:selectItem itemLabel="Mobile" itemValue="Mobile" />                            
+                            <f:selectItem itemLabel="Automated Storage and Retrieval Systems (AS/RS)" itemValue="Automated Storage and Retrieval Systems (AS/RS)" />                            
+                            <f:selectItem itemLabel="Cold" itemValue="Cold" />
+                            <f:selectItem itemLabel="Hazardous Material" itemValue="Hazardous Material" />
+                            <f:selectItem itemLabel="Bulk" itemValue="Bulk" />
+                            <f:selectItem itemLabel="Cross-Docking" itemValue="Cross-Docking" />
+                            <f:selectItem itemLabel="Mezzanine" itemValue="Mezzanine" />
+                        </p:selectOneMenu>                        
+                        <p:outputLabel value="Total Area (sqm)" for="totalArea" />
+                        <p:inputNumber id="totalArea" value="#{inventoryStorageSpaceController.selected.totalArea}" title="#{bundle.CreateInventoryStorageSpaceTitle_totalArea}" required="true" />
+                        <p:outputLabel value="Occupied Area (sqm)" for="occupiedArea" />
+                        <p:inputNumber id="occupiedArea" value="#{inventoryStorageSpaceController.selected.occupiedArea}" title="#{bundle.CreateInventoryStorageSpaceTitle_occupiedArea}" required="true" />
+                        <p:outputLabel value="Available Area (sqm)" for="availableArea" />
+                        <p:inputNumber id="availableArea" value="#{inventoryStorageSpaceController.selected.availableArea}" title="#{bundle.CreateInventoryStorageSpaceTitle_availableArea}" required="true" />
+                        <p:outputLabel value="Racking Type" for="rackingType" />
+                        <p:selectOneMenu id="rackingType" value="#{inventoryStorageSpaceController.selected.rackingType}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Selective" itemValue="Selective" />
+                            <f:selectItem itemLabel="Drive-In" itemValue="Drive-In" />                            
+                            <f:selectItem itemLabel="Drive-Through" itemValue="Drive-Through" />                            
+                            <f:selectItem itemLabel="Push Back" itemValue="Push Back" />                            
+                            <f:selectItem itemLabel="Flow Racking" itemValue="Flow Racking" />                            
+                            <f:selectItem itemLabel="Pallet Flow" itemValue="Pallet Flow" />                            
+                            <f:selectItem itemLabel="Cantilever" itemValue="Cantilever" />
+                            <f:selectItem itemLabel="Mezzanine" itemValue="Mezzanine" />
+                            <f:selectItem itemLabel="Mobile" itemValue="Mobile" />
+                            <f:selectItem itemLabel="Multi-Tier" itemValue="Multi-Tier" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Racking Capacity" for="rackingCapacity" />
+                        <p:inputNumber id="rackingCapacity" value="#{inventoryStorageSpaceController.selected.rackingCapacity}" title="#{bundle.CreateInventoryStorageSpaceTitle_rackingCapacity}" required="true" />
+                        <p:outputLabel value="Utilised Capacity" for="utilizedCapacity" />
+                        <p:inputNumber id="utilizedCapacity" value="#{inventoryStorageSpaceController.selected.utilizedCapacity}" title="#{bundle.CreateInventoryStorageSpaceTitle_utilizedCapacity}" required="true" />
+                        <p:outputLabel value="Access Type" for="accessType" />
+                        <p:selectOneMenu id="accessType" value="#{inventoryStorageSpaceController.selected.accessType}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Direct" itemValue="Direct" />
+                            <f:selectItem itemLabel="Indirect" itemValue="Indirect" />                            
+                            <f:selectItem itemLabel="FIFO (First In, First Out)" itemValue="FIFO (First In, First Out)" />                            
+                            <f:selectItem itemLabel="LIFO (Last In, First Out)" itemValue="LIFO (Last In, First Out)" />                            
+                            <f:selectItem itemLabel="Batch Picking" itemValue="Batch Picking" />                            
+                            <f:selectItem itemLabel="Single Order Picking" itemValue="Single Order Picking" />                            
+                            <f:selectItem itemLabel="Zone Picking" itemValue="Zone Picking" />
+                            <f:selectItem itemLabel="Wave Picking" itemValue="Wave Picking" />
+                            <f:selectItem itemLabel="Automated" itemValue="Automated" />
+                            <f:selectItem itemLabel="Mobile" itemValue="Mobile" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Accessibility Score" for="accessibilityScore" />
+                        <p:selectManyMenu id="accessibilityScore" value="#{inventoryStorageSpaceController.accessibilityScore}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Location (25)" itemValue="Location (25)" />
+                            <f:selectItem itemLabel="Aisle Width (15)" itemValue="Aisle Width (15)" />                            
+                            <f:selectItem itemLabel="Storage Height (15)" itemValue="Storage Height (15)" />                            
+                            <f:selectItem itemLabel="Picking Method (15)" itemValue="Picking Method (15)" />                            
+                            <f:selectItem itemLabel="Inventory Turnover Rate (10)" itemValue="Inventory Turnover Rate (10)" />                            
+                            <f:selectItem itemLabel="Technology Integration (10)" itemValue="Technology Integration (10)" />                            
+                            <f:selectItem itemLabel="Training and Staffing (10)" itemValue="Training and Staffing (10)" />
+                            <f:selectItem itemLabel="Safety Considerations (5)" itemValue="Safety Considerations (5)" />
+                        </p:selectManyMenu>
+                        <p:outputLabel value="Accessibility Total Score" for="accessibilityTotalScore" />
+                        <p:inputNumber id="accessibilityTotalScore" value="#{inventoryStorageSpaceController.selected.accessibilityTotalScore}" required="true" />
+                        <p:outputLabel value="Temperature Requirements" for="temperatureRequirements" />
+                        <p:selectOneMenu id="temperatureRequirements" value="#{inventoryStorageSpaceController.selected.temperatureRequirements}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Ambient Temperature Storage (15°C to 25°C)" itemValue="Ambient Temperature Storage (15°C to 25°C)" />
+                            <f:selectItem itemLabel="Refrigerated Storage (0°C to 4°C)" itemValue="Refrigerated Storage (0°C to 4°C)" />                            
+                            <f:selectItem itemLabel="Frozen Storage (-18°C)" itemValue="Frozen Storage (-18°C)" />                            
+                            <f:selectItem itemLabel="Controlled Temperature Storage" itemValue="Controlled Temperature Storage" />                            
+                            <f:selectItem itemLabel="Cryogenic Storage" itemValue="Cryogenic Storage" />                            
+                            <f:selectItem itemLabel="Heat-Sensitive Storage" itemValue="Heat-Sensitive Storage" />                            
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Security Level" for="securityLevel" />
+                        <p:selectOneMenu id="securityLevel" value="#{inventoryStorageSpaceController.selected.securityLevel}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Basic Security" itemValue="Basic Security" />
+                            <f:selectItem itemLabel="Enhanced Security" itemValue="Enhanced Security" />                            
+                            <f:selectItem itemLabel="High Security" itemValue="High Security" />                            
+                            <f:selectItem itemLabel="Controlled Access" itemValue="Controlled Access" />                            
+                            <f:selectItem itemLabel="Secure Vaults/Rooms" itemValue="Secure Vaults/Rooms" />                            
+                            <f:selectItem itemLabel="Cybersecurity Measures" itemValue="Cybersecurity Measures" />                            
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Last Optimised" for="lastOptimized" />
+                        <p:calendar id="lastOptimized" pattern="MM/dd/yyyy" value="#{inventoryStorageSpaceController.selected.lastOptimized}" title="Last Optimised"  showOn="button"/>
+                        <p:outputLabel value="Responsible Manager" for="responsibleManager" />
+                        <h:selectOneMenu id="responsibleManager" value="#{inventoryStorageSpaceController.selected.responsibleManager}">
+                            <f:selectItems value="#{employeeController.items}" var="emp"
+                                       itemValue="#{emp.id}"
+                                       itemLabel="#{emp.empName} #{emp.surname}"/>
+                        </h:selectOneMenu>
+                        <p:outputLabel value="Implementation Date" for="implementationDate" />
+                        <p:calendar id="implementationDate" pattern="MM/dd/yyyy" value="#{inventoryStorageSpaceController.selected.implementationDate}" title="Implementation Date"  showOn="button"/>
+                        <p:outputLabel value="Status" for="status" />
+                        <p:selectOneMenu id="status" value="#{inventoryStorageSpaceController.selected.status}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="In Stock" itemValue="In Stock" />
+                            <f:selectItem itemLabel="Out of Stock" itemValue="Out of Stock" />                            
+                            <f:selectItem itemLabel="Backordered" itemValue="Backordered" />                            
+                            <f:selectItem itemLabel="Reserved" itemValue="Reserved" />                            
+                            <f:selectItem itemLabel="Damaged" itemValue="Damaged" />                            
+                            <f:selectItem itemLabel="Expired" itemValue="Expired" />                            
+                            <f:selectItem itemLabel="In Transit" itemValue="In Transit" />
+                            <f:selectItem itemLabel="Quarantined" itemValue="Quarantined" />
+                            <f:selectItem itemLabel="Allocated" itemValue="Allocated" />
+                            <f:selectItem itemLabel="Returned" itemValue="Returned" />
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{inventoryStorageSpaceController.create(inventoryStorageController.selected.id)}" value="#{bundle.Save}" update="display,:storageSpaceForm:inventoryStorageSpaceDatalist,:growl"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InventoryStorageSpaceCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

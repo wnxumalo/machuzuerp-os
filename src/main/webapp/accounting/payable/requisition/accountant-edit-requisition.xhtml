@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Edit Purchase Requisition</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:messages id="messages" showDetail="true" closable="true" />                    
+                    
+                    <h:panelGrid columns="2">      
+                        <h:outputText value="Record #" />
+                        <h:inputText value=" #{requisitionData.recnum}" readonly="true" />
+                        <h:outputText value="Date" />
+                        <p:calendar id="pDate" value="#{requisitionData.requestDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" readonly="true" />                 
+                        <h:outputText value="Requested Delivery Date" />
+                        <p:calendar value="#{requisitionData.requestedDeliveryDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" readonly="true" />
+                        <h:outputText value="Deliver To" />
+                        <p:inputText value="#{requisitionData.deliverTo}" readonly="true"/>                        
+                        <h:outputText value="Requestors Name" />
+                        <p:inputText value="#{requisitionData.requestorName}" readonly="true" />
+                        <h:outputText value="Accounts Manager Name" />
+                        <h:inputText value="#{requisitionData.accountsManagerName}" />
+                        <h:outputText value="Available Funds" />
+                        <p:inputText value="#{requisitionData.availableFunds}" style="width:350px"/>
+                        <h:outputText value="Accounting Data"/>
+                        <p:inputText value="#{requisitionData.accountingData}" style="width:350px"/>
+                        <h:outputText value="Approver Name" rendered="false"/>
+                        <p:inputText value="#{requisitionData.approverName}"  style="width:350px" rendered="false"/>
+                        <h:outputText value="Approver Job Title" rendered="false" />
+                        <p:inputText value="#{requisitionData.approverJobTitle}"  style="width:350px" rendered="false"/>
+                        <h:outputText value="Approval Date"  rendered="false"/>
+                        <p:calendar id="aDate" value="#{requisitionData.approvalDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" rendered="false" />   
+                        <h:outputText value="Remarks" />
+                        <p:inputTextarea value="#{requisitionData.remarks}"  style="width:100%"/>                        
+                    </h:panelGrid><br></br>
+                    <p:dataTable id="rItems" var="item" value="#{requisitionData.requisitionItems}" editable="true" style="margin-bottom:20px">
+                        <f:facet name="header">
+                            REQUISITION ITEMS
+                        </f:facet>        
+                        
+                        <p:ajax event="rowEdit" listener="#{requisition.onRowEdit}" update=":form:messages" />
+                        <p:ajax event="rowEditCancel" listener="#{requisition.onRowCancel}" update=":form:messages" />
+
+                        <p:column headerText="Item/Service" style="width: 80%">
+                            <p:cellEditor>                                
+                                <f:facet name="output"><h:outputText value="#{item.itemService}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{item.itemService}" style="width:100%" label="Item/Service"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>              
+
+                        <p:column id="budget" headerText="Quantity">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.quantity}" /></f:facet>
+                                <f:facet name="input"><p:inputNumber value="#{item.quantity}" style="width:100%" label="Quantity"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>               
+
+                        <p:column headerText="Est. Unit Price">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.estUnitPrice}" /></f:facet>
+                                <f:facet name="input"><p:inputNumber value="#{item.estUnitPrice}" style="width:100%" label="Year"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        
+                        <p:column style="width:35px">
+                            <p:rowEditor />
+                        </p:column>
+                    </p:dataTable>
+
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Save" action="#{requisitionData.editRequisition()}">
+                        
+                                                       
+                    </p:commandButton>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

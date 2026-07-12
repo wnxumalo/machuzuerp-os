@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmployeeTrainingViewDlg" widgetVar="EmployeeTrainingViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEmployeeTrainingTitle}">
+            <h:form id="EmployeeTrainingViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{employeeTrainingController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEmployeeTrainingLabel_id}"/>
+                        <h:outputText value="#{employeeTrainingController.selected.id}" title="#{bundle.ViewEmployeeTrainingTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewEmployeeTrainingLabel_description}"/>
+                        <h:outputText value="#{employeeTrainingController.selected.description}" title="#{bundle.ViewEmployeeTrainingTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewEmployeeTrainingLabel_outputs}"/>
+                        <h:outputText value="#{employeeTrainingController.selected.outputs}" title="#{bundle.ViewEmployeeTrainingTitle_outputs}"/>
+                        <h:outputText value="#{bundle.ViewEmployeeTrainingLabel_employeeId}"/>
+                        <h:outputText value="#{employeeTrainingController.selected.employeeId}" title="#{bundle.ViewEmployeeTrainingTitle_employeeId}"/>
+                        <h:outputText value="#{bundle.ViewEmployeeTrainingLabel_startDate}"/>
+                        <h:outputText value="#{employeeTrainingController.selected.startDate}" title="#{bundle.ViewEmployeeTrainingTitle_startDate}"/>
+                        <h:outputText value="#{bundle.ViewEmployeeTrainingLabel_endDate}"/>
+                        <h:outputText value="#{employeeTrainingController.selected.endDate}" title="#{bundle.ViewEmployeeTrainingTitle_endDate}"/>
+                        <h:outputText value="#{bundle.ViewEmployeeTrainingLabel_status}"/>
+                        <h:outputText value="#{employeeTrainingController.selected.status}" title="#{bundle.ViewEmployeeTrainingTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewEmployeeTrainingLabel_comments}"/>
+                        <h:outputText value="#{employeeTrainingController.selected.comments}" title="#{bundle.ViewEmployeeTrainingTitle_comments}"/>
+                        <h:outputText value="#{bundle.ViewEmployeeTrainingLabel_creationDate}"/>
+                        <h:outputText value="#{employeeTrainingController.selected.creationDate}" title="#{bundle.ViewEmployeeTrainingTitle_creationDate}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EmployeeTrainingViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

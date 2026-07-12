@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InventoryCreateDlg" widgetVar="InventoryCreateDialog" modal="true" resizable="false" appendTo="@(dialog)" header="Create" styleClass="ui-fluid">
+            <h:form id="InventoryCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4">
+                    <h:outputLabel value="Code" for="code" />
+                    <h:inputText id="code" value="#{inventoryController.current.code}" title="#{bundle.CreateInventoryTitle_code}" />
+                    <h:outputLabel value="Description" for="description" />
+                    <h:inputText id="description" value="#{inventoryController.current.description}" title="#{bundle.CreateInventoryTitle_description}" />
+                    <h:outputLabel value="Client" for="clientId" />
+                    <h:selectOneMenu id="clientId" value="#{inventoryController.current.clientId}">
+                        <f:selectItems value="#{clientsBean.clients}" var="clnt"
+                                       itemValue="#{clnt.id}"
+                                       itemLabel="#{clnt.id} - #{clnt.name}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="Cost" for="cost" />
+                    <h:inputText id="cost" value="#{inventoryController.current.cost}" title="#{bundle.CreateInventoryTitle_cost}">
+                        <p:ajax listener="#{inventoryController.onCostExit(inventoryController.current.cost)}"/>
+                    </h:inputText>
+                    <h:outputLabel value="Markup" for="markup" />
+                    <h:inputText id="markup" value="#{inventoryController.current.markup}" title="#{bundle.CreateInventoryTitle_markup}">
+                        <p:ajax listener="#{inventoryController.onSellingPriceEnter(inventoryController.current.markup)}" update="sellingPrice"/>
+                    </h:inputText>                                       
+                    <h:outputLabel value="Selling Price" for="sellingPrice" />
+                    <h:inputText id="sellingPrice" value="#{inventoryController.current.sellingPrice}" title="#{bundle.CreateInventoryTitle_sellingPrice}"/>                        
+                    <h:outputLabel value="Re-order Level" for="reorderLevel" />
+                    <h:inputText id="reorderLevel" value="#{inventoryController.current.reorderLevel}" title="#{bundle.CreateInventoryTitle_reorderLevel}" />                    
+                    <h:outputLabel value="At Hand" for="atHand" />
+                    <h:inputText id="atHand" value="#{inventoryController.current.atHand}" title="#{bundle.CreateInventoryTitle_atHand}" />
+                    <h:outputLabel value="Size" for="size" />
+                    <h:inputText id="size" value="#{inventoryController.current.size}" title="#{bundle.CreateInventoryTitle_size}" />
+                    <h:outputLabel value="Color" for="color" />
+                    <h:inputText id="color" value="#{inventoryController.current.color}" title="#{bundle.CreateInventoryTitle_color}" />                    
+                    <h:outputLabel value="Status" for="status" />
+                    <h:selectOneMenu id="Status" value="#{inventoryController.current.status}" style="width:125px" required="true">
+                        <f:selectItem itemLabel="Select Status" itemValue="" />
+                        <f:selectItem itemLabel="Active" itemValue="Active" />
+                        <f:selectItem itemLabel="Inactive" itemValue="Inactive" />                            
+                    </h:selectOneMenu>
+                    <br></br>
+                </p:panelGrid>
+                
+                    <p:commandButton actionListener="#{inventoryController.create()}" value="Save" update="display :InventoryListForm " />
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

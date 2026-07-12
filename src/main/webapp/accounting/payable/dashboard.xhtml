@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Accounts Payable</h1>                
+                <p>
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+
+                    <h:form id="frmNewPayableDashboardItem" styleClass="ui-fluid">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <p:selectOneMenu id="Type" value="#{menuNavigation.navOption}" style="width:125px" required="true">
+                            <f:selectItem itemLabel="Select Module" itemValue="" />
+                            <f:selectItem itemLabel="Requisition From Reorder Level" itemValue="ReorderRequisition" />
+                            <f:selectItem itemLabel="Requisition" itemValue="Requisition" />
+                            <f:selectItem itemLabel="Purchase Order" itemValue="Purchase Order" />                              
+                            <f:selectItem itemLabel="Delivery Note" itemValue="Delivery Note" />  
+                            <f:selectItem itemLabel="Purchase Invoice" itemValue="Purchase Invoice" />  
+                        </p:selectOneMenu>
+                        <p:commandButton icon="ui-icon-plus"  value="Create" action="#{menuNavigation.navPayable(session)}">
+                            
+                            
+                        </p:commandButton>                        
+                    </h:form>
+                </p>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p>
+                        <p:fieldset id="fsFilter" legend="Filter">
+
+                            <p>
+                        <h:panelGrid columns="5" cellpadding="2" >
+                            <h:outputText value="From"/>
+                            <p:calendar id="startDate" value="#{menuNavigation.dateFrom}" binding="#{dFrom}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                            <h:outputText value="To"/>
+                            <p:calendar id="endDate" value="#{menuNavigation.dateTo}" binding="#{dTo}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                        </h:panelGrid>
+                    </p>
+
+                            <h:panelGrid columns="18">
+                                <p:commandButton value="Requisition" icon="ui-icon-search" action="#{requisitionData.findRequisition(dFrom.value, dTo.value)}">
+                                    
+                                    
+                                </p:commandButton>                               
+                                &nbsp;
+                                <p:commandButton value="Purchase Order" icon="ui-icon-search" action="#{purchaseOrderController.getPurchaseOrdersByDate(dFrom.value, dTo.value)}">
+                                    
+                                    
+                                </p:commandButton>                                
+                                &nbsp;
+                                <p:commandButton value="Debit Note" icon="ui-icon-search" action="#{debitNote.searchDebitNote(dFrom.value, dTo.value)}">
+                                    
+                                    
+                                </p:commandButton>
+                                 &nbsp;
+                                 <p:commandButton value="Delivery Note" icon="ui-icon-search" action="#{deliveryNote.searchDeliveryNote(dFrom.value, dTo.value)}">
+                                    
+                                    
+                                </p:commandButton>                                                                 
+                                 &nbsp;
+                                <p:commandButton value="Purchase Invoice" icon="ui-icon-search" action="#{purchaseOrderOld.findPurchaseInvoice(dFrom.value, dTo.value)}">
+                                    
+                                    
+                                </p:commandButton>
+                                 &nbsp;
+                                 
+                            </h:panelGrid> 
+                        </p:fieldset>
+                    </p>
+                </h:form>                
+                <h:form id="db" styleClass="ui-fluid">  
+
+                    <p>                        
+                        <p:panelGrid columns="1" style="width: 100%;" id="stakeholderDash">
+                            <!--p:chart type="line" model="#{accountingDashboard.totRevenueExpenditure}" /-->
+                        </p:panelGrid>
+                    </p>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

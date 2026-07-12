@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Sales Order - Saved</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:commandButton value="Print" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                        <p:printer target="fsSalesOrder" />
+                    </p:commandButton> 
+
+                    <div align="right">
+                        <p:button value="Back To Dashboard" outcome="#{login.accountsReceivable()}">
+                            
+                            
+                        </p:button> &nbsp;&nbsp;                                 
+                        <br></br><br></br>
+                    </div>
+
+                    <p:fieldset id="fsSalesOrder" legend="Sales Order" style="font-size:20px;">
+                        
+                        <div align="left">
+                        <p:outputPanel style="font-size:20px;font-family:Tahoma;border-bottom: solid;">                                        
+                            <h:outputText value="#{salesOrder.orgName}" style="font-size:30px;"/><br></br>
+                            <h:outputText value="VAT NUMBER: #{salesOrder.orgNumber}"/><br></br><br></br>
+                            <h:outputText value="#{salesOrder.orgTel}"/><br></br>
+                            <h:outputText value="#{salesOrder.orgFax}"/><br></br>
+                            <h:outputText value="#{salesOrder.orgEmail}"/><br></br>
+                            <h:outputText value="#{salesOrder.orgPosAdd}"/><br></br>
+                            <h:outputText value="#{salesOrder.orgPhysAdd}"/><br></br>                                        
+                        </p:outputPanel><br></br>
+
+                        <h:panelGrid columns="2" cellpadding="2" style="width:100%;">  
+                            <h:outputText value="Sales Order Number" style="font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{salesOrder.recNum}"/>                                        
+                            <h:outputText value="Date" style="font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{salesOrder.IDate}"/>                            
+                        </h:panelGrid><br></br>
+
+                        <h:outputLabel value="Stakeholder Details " style="color:#999999;font-weight:bold;font-family:Calibri;font-size:25px"/><br></br>
+                        <h:panelGrid columns="2" cellpadding="2">                                 
+                            <h:outputLabel for="cID" value="#" style="font-weight:bold"/><h:outputText id="cID" value="#{salesOrder.CID}"/>                                    
+                            <h:outputLabel for="vatNum" value="VAT Number" style="font-weight:bold;font-size:16px;width:400px"/><h:outputText id="vatNum" value="#{salesOrder.vatNum}" style="font-size:15px;"/>                                                                            
+                            <h:outputLabel for="name" value="Name" style="font-weight:bold"/><h:outputText id="name" value="#{salesOrder.CName}"/>                                    
+                            <h:outputLabel for="surname" value="Surname" style="font-weight:bold" /><h:outputText id="surname" value="#{salesOrder.CSurname}"/>                                                                   
+                            <h:outputLabel for="tel" value="Telephone" style="font-weight:bold" /><h:outputText id="tel" value="#{salesOrder.tel}"/>                                    
+                            <h:outputLabel for="cell" value="Cellphone" style="font-weight:bold" /><h:outputText id="cell" value="#{salesOrder.cell}"/>                                   
+                            <h:outputLabel for="fax" value="Fax" style="font-weight:bold" /><h:outputText id="fax" value="#{salesOrder.fax}"/>                                   
+                            <h:outputLabel for="email" value="email" style="font-weight:bold" /><h:outputText id="email" value="#{salesOrder.email}"/>                                   
+                            <h:outputLabel for="posAdd" value="Postal Address" style="font-weight:bold" /><h:outputText id="posAdd" value="#{salesOrder.posAdd}"/>                                  
+                            <h:outputLabel for="physAdd" value="Physical Address" style="font-weight:bold" /><h:outputText id="physAdd" value="#{salesOrder.physAdd}"/>
+                        </h:panelGrid><br></br>
+                        <h:outputLabel for="outputServices" value="" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:17px"/><br></br>                            
+                        <p:outputPanel id="outputServices">
+                            <table width="100%" align="center">
+                                <th>#</th><th>Description</th><th>Qty</th><th>Price</th><th>Amount</th>
+                                <ui:repeat value="#{salesOrder.selectedServs}" var="svs">                                   
+                                    <tr align="center">
+                                        <td><h:outputText value="#{svs.recNum}" style="display:block;width:50px"/></td>
+                                        <td><h:outputText value="#{svs.description}" style="display:block;width:100%"/></td>
+                                        <td><h:outputText value="#{svs.qty}" style="display:block;width:50px"/></td>
+                                        <td><h:outputText value="#{svs.cost}" style="display:block;width:100px"/></td>
+                                        <td><h:outputText value="#{svs.totCost}" style="display:block;width:100px"/></td>
+                                    </tr>
+                                </ui:repeat> 
+
+                                <ui:repeat value="#{salesOrder.selectedInvs}" var="invs">
+                                    <tr align="center">
+                                        <td><h:outputText value="#{invs.recNum}" style="display:block;width:50px"/></td>
+                                        <td><h:outputText value="#{invs.description}" style="display:block;width:100%"/></td>
+                                        <td><h:outputText value="#{invs.quantity}" style="display:block;width:50px"/></td>
+                                        <td><h:outputText value="#{invs.sellingPrice}" style="display:block;width:100px"/></td>
+                                        <td><h:outputText value="#{invs.totCost}" style="display:block;width:100px"/></td>
+                                    </tr>
+                                </ui:repeat>
+                            </table>
+                        </p:outputPanel><br></br>
+
+                        <h:panelGrid columns="2" cellpadding="2" style="width:10%;">                               
+                            <h:outputText value="Total" style="color:#D98880;font-weight:bold;width:1300px"/>
+                            <h:outputText value="#{salesOrder.totCost}" style="display:block;color:#D98880;font-weight:bold;"/>                              
+                        </h:panelGrid><br></br> 
+                        <p><h:outputText value="Notes" style="font-weight:bold;font-size:17px"/><br></br><h:outputText value="#{salesOrder.notes}"/></p>
+
+                        </div>
+                    </p:fieldset>
+
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

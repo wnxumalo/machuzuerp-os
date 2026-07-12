@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Purchase Order</h1>
+                
+                <h4>Linked Requisition</h4>
+                    <p:panelGrid columns="2" styleClass="ui-fluid">
+                        <h:outputText value="Id" style="font-weight: bold" />
+                        <h:outputText value="#{purchaseOrderController.selectedRequisitionData.recnum}" />
+                        <h:outputText value="Date" />
+                        <h:outputText value="#{purchaseOrderController.selectedRequisitionData.requestDate}" />
+                        <h:outputText value="Deliver To" />
+                        <h:outputText value="#{purchaseOrderController.selectedRequisitionData.deliverTo}" />
+                        <h:outputText value="Requestor Name" />
+                        <h:outputText value="#{purchaseOrderController.selectedRequisitionData.requestorName}" />
+                        <h:outputText value="Accounts Manager Name" />
+                        <h:outputText value="#{purchaseOrderController.selectedRequisitionData.accountsManagerName}" />
+                        <h:outputText value="Approver Name" />
+                        <h:outputText value="#{purchaseOrderController.selectedRequisitionData.approverName}" />
+                    </p:panelGrid>
+                    <h4>Linked Supplier</h4>
+                    <p:panelGrid columns="2" styleClass="ui-fluid">                                 
+                        <h:outputLabel for="cID" value="Id" style="font-weight:bold"/><h:outputText id="cID" value="#{purchaseOrderController.selectedSupplierMain.id}"/>                                    
+                        <h:outputLabel for="vatNum" value="VAT Number" style="font-weight:bold;font-size:16px;width:400px"/><h:outputText id="vatNum" value="#{purchaseOrderController.selectedSupplierMain.vatNum}" style="font-size:15px;"/>                                                                            
+                        <h:outputLabel for="name" value="Name" style="font-weight:bold"/><h:outputText id="name" value="#{purchaseOrderController.selectedSupplierMain.description}"/>                                    
+                        <h:outputLabel for="tel" value="Telephone" style="font-weight:bold" /><h:outputText id="tel" value="#{purchaseOrderController.selectedSupplierMain.contactPhone}"/>                        
+                        <h:outputLabel for="email" value="Email" style="font-weight:bold" /><h:outputText id="email" value="#{purchaseOrderController.selectedSupplierMain.contactEmail}"/>                                   
+                        <h:outputLabel for="posAdd" value="Postal Address" style="font-weight:bold" /><h:outputText id="posAdd" value="#{purchaseOrderController.selectedSupplierMain.postalAddress}"/>                                  
+                        <h:outputLabel for="physAdd" value="Physical Address" style="font-weight:bold" /><h:outputText id="physAdd" value="#{purchaseOrderController.selectedSupplierMain.physicalAddress}"/>
+                    </p:panelGrid>
+
+                <h:form id="frmNewPurchaseOrder" styleClass="ui-fluid">
+
+                    <h3>Capture</h3>
+                    <p:growl id="messages" showDetail="true" sticky="false" />  
+
+                    <h:panelGrid columns="2">      
+                        <h:outputText value="Date" />
+                        <p:calendar id="pDate" value="#{purchaseOrderController.selected.PODate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />                                                                
+                        <h:outputText value="Delivery Date" />
+                        <p:calendar id="dDate" value="#{purchaseOrderController.selected.deliveryDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />                                                                
+                        <h:outputText value="Requestors Name" />
+                        <p:inputText value="#{session.getAttribute('username')}" readonly="true"  />
+                        <h:outputText value="Deliver To" />
+                        <h:selectOneMenu value="#{purchaseOrderController.selected.deliverTo}">
+                           <f:selectItems value="#{employeesBean.employees}" var="employee" 
+                                          itemValue="#{employee.id}"
+                                           itemLabel="#{employee.name} #{employee.surname}"/>
+                        </h:selectOneMenu>   
+                        <h:outputText value="Approvering Officer" />
+                        <h:selectOneMenu value="#{purchaseOrderController.selected.approverId}">
+                           <f:selectItems value="#{employeesBean.employees}" var="employee" 
+                                          itemValue="#{employee.id}"
+                                           itemLabel="#{employee.name} #{employee.surname}"/>
+                        </h:selectOneMenu>   
+                        <h:outputText value="Finance Officer" />
+                        <h:selectOneMenu value="#{purchaseOrderController.selected.accountsManagerId}">
+                           <f:selectItems value="#{employeesBean.employees}" var="employee" 
+                                          itemValue="#{employee.id}"
+                                           itemLabel="#{employee.name} #{employee.surname}"/>
+                        </h:selectOneMenu>   
+                        <h:outputLabel value="Shipping Method" for="shippingMethod"/>
+                        <p:selectOneMenu id="shippingMethod" value="#{purchaseOrderController.selected.shippingMethod}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Road" itemValue="Road" />
+                            <f:selectItem itemLabel="Rail" itemValue="Rail" />                            
+                            <f:selectItem itemLabel="Airplane" itemValue="Airplane" />                            
+                            <f:selectItem itemLabel="Maritime" itemValue="Maritime" />                            
+                            <f:selectItem itemLabel="Pipepline" itemValue="Pipepline" />                            
+                            <f:selectItem itemLabel="Multimodal" itemValue="Multimodal" />                            
+                            <f:selectItem itemLabel="Intermodal" itemValue="Intermodal" />                            
+                        </p:selectOneMenu>                        
+                        <h:outputText value="Payment Terms" />
+                        <p:selectOneMenu id="paymentTerms" value="#{purchaseOrderController.selected.paymentTerms}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Cash in Advance" itemValue="Cash in Advance" />
+                            <f:selectItem itemLabel="Cash on Delivery" itemValue="Cash on Delivery" />                            
+                            <f:selectItem itemLabel="Letter of Credit" itemValue="Letter of Credit" />                            
+                            <f:selectItem itemLabel="Payment in Advance" itemValue="Payment in Advance" />                            
+                            <f:selectItem itemLabel="Payment Schedule" itemValue="Payment Schedule" />                            
+                        </p:selectOneMenu>
+                        <h:outputText value="Shipping Terms" />
+                        <p:inputTextarea value="#{purchaseOrderController.selected.shippingTerms}"/>
+                                                                                                
+                        <h:outputText value="Notes" />
+                        <p:inputTextarea value="#{purchaseOrderController.selected.notes}"/>
+                    </h:panelGrid><br></br>
+                    
+   
+                    <p:dataTable id="rItems" var="item" value="#{purchaseOrderController.purchaseOrderDTO}" editable="true" style="margin-bottom:20px">
+                        <f:facet name="header">
+                            PURCHASE ORDER ITEMS
+                        </f:facet>        
+
+                        <p:ajax event="rowEdit" listener="#{purchaseOrderController.onRowEdit}" update=":frmNewPurchaseOrder:messages" />
+                        <p:ajax event="rowEditCancel" listener="#{purchaseOrderController.onRowCancel}" update=":frmNewPurchaseOrder:messages" />
+
+                        <p:column headerText="Item/Service" style="width: 80%">
+                            <p:cellEditor>                                
+                                <f:facet name="output"><h:outputText value="#{item.itemService}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{item.itemService}" style="width:100%" label="Item/Service"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>              
+
+                        <p:column id="budget" headerText="Quantity">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.quantity}" /></f:facet>
+                                <f:facet name="input"><p:inputNumber value="#{item.quantity}" style="width:100%" label="Quantity"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>               
+
+                        <p:column headerText="Est. Unit Price">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{item.estUnitPrice}" /></f:facet>
+                                <f:facet name="input"><p:inputNumber value="#{item.estUnitPrice}" style="width:100%" label="Year"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column style="width:35px">
+                            <p:rowEditor />
+                        </p:column>
+                    </p:dataTable>
+
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Save" action="#{purchaseOrderController.create(session)}" update="messages"/>
+
+                </h:form>
+                    
+                   
+                    
+            </ui:define>
+            
+        </ui:composition>
+                
+
+    </body>
+</html>
+
+

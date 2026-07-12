@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Project Report</h1>                
+
+                <h:form styleClass="ui-fluid">
+                    <br/><br/>
+                    <h:selectOneMenu value="#{projectsBean.selectedProject}" converter="projectConverter">
+                            <f:selectItems value="#{projectsBean.projects}" var="proj"
+                                           itemValue="#{proj}"
+                                           itemLabel="#{proj.id} - #{proj.name}"/>
+                        </h:selectOneMenu> &nbsp;&nbsp;&nbsp;&nbsp;                        
+                        <p:commandButton value="Project" action="#{projectsReport.ReportSingleProject(projectsBean.selectedProject)}" icon="ui-icon-search" title="View Accounts" update="projectData,taskData,activityData">
+                            
+                            
+                            <f:param name="recnum" value="#{cust.recnum}" />
+                            <f:param name="custname" value="#{cust.customerName}" />
+                            <f:param name="custsurname" value="#{cust.surname}" />
+                        </p:commandButton>                                            
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <p:commandButton value="Print" type="button" icon="ui-icon-print">
+                            <p:printer target="fsDetails" />
+                        </p:commandButton> 
+
+                        <br/><br/>
+                    <p:fieldset id="fsDetails" legend="Project Details" style="font-size:14px;width:100%;">                        
+
+                        <p:panelGrid columns="2" id="projectData">                            
+                            <h:outputText value="Id" />
+                            <h:outputText value="#{projectsReport.recNum}" />                           
+                            <h:outputText value="Name" />                                    
+                            <h:outputText value="#{projectsReport.projName}" />                                
+                            <h:outputText value="Description" />                                    
+                            <h:outputText value="#{projectsReport.description}" />                                
+                            <h:outputText value="Status" />
+                            <h:outputText value="#{projectsReport.status}" />                                
+                            <h:outputText value="Planned Start" />
+                            <h:outputText value="#{projectsReport.plannedStart}" />                                
+                            <h:outputText value="Actual Start" />                                    
+                            <h:outputText value="#{projectsReport.actualStart}" />                             
+                            <h:outputText value="Planned End" />
+                            <h:outputText value="#{projectsReport.plannedEnd}" />                                
+                            <h:outputText value="Actual End" />                                    
+                            <h:outputText value="#{projectsReport.actualEnd}" />                             
+                            <h:outputText value="Manager" />                                    
+                            <h:outputText value="#{projectsReport.projectManager}" />                             
+                            <h:outputText value="Stakeholder" />                                    
+                            <h:outputText value="#{projectsReport.stakeholder}" />                             
+                        </p:panelGrid>
+                        <p>                            
+                            <h3>Tasks</h3>
+                            <p:dataTable id="taskData" var="projs" value="#{projectsReport.tasks}" style="width:100%;">
+                                <p:column style="width:20px;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Id" />
+                                    </f:facet>                       
+                                    <h:outputText value="#{projs.recNum}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name" />
+                                    </f:facet>                       
+                                    <h:outputText value="#{projs.taskName}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Description" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{projs.description}" />                             
+                                </p:column> 
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Priority" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{projs.priority}" />                             
+                                </p:column>  
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Planned Start" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{projs.plannedStart}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Actual Start" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{projs.actualStart}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Planned End" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{projs.plannedEnd}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Actual End" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{projs.actualEnd}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Planned Budget" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{projs.plannedBudget}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Actual Budget" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{projs.actualBudget}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Precendence" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{projs.precendence}" />                                
+                                </p:column>
+                            </p:dataTable>
+                        </p>
+
+                        <p>                            
+                            <h3>Activities</h3>
+                            <p:dataTable id="activityData" var="acts" value="#{projectsReport.activities}">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Id" />
+                                    </f:facet>                       
+                                    <h:outputText value="#{acts.recNum}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Task Id" />
+                                    </f:facet>                       
+                                    <h:outputText value="#{acts.taskId}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{acts.activityName}" />                             
+                                </p:column> 
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Description" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{acts.description}" />                             
+                                </p:column>  
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Priority" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{acts.priority}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Planned Start" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{acts.plannedStart}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Planned End" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{acts.plannedEnd}" />                                
+                                </p:column>                                
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Planned Budget" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{acts.plannedBudget}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Actual Budget" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{acts.actualBudget}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Actual Start" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{acts.actualStart}" />                                
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Actual End" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{acts.actualEnd}" />                                
+                                </p:column>
+                            </p:dataTable>
+                        </p>                        
+
+                    </p:fieldset>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

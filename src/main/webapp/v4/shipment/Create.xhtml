@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ShipmentCreateDlg" widgetVar="ShipmentCreateDialog" modal="true" resizable="false" appendTo="@(dialog)" header="Create Shipment">
+            <h:form id="ShipmentCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{shipmentController.selected != null}">                        
+                        <p:outputLabel value="Shipping Method" for="shippingMethod" />
+                        <p:selectOneMenu id="shippingMethod" value="#{shipmentController.selected.shippingMethod}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Road" itemValue="Road" />
+                            <f:selectItem itemLabel="Rail" itemValue="Rail" />                            
+                            <f:selectItem itemLabel="Airplane" itemValue="Airplane" />                            
+                            <f:selectItem itemLabel="Maritime" itemValue="Maritime" />                            
+                            <f:selectItem itemLabel="Pipepline" itemValue="Pipepline" />                            
+                            <f:selectItem itemLabel="Multimodal" itemValue="Multimodal" />                            
+                            <f:selectItem itemLabel="Intermodal" itemValue="Intermodal" />                            
+                        </p:selectOneMenu>                                                
+                        <p:outputLabel value="Payment Terms" for="paymentTerms" />
+                        <p:selectOneMenu id="paymentTerms" value="#{shipmentController.selected.paymentTerms}" required="true">
+                            <f:selectItem itemLabel="Select" itemValue="" />
+                            <f:selectItem itemLabel="Cash in Advance" itemValue="Cash in Advance" />
+                            <f:selectItem itemLabel="Cash on Delivery" itemValue="Cash on Delivery" />                            
+                            <f:selectItem itemLabel="Letter of Credit" itemValue="Letter of Credit" />                            
+                            <f:selectItem itemLabel="Payment in Advance" itemValue="Payment in Advance" />                            
+                            <f:selectItem itemLabel="Payment Schedule" itemValue="Payment Schedule" />                            
+                        </p:selectOneMenu>                                               
+                        <p:outputLabel value="Shipping Date" for="shippingDate" />
+                        <p:calendar id="shippingDate" value="#{shipmentController.selected.shippingDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />                                                                
+                        <p:outputLabel value="Estimated Delivery Date" for="estimateDeliveryDate" />
+                        <p:calendar id="estimateDeliveryDate" value="#{shipmentController.selected.estimateDeliveryDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />                                                                
+                        <p:outputLabel value="Actual Delivery Date" for="actualDeliveryDate" />
+                        <p:calendar id="actualDeliveryDate" value="#{shipmentController.selected.actualDeliveryDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />                                                                
+                        <p:outputLabel value="Quantity Shipped" for="quantityShipped" />
+                        <p:inputNumber id="quantityShipped" value="#{shipmentController.selected.quantityShipped}" title="#{bundle.CreateShipmentTitle_quantityShipped}" />
+                        <p:outputLabel value="Quantity Received" for="quantityReceived" />
+                        <p:inputNumber id="quantityReceived" value="#{shipmentController.selected.quantityReceived}" title="#{bundle.CreateShipmentTitle_quantityReceived}" />
+                        <p:outputLabel value="Discrepancy" for="discrepancy" />
+                        <p:inputNumber id="discrepancy" value="#{shipmentController.selected.discrepancy}" title="#{bundle.CreateShipmentTitle_discrepancy}" />
+                        <p:outputLabel value="Discrepancy Reasons" for="discrepancyReasons" />
+                        <p:inputText id="discrepancyReasons" value="#{shipmentController.selected.discrepancyReasons}" title="#{bundle.CreateShipmentTitle_discrepancyReasons}" />
+                        <p:outputLabel value="Shipping Terms" for="shippingTerms" />
+                        <p:inputText id="shippingTerms" value="#{shipmentController.selected.shippingTerms}" title="#{bundle.CreateShipmentTitle_shippingTerms}" />
+                        <p:outputLabel value="Notes" for="notes" />
+                        <p:inputText id="notes" value="#{shipmentController.selected.notes}" title="#{bundle.CreateShipmentTitle_notes}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{shipmentController.create(supplierController.selected.id)}" value="#{bundle.Save}" update="display,:growl"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ShipmentCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

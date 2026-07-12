@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Inventory</h1>
+
+                <h:form styleClass="ui-fluid">
+
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+                    
+                    <table cellpadding="10"><td v-align="top">
+                            <h:outputText value="Code"/><br></br>
+                            <p:inputText id="code" value="#{inventory.code}" required="true" /><br></br>                            
+                            <h:outputText value="Description" /><br></br>
+                            <p:inputText id="description" value="#{inventory.description}"/><br></br>
+                            <h:outputText value="Supplier Id"/><br></br>
+                            <p:inputText id="supplierId" value="#{inventory.supplierId}" disabled="true"/><br></br>                           
+                            <h:outputText value="Supplier"/><br></br>
+                            <p:inputText id="supplier" value="#{inventory.supplier}"  disabled="true"/><br></br>     
+                            <h:outputText value="Client Id"/><br></br>
+                            <p:inputText id="clientId" value="#{inventory.clientId}" disabled="true"/><br></br>
+                            <h:outputText value="Client"/><br></br>
+                            <p:inputText id="client" value="#{inventory.client}"  disabled="true"/><br></br>     
+                            <h:outputText value="Cost"/><br></br>
+                            <p:inputText id="cost" value="#{inventory.cost}" /><br></br>
+                            <h:outputText value="Selling Price"/><br></br>
+                            <p:inputText id="sPrice" value="#{inventory.sellingPrice}" /><br></br>  
+                            <h:outputText value="Re-order Level"/><br></br>
+                            <p:inputText id="rLev" value="#{inventory.reorderLevel}" /><br></br>  
+                            <h:outputText value="Markup"/><br></br>
+                            <p:inputText id="markup" value="#{inventory.markUp}" /><br></br>
+                            <h:outputText value="Stock At Hand"/><br></br>
+                            <p:inputText id="atHand" value="#{inventory.atHand}" /><br></br>  
+                            <h:outputText value="Size"/><br></br>
+                            <p:inputText id="size" value="#{inventory.size}" /><br></br>
+                            <h:outputText value="Color"/><br></br>
+                            <p:inputText id="color" value="#{inventory.color}" /><br></br>
+                        </td></table>
+                    &nbsp;&nbsp;&nbsp;
+
+                    <p:commandButton icon="ui-icon-disk" value="Save" action="#{inventory.saveEditInventory}">
+                        
+                        
+                                                       
+                        <f:param name="code" value="#{param['code']}" />
+                        <f:param name="description" value="#{param['description']}" />
+                        <f:param name="supplierId" value="#{param['supplierId']}" />
+                        <f:param name="supplier" value="#{param['supplier']}" />
+                        <f:param name="cost" value="#{param['cost']}" />
+                        <f:param name="sellingPrice" value="#{param['sellingPrice']}" />
+                        <f:param name="reorderLevel" value="#{param['reorderLevel']}" />
+                        <f:param name="markup" value="#{param['markup']}" />
+                        <f:param name="atHand" value="#{param['atHand']}" />
+                        <f:param name="size" value="#{param['size']}" />
+                        <f:param name="color" value="#{param['color']}" />
+                    </p:commandButton>
+                    <p>
+                        <p:commandButton icon="ui-icon-circle-minus" onclick="PF('dlgConfirmDelete').show();" title="Delete">
+                            
+                            
+                            <f:param name="recnum" value="#{param['recnum']}" />
+                        </p:commandButton>
+                    </p>
+                </h:form>
+
+                <h:form id="confirmDelete" styleClass="ui-fluid">                                                  
+                    <p:confirmDialog id="dlgConfirmDelete" message="Are you sure you want to delete this inventory?"
+                                 header="Delete Inventory" severity="alert"
+                                 widgetVar="dlgConfirmDelete">
+                    <p:commandButton value="Yes Sure" actionListener="#{inventory.deleteInventory()}"
+                                     oncomplete="PF('dlgConfirmDelete').hide()">
+                        
+                        
+                        <f:param name="recnum" value="#{param['recnum']}" />
+                    </p:commandButton>
+                    <p:commandButton value="Not Yet" onclick="PF('dlgConfirmDelete').hide();" type="button" />
+                </p:confirmDialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

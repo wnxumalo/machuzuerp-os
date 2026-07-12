@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Machuzu | Enterprise Resource Planning Software</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet name="css/style.css"/> 
+        <meta name="description" content="ERP Software containing standard functions to automate business processes common to all organisations. Customisable to unique processes."/>
+        <meta name="keywords" content="software, system, erp, enterprise, resource, planning, process, business, re-engineering, engineering, corporate, sme, smme, data"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body styleClass="ui-fluid">
+        <div align="center" styleClass="ui-fluid">
+            <p:growl id="growl" showDetail="true">
+                <p:autoUpdate/>
+            </p:growl>            
+
+            <center><h:graphicImage value="/images/Machuzu-small.png"></h:graphicImage></center>  
+            <p:panel header="Machuzu Enterprise Resource Planning Software" style="font-family: sans-serif; font-size: 14pt" styleClass="ui-fluid"/>                  
+
+            <center>                
+                <h3><h:outputText value="Login" style="font-weight: bold"/></h3>
+                <br></br>
+                <h:form id="frmLogin">
+                    <p:messages id="messages" showDetail="true" closable="true" >
+                        <p:autoUpdate/>
+                    </p:messages>
+                    <h:outputText value="Email" /><br></br>
+                    <p:inputText value="#{administrationController.email}"/><br></br>
+                    <h:outputText value="Password" /><br></br>
+                    <p:password id="password2" value="#{administrationController.password}"
+                                label="Password" required="true" /><br></br><br></br>
+                    <p:commandButton id="submitButton" value="Login" action="#{administrationController.loginUser(session)}" update="growl" global="true" />                
+                </h:form>            
+                <hr/>
+                <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+                    <f:facet name="default">
+                        <h:outputText value="" />
+                    </f:facet>
+
+                </p:ajaxStatus>
+
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <img src="images/ajax-loader.gif" />
+                </p:dialog>
+
+                <h:form id="changePasswordForm">
+                    <p:dialog header="ChangePassword" id="dlgChangePassword" widgetVar="dlgChangePassword" resizable="false"> 
+                        <p:messages id="msgChangePassword" showDetail="true" closable="true">
+                            <p:autoUpdate/>
+                        </p:messages>
+
+                        <h:panelGrid columns="1" cellpadding="2" id="cPasswordDlgPanel">                                                                                            
+
+                            <p:password value="#{login.newPassword}" placeholder="New Password" /><br/>
+                            <p:password value="#{login.confirmPassword}" placeholder="Confirm New Password" />
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Save" actionListener="#{login.saveNewPassword()}" update="growl"/>
+
+                            </f:facet>
+                        </h:panelGrid>
+                    </p:dialog>
+
+                </h:form>
+                
+                <h3>Useful Links</h3>
+                <h:outputLink value="https://www.machuzu.com/documentation/CRM–ViewInvoice.mp4" target="_blank">CRM–ViewInvoice.mp4</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/Invoice Workflow.pptx" target="_blank">Invoice Workflow.pptx</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/MachuzuERP-Accounting-Profile.pdf" target="_blank">MachuzuERP-Accounting-Profile.pdf</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/MachuzuERP-Collaboration.pdf" target="_blank">MachuzuERP-Collaboration.pdf</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/MachuzuERP-ImplementationSupportPlan.pdf" target="_blank">MachuzuERP-ImplementationSupportPlan.pdf</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/MachuzuERP-Invoice-Workflow.mp4" target="_blank">MachuzuERP-Invoice-Workflow.mp4</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/MachuzuERP-Project-Management.pdf" target="_blank">MachuzuERP-Project-Management.pdf</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/MachuzuERP-Remote Working.pdf" target="_blank">MachuzuERP-Remote Working.pdf</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/MachuzuERP-Simple-Clocking-Module.mp4" target="_blank">MachuzuERP-Simple-Clocking-Module.mp4</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/MachuzuERP-Stakeholder-Reports-Dashboards.pdf" target="_blank">MachuzuERP-Stakeholder-Reports-Dashboards.pdf</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/MachuzuERP-Themes.mp4" target="_blank">MachuzuERP-Themes.mp4</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/MachuzuERP-User-Manual.pdf" target="_blank">MachuzuERP-User-Manual.pdf</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/Module-Integration.pdf" target="_blank">Module-Integration.pdf</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/PAYROLL.pdf" target="_blank">PAYROLL.pdf</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/Project-Management-Scenario 1.pdf" target="_blank">Project-Management-Scenario 1.pdf</h:outputLink> | 
+                <h:outputLink value="https://www.machuzu.com/documentation/Project-Management-Scenario 2 - Project Planning.pdf" target="_blank">Project-Management-Scenario 2 - Project Planning.pdf</h:outputLink>                
+            </center>
+        </div>
+    </h:body>
+
+
+
+
+
+
+
+</html>
+
+

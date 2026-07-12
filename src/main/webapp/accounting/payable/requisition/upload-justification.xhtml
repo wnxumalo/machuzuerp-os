@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Purchase Requisition Saved</h1>
+                <h3>Justification</h3>
+                <h:form id="frm" styleClass="ui-fluid">
+
+                    <p:messages id="messages" showDetail="true" closable="true" >
+                        <p:autoUpdate/>
+                    </p:messages>
+
+                    <div align="right">
+                        <p:commandButton value="Print Preview" action="requisition-preview.xhtml">
+                            
+                                                           
+                        </p:commandButton>
+                    </div>
+                    <h5>Existing Files</h5>
+                    <h:outputText id="otVal" value="#{requisition.uploadedFiles}" />&nbsp;                   
+                    <h5>Upload New Files (if applicable)</h5>
+                    <p:fileUpload update="otVal" listener="#{requisition.handleFileUpload}" mode="advanced" dragDropSupport="false"
+                                  sizeLimit="1048576" fileLimit="3" >
+
+                    </p:fileUpload>
+
+                    <br></br> 
+                    &nbsp;&nbsp;&nbsp;                   
+                    <p:commandButton value="Done" action="/accounting/payable/dashboard">
+                        
+                                                       
+                    </p:commandButton>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

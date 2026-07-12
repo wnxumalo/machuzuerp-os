@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PasswordManagementEditDlg" widgetVar="PasswordManagementEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPasswordManagementTitle}">
+            <h:form id="PasswordManagementEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{passwordManagementController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPasswordManagementLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{passwordManagementController.selected.id}" title="#{bundle.EditPasswordManagementTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditPasswordManagementLabel_employeeId}" for="employeeId" />
+                        <p:inputText id="employeeId" value="#{passwordManagementController.selected.employeeId}" title="#{bundle.EditPasswordManagementTitle_employeeId}" required="true" requiredMessage="#{bundle.EditPasswordManagementRequiredMessage_employeeId}"/>
+                        <p:outputLabel value="#{bundle.EditPasswordManagementLabel_ruleType}" for="ruleType" />
+                        <p:inputText id="ruleType" value="#{passwordManagementController.selected.ruleType}" title="#{bundle.EditPasswordManagementTitle_ruleType}" />
+                        <p:outputLabel value="#{bundle.EditPasswordManagementLabel_twoFactor}" for="twoFactor" />
+                        <p:inputText id="twoFactor" value="#{passwordManagementController.selected.twoFactor}" title="#{bundle.EditPasswordManagementTitle_twoFactor}" />
+                        <p:outputLabel value="#{bundle.EditPasswordManagementLabel_changeInterval}" for="changeInterval" />
+                        <p:inputText id="changeInterval" value="#{passwordManagementController.selected.changeInterval}" title="#{bundle.EditPasswordManagementTitle_changeInterval}" />
+                        <p:outputLabel value="#{bundle.EditPasswordManagementLabel_creationDate}" for="creationDate" />
+                        <p:inputText id="creationDate" value="#{passwordManagementController.selected.creationDate}" title="#{bundle.EditPasswordManagementTitle_creationDate}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{passwordManagementController.update}" value="#{bundle.Save}" update="display,:PasswordManagementListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PasswordManagementEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PasswordManagementEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

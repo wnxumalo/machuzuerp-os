@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>View Employee</h1>
+                <br></br>                
+
+                <h:form id="frmEmpCommands" styleClass="ui-fluid">                   
+
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+
+                    <p:commandButton icon="ui-icon-refresh" title="Refresh" action="#{employeesData.refreshEmployee(param['recnum'])}" style="width:100%" global="true" />
+                    <p:commandButton icon="ui-icon-search" title="Payslips" action="/hr/employees/employee-pay" style="width:100%" />
+                    <p:commandButton value="Print" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                        <p:printer target="fsPayslip" />
+                    </p:commandButton> 
+                
+                <br></br>
+                                
+                <p:fieldset id="fsPayslip" legend="PAYSLIP" style="font-size:12px;">
+                    <table width="100%" border="1"><th width="20%" align="left">Details</th><th align="left" width="10%">Benefits</th><th align="left" width="10%">Deductions</th><th align="left" width="25%">Leave</th><th align="left" width="35%">Trainings</th>
+                        <tr><td>                                
+                                <h:form id="frmEmps">
+                                <p:commandButton icon="ui-icon-pencil" action="#{employees.editEmployee_1(otRecNumBind.value, otIDNumberBind.value, otTaxNumberBind.value, otEmpDateBind.value, otEmpNumberBind.value, 
+                                                                                 otNameBind.value, otSurnameBind.value, otLevelBind.value, otApproverBind.value, otGenderBind.value, otTelBind.value, 
+                                                                                 otCellBind.value, otEmailBind.value, otPosAdBind.value, otPhysAdBind.value, otSalaryBind.value, otSalaryIntervalBind.value, 
+                                                                                 otStatusBind.value, otPositionBind.value, otDepartmentBind.value)}" title="Edit">
+
+                                    
+                                    
+                                    <f:param name="recnum" value="#{param['recnum']}" />
+
+                                    <f:param name="idnumber" value="#{param['idnumber']}" />
+                                    <f:param name="taxnumber" value="#{param['taxnumber']}" />
+                                    <f:param name="employmentdate" value="#{param['employmentdate']}" />
+                                    <f:param name="employeenumber" value="#{param['employeenumber']}" />
+                                    <f:param name="empname" value="#{param['empname']}" />
+                                    <f:param name="surname" value="#{param['surname']}" />
+                                    <f:param name="position" value="#{param['position']}" />
+                                    <f:param name="level" value="#{param['level']}" />
+                                    <f:param name="gender" value="#{param['gender']}" />
+                                    <f:param name="telephone" value="#{param['telephone']}" /> 
+                                    <f:param name="cellphone" value="#{param['cellphone']}" />
+                                    <f:param name="email" value="#{param['email']}" />
+                                    <f:param name="postaladdress" value="#{param['postaladdress']}" />
+                                    <f:param name="physicaladdress" value="#{param['physicaladdress']}" />
+                                    <f:param name="salary" value="#{param['salary']}" />
+                                    <f:param name="salaryinterval" value="#{param['salaryinterval']}" />
+                                    <f:param name="status" value="#{param['status']}" />                                
+                                    <f:param name="approver" value="#{param['approver']}" />
+                                    <f:param name="department" value="#{param['department']}" />
+                                </p:commandButton>          
+                                <p:commandButton icon="ui-icon-circle-minus" action="#{employees.deleteEmployees()}" title="Delete">
+                                    
+                                    
+                                    <f:param name="recnum" value="#{param['recnum']}" />
+                                </p:commandButton><br></br><br></br>
+                                </h:form>
+                                
+                                    <p:panelGrid columns="2" style="width: 100%">                                                                    
+                                        <h:outputText value="ID: "/><h:outputText binding="#{otRecNumBind}" value="#{param['recnum']}"/>
+                                        <h:outputText value="ID Number: "/><h:outputText binding="#{otIDNumberBind}" value="#{param['idnumber']}"/>
+                                        <h:outputText value="Tax Number: "/><h:outputText binding="#{otTaxNumberBind}" value="#{param['taxnumber']}"/>
+                                        <h:outputText value="Employee Number: "/><h:outputText binding="#{otEmpNumberBind}" value="#{param['employeenumber']}"/>
+                                        <h:outputText value="Employment Date: "/><h:outputText binding="#{otEmpDateBind}" value="#{param['employmentdate']}"/>
+                                        <h:outputText value="Name: "/><h:outputText binding="#{otNameBind}" value="#{param['empname']}"/>
+                                        <h:outputText value="Surname: "/><h:outputText binding="#{otSurnameBind}" value="#{param['surname']}"/>
+                                        <h:outputText value="Position: "/><h:outputText binding="#{otPositionBind}" value="#{param['position']}"/>
+                                        <h:outputText value="Department "/><h:outputText binding="#{otDepartmentBind}" value="#{param['department']}"/>
+                                        <h:outputText value="Level: "/><h:outputText binding="#{otLevelBind}" value="#{param['level']}"/>
+                                        <h:outputText value="Approver "/><h:outputText binding="#{otApproverBind}" value="#{param['approver']}"/>
+                                        <h:outputText value="Gender: "/><h:outputText binding="#{otGenderBind}" value="#{param['gender']}"/>
+                                        <h:outputText value="Telephone: "/><h:outputText binding="#{otTelBind}" value="#{param['telephone']}"/>
+                                        <h:outputText value="Cellphone: "/><h:outputText binding="#{otCellBind}" value="#{param['cellphone']}"/>
+                                        <h:outputText value="Email: "/><h:outputText binding="#{otEmailBind}" value="#{param['email']}"/>
+                                        <h:outputText value="Postal Address: "/><h:outputText binding="#{otPosAdBind}" value="#{param['postaladdress']}"/>
+                                        <h:outputText value="Physical Address: "/><h:outputText binding="#{otPhysAdBind}" value="#{param['physicaladdress']}"/>
+                                        <h:outputText value="Salary Interval:"/><h:outputText binding="#{otSalaryIntervalBind}" value="#{param['salaryinterval']}"/>
+                                        <h:outputText value="Status:"/><h:outputText binding="#{otStatusBind}" value="#{param['status']}"/>                                                                        
+                                        <h:outputText value=" " style="font-weight:bold"/><h:outputText  value=""/>
+                                        <h:outputText value="SALARY " style="font-weight:bold"/><h:outputText  value="#{param['salary']}"/>
+                                        <h:outputText value="BENEFITS " style="font-weight:bold"/><h:outputText  value="#{employeesData.totalBenefits}"/>
+                                        <h:outputText value="DEDUCTIONS " style="font-weight:bold"/><h:outputText  value="#{employeesData.totalDeductions}"/>
+                                        <h:outputText value="NETT SALARY " style="font-weight:bold"/><h:outputText  value="#{employeesData.totalPackage}"/>
+                                    </p:panelGrid>                                
+                                <br></br>
+
+                            </td>
+                            <td valign="top" width="10%">
+                                
+                                    <p:commandButton icon="ui-icon-circle-plus" action="/hr/employees/new-benefit" title="Add Benefit">                                
+                                    <f:param name="recnum" value="#{param['recnum']}" />
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-circle-minus" onclick="PF('delBen').show()" title="Delete Benefit">                      
+                                    <f:param name="recnum" value="#{param['recnum']}" />
+                                </p:commandButton><br></br><br></br>                                   
+
+                                    <table width="100%"><th align="left">#</th><th align="left">Description</th><th align="left">Amount</th>
+                                        <ui:repeat id="rptBenefits" value="#{employeesData.benefits}" var="bens">
+                                            <tr><td><h:outputLabel value="#{bens.recNum}"/></td>
+                                                <td><h:outputLabel value="#{bens.description}"/></td>
+                                                <td><h:outputLabel value="#{bens.amount}"/></td></tr>
+                                        </ui:repeat>
+                                    </table>
+
+                                    <p:dialog widgetVar="delBen">
+                                        <p:panelGrid columns="1" style="width: 100%">
+                                            <h:outputText value="Enter Benefit Record Number To Delete" />
+                                            <h:inputText value="#{employeesData.recNum}"/>
+                                            <p:commandButton value="Delete" action="#{employeesData.deleteBenefit(session.getAttribute('uk').toString(), session)}" update="rptDeductions">
+                                                <f:param name="recnum" value="#{param['recnum']}" />
+                                            </p:commandButton>
+                                        </p:panelGrid>
+                                    </p:dialog>
+
+                                
+                            </td>
+                            <td valign="top" width="10%">
+                                
+                                <p:commandButton icon="ui-icon-circle-plus" action="#{employeesData.newDeduction()}" title="Add Deduction">
+                                    
+                                    
+                                    <f:param name="recnum" value="#{otRecNumBind.value}" />
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-circle-minus" onclick="PF('delDed').show()" title="Delete Deduction">
+                                    
+                                    
+                                    <f:param name="recnum" value="#{param['recnum']}" />
+                                </p:commandButton><br></br><br></br>   
+                                
+                                    <table width="100%"><th align="left">#</th><th align="left">Description</th><th align="left">Amount</th>
+                                        <ui:repeat id="rptDeductions" value="#{employeesData.deductions}" var="deds">
+                                            <tr><td><h:outputLabel value="#{deds.recNum}"/></td>
+                                                <td><h:outputLabel value="#{deds.description}"/></td>
+                                                <td><h:outputLabel value="#{deds.amount}"/></td></tr>
+                                        </ui:repeat>
+                                    </table>
+
+                                    <p:dialog widgetVar="delDed">
+                                        <p:panelGrid columns="1" style="width: 100%">
+                                            <h:outputText value="Enter Deduction Record Number To Delete" />
+                                            <h:inputText value="#{employeesData.recNum}"/>
+                                            <p:commandButton value="Delete" action="#{employeesData.deleteDeduction(session.getAttribute('uk').toString(), session)}" update="rptDeductions">
+                                                
+                                                
+                                                <f:param name="recnum" value="#{param['recnum']}" />
+                                            </p:commandButton>
+                                        </p:panelGrid>
+                                    </p:dialog>
+
+                                
+                            </td>
+                            <td valign="top" width="10%">
+                                
+                                <p:commandButton icon="ui-icon-circle-plus" action="#{employeesData.newLeave()}" title="Add Leave">
+                                    
+                                    
+                                    <f:param name="recnum" value="#{param['recnum']}" />
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-circle-minus" onclick="PF('delLeave').show()" title="Delete Leave">
+                                    
+                                    
+                                    <f:param name="recnum" value="#{param['recnum']}" />
+                                </p:commandButton><br></br><br></br>  
+
+                                
+                                    <table width="100%"><th align="left">#</th><th align="left">Type</th><th align="left">Start</th><th align="left">End</th><th align="left">Total</th><th align="left">Comments</th>
+                                        <ui:repeat id="rptLeave" value="#{employeesData.leave}" var="deds">
+                                            <tr><td><h:outputLabel value="#{deds.recNum}"/></td>
+                                                <td><h:outputLabel value="#{deds.type}"/></td>
+                                                <td><h:outputLabel value="#{deds.startDate}"/></td>
+                                                <td><h:outputLabel value="#{deds.endDate}"/></td>
+                                                <td><h:outputLabel value="#{deds.totDays}"/></td>
+                                                <td><h:outputLabel value="#{deds.comments}"/></td></tr>
+                                        </ui:repeat>
+                                    </table>
+
+                                    <p:dialog widgetVar="delLeave">
+                                        <p:panelGrid columns="1" style="width: 100%">
+                                            <h:outputText value="Enter Leave Record Number To Delete" />
+                                            <h:inputText value="#{employeesData.recNum}"/>
+                                            <p:commandButton value="Delete" action="#{employeesData.deleteLeave(session.getAttribute('uk').toString(), session)}" update="rptLeave">
+                                                
+                                                
+                                                <f:param name="recnum" value="#{param['recnum']}" />
+                                            </p:commandButton>
+                                        </p:panelGrid>
+                                    </p:dialog>
+
+                                
+                            </td>
+                            <td valign="top" width="20%">
+                                
+                                <p:commandButton icon="ui-icon-circle-plus" action="#{employeesData.newTraining()}" title="Add Training">
+                                    
+                                    
+                                    <f:param name="recnum" value="#{param['recnum']}" />
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-circle-minus" onclick="PF('cd').show()" title="Delete Training">
+                                    
+                                    
+                                    <f:param name="recnum" value="#{param['recnum']}" />
+                                </p:commandButton><br></br><br></br>                                                                                                                   
+
+                                    <table width="100%"><th align="left">#</th><th align="left">Description</th><th align="left">Start</th><th align="left">End</th><th align="left">Outputs</th><th align="left">Status</th><th align="left">Comments</th>
+                                        <ui:repeat id="rptTrainings" value="#{employeesData.trainings}" var="trains">                                    
+                                            <tr><td><h:outputLabel value="#{trains.recNum}"/></td>
+                                                <td><h:outputLabel value="#{trains.description}"/></td>
+                                                <td><h:outputLabel value="#{trains.startDate}"/></td>
+                                                <td><h:outputLabel value="#{trains.endDate}"/></td>
+                                                <td><h:outputLabel value="#{trains.outputs}"/></td>
+                                                <td><h:outputLabel value="#{trains.status}"/></td>
+                                                <td><h:outputLabel value="#{trains.comments}"/></td></tr>                                                                                                
+                                        </ui:repeat>
+                                    </table>
+
+                                    <p:dialog widgetVar="cd">
+                                        <p:panelGrid columns="1" style="width: 100%">
+                                            <h:outputText value="Enter Training Record Number To Delete" />
+                                            <h:inputText value="#{employeesData.recNum}"/>
+                                            <p:commandButton value="Delete" action="#{employeesData.deleteTraining(session.getAttribute('uk').toString(), session)}" update="rptTrainings">
+                                                <f:param name="recnum" value="#{param['recnum']}" />
+                                            </p:commandButton>
+                                        </p:panelGrid>
+                                    </p:dialog>
+
+
+                            </td>
+
+                        </tr>                   
+                    </table>
+                </p:fieldset>
+</h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

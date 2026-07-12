@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmployeeBenefitDlg" widgetVar="EmployeeBenefitDialog" modal="true" resizable="false" appendTo="@(dialog)" header="Edit Employee Benefit">
+            <h:form styleClass="ui-fluid">
+                <h1>New Benefit</h1>
+
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate />
+                </p:messages>
+
+                <p:panelGrid columns="2" >                        
+                    <p:outputLabel for="description" value="Description"/>
+                    <p:selectOneMenu id="description" value="#{benefits.description}" style="width:125px" required="true">
+                        <f:selectItem itemLabel="Select" itemValue="" />
+                        <f:selectItem itemLabel="Medical" itemValue="Medical" />
+                        <f:selectItem itemLabel="Housing" itemValue="Housing" />
+                        <f:selectItem itemLabel="Travelling" itemValue="Travelling" />
+                        <f:selectItem itemLabel="Stand-By" itemValue="Stand-By" />
+                        <f:selectItem itemLabel="Entertainment" itemValue="Entertainment" />
+                        <f:selectItem itemLabel="Vehicle" itemValue="Vehicle" />
+                        <f:selectItem itemLabel="Cellphone" itemValue="Cellphone" />                            
+                    </p:selectOneMenu>
+                    <p:outputLabel for="amount" value="Amount" />
+                    <p:inputText id="amount" value="#{benefits.amount}" required="true" />                                                                        
+                </p:panelGrid>
+                &nbsp;&nbsp;&nbsp;
+                <p:commandButton value="Save" action="#{benefits.saveBenefit()}"  style="width:100%" global="true">
+
+
+                    <f:param name="recnum" value="#{employeesData.recNum}" />
+                </p:commandButton>
+
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
+

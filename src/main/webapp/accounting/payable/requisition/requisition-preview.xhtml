@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Requisition Preview</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:commandButton value="Print" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                        <p:printer target="fsRequisition" />
+                    </p:commandButton>                  
+
+                    <p:fieldset id="fsRequisition" legend="Requisition" style="font-size:20px;">
+
+                        <p:outputPanel style="font-size:20px;font-family:Tahoma">                                        
+                            <h:outputText value="#{requisition.orgNumber}" style="font-size:30px;"/><br></br>
+                            <h:outputText value="#{requisition.orgName}"/><br></br>
+                            <h:outputText value="#{requisition.orgTel}"/><br></br>
+                            <h:outputText value="#{requisition.orgFax}"/><br></br>
+                            <h:outputText value="#{requisition.orgEmail}"/><br></br>
+                            <h:outputText value="#{requisition.orgPosAdd}"/><br></br>
+                            <h:outputText value="#{requisition.orgPhysAdd}"/><br></br>
+                        </p:outputPanel><br></br>
+
+                        <h:panelGrid columns="2" cellpadding="2" style="width:100%;">  
+                            <h:outputText value="Number" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisition.recnum}"/>
+                            <h:outputText value="Date" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisition.requestDate}"/>              
+                            <h:outputText value="Delivery Date" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisition.requestedDeliveryDate}"/>     
+                            <h:outputText value="Deliver To" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisition.deliverTo}"/>     
+                            <h:outputText value="Requestors Name" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisition.requestorName}"/>     
+                            <h:outputText value="Accounts Manager" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisition.selectedEmployee.name}"/>  
+                            <h:outputText value="Accounts Manager" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisition.selectedEmployee.name}"/>  
+                            <h:outputText value="Accounts Manager" style="width:741px;font-weight:bold;font-size:17px"/>
+                            <h:outputText value="#{requisition.selectedEmployee.name}"/>  
+                            <h:outputText value="Available Funds" rendered="false" />
+                            <h:outputText value="#{requisition.availableFunds}"  style="width:350px" rendered="false"/>
+                            <h:outputText value="Accounting Data" rendered="false" />
+                            <h:outputText value="#{requisition.accountingData}"  style="width:350px" rendered="false"/>
+                            <h:outputText value="Approver Name" rendered="false" />
+                            <h:outputText value="#{requisition.approverName}"  style="width:350px" rendered="false"/>
+                            <h:outputText value="Approver Job Title" rendered="false" />
+                            <h:outputText value="#{requisition.approverJobTitle}"  style="width:350px" rendered="false"/>
+                            <h:outputText value="Approval Date"  rendered="false"/>
+                            <h:outputText value="#{requisition.approvalDate}" />
+                            <h:outputText value="Remarks" />
+                            <h:outputText value="#{requisition.remarks}"  style="width:100%"/>
+                        </h:panelGrid><br></br>
+
+                        <h:outputLabel value="Supplier Details " style="color:#999999;font-weight:bold;font-family:Calibri;font-size:25px"/><br></br>
+                        <h:panelGrid columns="2" cellpadding="2">   
+                            <h:outputLabel for="vatNum" value="VAT Number" style="font-weight:bold;font-size:16px;width:400px"/><h:outputText id="vatNum" value="#{requisition.selectedSupplier.vatNum}" style="font-size:15px;"/>                                                                            
+                            <h:outputLabel for="name" value="Name" style="font-weight:bold;font-size:16px"/><h:outputText id="name" value="#{requisition.selectedSupplier.name}" style="font-size:15px;"/>                                    
+                            <h:outputLabel for="tel" value="Telephone" style="font-weight:bold;font-size:16px" /><h:outputText id="tel" value="#{requisition.selectedSupplier.telephone}" style="font-size:15px;"/>                                    
+                            <h:outputLabel for="cell" value="Cellphone" style="font-weight:bold;font-size:16px" /><h:outputText id="cell" value="#{requisition.selectedSupplier.cellphone}" style="font-size:15px;"/>                                   
+                            <h:outputLabel for="email" value="Email" style="font-weight:bold;font-size:16px" /><h:outputText id="email" value="#{requisition.selectedSupplier.email}" style="font-size:15px;"/>                                   
+                            <h:outputLabel for="posAdd" value="Postal Address" style="font-weight:bold;font-size:16px" /><h:outputText id="posAdd" value="#{requisition.selectedSupplier.postalAddress}" style="font-size:15px;"/>                                  
+                            <h:outputLabel for="physAdd" value="Physical Address" style="font-weight:bold;font-size:16px" /><h:outputText id="physAdd" value="#{requisition.selectedSupplier.physicalAddress}" style="font-size:15px;"/>                            
+                        </h:panelGrid><br></br>
+                        <h:outputLabel for="outputRequisitions" value="ITEMS" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:17px"/><br></br>                            
+                        <p:outputPanel id="outputRequisitions">
+                            <table width="100%" align="center">
+                                <th>#</th><th>Description</th><th>Qty</th><th>Price</th><th>Amount</th>
+                                <ui:repeat value="#{requisition.filteredRequisitions}" var="req">
+                                    <tr align="center">
+                                        <td><h:outputText value="#{req.recnum}" style="display:block;width:50px"/></td>
+                                        <td><h:outputText value="#{req.itemService}" style="display:block;width:300px"/></td>
+                                        <td><h:outputText value="#{req.quantity}" style="display:block;width:50px"/></td>
+                                        <td><h:outputText value="#{req.estUnitPrice}" style="display:block;width:100px"/></td>
+                                        <td><h:outputText value="#{req.estAmount}" style="display:block;width:100px"/></td>
+                                    </tr>
+                                </ui:repeat> 
+                                
+                            </table>
+                            
+                        </p:outputPanel><br></br>
+
+                        <h:panelGrid columns="2" cellpadding="2" style="width:1360px;">                               
+                            <h:outputText value="Total" style="color:#D98880;font-weight:bold;width:1300px"/>
+                            <h:outputText value="#{requisition.totalAmount}" style="display:block;color:#D98880;font-weight:bold;"/>                          
+                        </h:panelGrid><br></br>        
+
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

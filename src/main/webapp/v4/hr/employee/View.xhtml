@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmployeeViewDlg" widgetVar="EmployeeViewDialog" modal="true" resizable="false" appendTo="@(dialog)" header="View Employee">
+            <h:form id="EmployeeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{employeeController.selected != null}">
+                        <h:outputText value="Id"/>
+                        <h:outputText value="#{employeeController.selected.id}" title="#{bundle.ViewEmployeeTitle_id}"/>
+                        <h:outputText value="Employment Date"/>
+                        <h:outputText value="#{employeeController.selected.employmentDate}" title="#{bundle.ViewEmployeeTitle_employmentDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="Name"/>
+                        <h:outputText value="#{employeeController.selected.empName}" title="#{bundle.ViewEmployeeTitle_empName}"/>
+                        <h:outputText value="Surname"/>
+                        <h:outputText value="#{employeeController.selected.surname}" title="#{bundle.ViewEmployeeTitle_surname}"/>
+                        <h:outputText value="Gender"/>
+                        <h:outputText value="#{employeeController.selected.gender}" title="#{bundle.ViewEmployeeTitle_gender}"/>
+                        <h:outputText value="Telephone"/>
+                        <h:outputText value="#{employeeController.selected.telephone}" title="#{bundle.ViewEmployeeTitle_telephone}"/>
+                        <h:outputText value="Cellphone"/>
+                        <h:outputText value="#{employeeController.selected.cellphone}" title="#{bundle.ViewEmployeeTitle_cellphone}"/>
+                        <h:outputText value="Email"/>
+                        <h:outputText value="#{employeeController.selected.email}" title="#{bundle.ViewEmployeeTitle_email}"/>
+                        <h:outputText value="Postal Address"/>
+                        <h:outputText value="#{employeeController.selected.postalAddress}" title="#{bundle.ViewEmployeeTitle_postalAddress}"/>
+                        <h:outputText value="Salary"/>
+                        <h:outputText value="#{employeeController.selected.salary}" title="#{bundle.ViewEmployeeTitle_salary}"/>
+                        <h:outputText value="Salary Interval"/>
+                        <h:outputText value="#{employeeController.selected.salaryInterval}" title="#{bundle.ViewEmployeeTitle_salaryInterval}"/>
+                        <h:outputText value="Level"/>
+                        <h:outputText value="#{employeeController.selected.empLevel}" title="#{bundle.ViewEmployeeTitle_empLevel}"/>
+                        <h:outputText value="Position"/>
+                        <h:outputText value="#{employeeController.selected.position}" title="#{bundle.ViewEmployeeTitle_position}"/>
+                        <h:outputText value="Approver"/>
+                        <h:outputText value="#{employeeController.selected.approver}" title="#{bundle.ViewEmployeeTitle_approver}"/>
+                        <h:outputText value="Department"/>
+                        <h:outputText value="#{employeeController.selected.department}" title="#{bundle.ViewEmployeeTitle_department}"/>                        
+                        <h:outputText value="Bank Account Number"/>
+                        <h:outputText value="#{employeeController.selected.empBankAccNum}" title="#{bundle.ViewEmployeeTitle_empBankAccNum}"/>
+                        <h:outputText value="Bank Name"/>
+                        <h:outputText value="#{employeeController.selected.empBankName}" title="#{bundle.ViewEmployeeTitle_empBankName}"/>
+                        <h:outputText value="Bank Account Name"/>
+                        <h:outputText value="#{employeeController.selected.empBankAccName}" title="#{bundle.ViewEmployeeTitle_empBankAccName}"/>
+                        <h:outputText value="Branch Code"/>
+                        <h:outputText value="#{employeeController.selected.branchCode}" title="#{bundle.ViewEmployeeTitle_branchCode}"/>
+                        <h:outputText value="User Role"/>
+                        <h:outputText value="#{employeeController.selected.userRole}" title="#{bundle.ViewEmployeeTitle_userRole}"/>
+                        <h:outputText value="Tax Number"/>
+                        <h:outputText value="#{employeeController.selected.taxNumber}" title="#{bundle.ViewEmployeeTitle_taxNumber}"/>
+                        <h:outputText value="ID Number"/>
+                        <h:outputText value="#{employeeController.selected.idNumber}" title="#{bundle.ViewEmployeeTitle_idNumber}"/>
+                        <h:outputText value="Employee Number"/>
+                        <h:outputText value="#{employeeController.selected.employeeNumber}" title="#{bundle.ViewEmployeeTitle_employeeNumber}"/>
+                        <h:outputText value="Creation Date"/>
+                        <h:outputText value="#{employeeController.selected.creationDate}" title="#{bundle.ViewEmployeeTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="Status"/>
+                        <h:outputText value="#{employeeController.selected.status}" title="#{bundle.ViewEmployeeTitle_status}"/>
+                        <h:outputText value="Notes"/>
+                        <h:outputText value="#{employeeController.selected.notes}" title="#{bundle.ViewEmployeeTitle_notes}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EmployeeViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

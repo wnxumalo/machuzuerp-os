@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="/css/default.css"/>        
+        <h:outputStylesheet name="/css/cssLayout.css"/>
+        <title>Machuzu - Enterprise Resource Planning Software</title>
+    </h:head>
+    <h:body>
+
+        <div style="height:500px" align="center" styleClass="ui-fluid">
+            
+            <p:growl id="growl" showDetail="true">
+                <p:autoUpdate/>
+            </p:growl>            
+
+            <h:form>
+
+            <h:graphicImage value="/images/Machuzu-smallest.png"></h:graphicImage>
+            <h:panelGrid columns="2" style="position:absolute;right:5px;top:25px; border-width: 0px;">                
+                <h:outputFormat value="Logged in: {0}">
+                    <f:param name="name" value="#{session.getAttribute('username')}" />
+                    <f:param name="uk" value="#{session.getAttribute('uk')}" />
+                </h:outputFormat>
+                <p:commandButton value="Manage Account" action="/v4/administration/employee"  update=""/>
+            </h:panelGrid>
+            
+                <p:menubar styleClass="centeredMenuBar">
+                    <p:menuitem value="Home" action="#{login.mainDashboard()}" icon="ui-icon-home" class="menu"/>
+                    <p:submenu label="Stakeholders" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.customerDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.newUser(session)}" value="New" />
+                        <p:menuitem action="#{login.customerDetailedListing(session)}" value="Search" />
+                        <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;"/>
+                        <p:menuitem action="#{login.clientGeneral}" value="General" />
+                        <p:menuitem action="#{login.clientInvoices}" value="Invoices" />
+                        <p:menuitem action="#{login.clientReciepts()}" value="Receipts" />
+                        <p:menuitem action="#{login.clientProjects}" value="Projects" />
+                        <p:menuitem action="#{login.clientServices()}" value="Services" />
+                        <p:menuitem action="#{login.clientSharedDocs()}" value="Shared Documents" />                        
+                    </p:submenu>                            
+                    <p:submenu label="Accounting" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.accountingDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.accountsPayable}" value="Payable" />
+                        <p:menuitem action="#{login.accountsReceivable}" value="Receivable" />
+                        <p:menuitem action="#{login.newAccount(session)}" value="New Account" />
+                        <p:menuitem action="#{accountData.findAccount(session)}" value="Search Account" />
+                        <p:menuitem action="#{login.accountsJournal}" value="Edit Journal" />
+                        <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;" />
+                        <p:menuitem action="#{login.accountingGeneral}" value="General" />                      
+                        <p:menuitem action="#{login.accountingType}" value="Type" />                      
+                        <p:menuitem action="#{login.accountsJournalReport}" value="Journal" />                      
+                    </p:submenu>
+                    <p:submenu label="Project Management" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{projectDetails.VTimeline()}" value="Timeline" />
+                        <p:menuitem action="#{projectDetails.VKanban(session)}" value="Kanban" />
+                        <p:menuitem action="#{login.newProject()}" value="New" />
+                        <p:menuitem action="#{login.findProject(session)}" value="Search" />                       
+                        <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;" />
+                        <p:menuitem action="#{login.projectStatus}" value="Status" />                      
+                        <p:menuitem action="#{login.projectGeneral}" value="All" />                      
+                        <p:menuitem action="#{login.projectSingle}" value="Single" />                      
+                    </p:submenu>
+                    <p:submenu label="Human Resources" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.hrmDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.newEmployee(session)}" value="New Employee" />
+                        <p:menuitem action="#{login.findEmployee(session)}" value="Search Employee" />                       
+                        <p:menuitem value="-" />
+                        <p:menuitem action="/hr/payroll/dashboard" value="PAYROLL" />
+                        <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;" />
+                        <p:menuitem action="#{login.hrGeneral}" value="Employees" />  
+                        <p:menuitem action="#{login.hrPayroll}" value="Payroll" />                      
+                        <p:menuitem action="#{login.hrBenefits}" value="Benefits" />                      
+                        <p:menuitem action="#{login.hrDeductions}" value="Deductions" />
+                        <p:menuitem action="#{login.hrLeave}" value="Leave" />
+                        <p:menuitem action="#{login.hrTrainings}" value="Trainings" />
+                        <p:menuitem action="#{login.hrProjects}" value="Projects" />
+                    </p:submenu>
+                    <p:submenu label="Collaboration" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.ocDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.ocLists}" value="Teams" />
+                        <p:menuitem action="#{login.ocFiles}" value="Document Management" />
+                        <p:menuitem action="#{login.ocCalendar}" value="Calendar"/>
+                        <p:menuitem value="-" />
+                        <p:menuitem action="#{login.ocCompliancePolicy}" value="Compliance Management" />
+                        <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;" />
+                        <p:menuitem action="#{login.collaborationTeams}" value="Teams" />                      
+                        <p:menuitem action="#{login.collaborationFiles}" value="Files" />                      
+                        <p:menuitem action="#{login.collaborationTeamFiles}" value="Team Files" />                        
+                    </p:submenu>
+                    <p:submenu label="Workflow" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem actionListener="#{workflowController.prepareC()}" action="#{login.newWorkflow(session)}" value="New" />
+                        <p:menuitem action="#{login.configureWorkflow()}" value="Configure" />
+                        <p:menuitem action="#{login.processWorkflow()}" value="Process" />                                              
+                        <p:menuitem action="#{login.searchWorkflow()}" value="Search" />                                              
+                    </p:submenu>
+                    <p:submenu label="Access Control" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.completeMission}" value="Complete Mission"/>
+                        <p:menuitem action="#{login.accessControlDashboard}" value="Dashboard" />                        
+                        <p:menuitem value="REPORTS" style="font-size:12px; font-weight: bolder;" />
+                        <p:menuitem action="#{login.accessControlDashboard}" value="Reports" />                                              
+                    </p:submenu>
+                    <p:submenu label="Inventory" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.inventoryDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.newInventory(session)}" value="New" />
+                        <p:menuitem action="#{inventoryData.findInventory(session)}" value="Search" />
+                        <p:menuitem action="#{login.selectInventory()}" value="Add To Project" />
+                        <p:menuitem value="REPORTS" />
+                        <p:menuitem action="#{login.inventoryGeneral}" value="General" />
+                        <p:menuitem action="#{login.inventorySupplier}" value="Supplier" />                                        
+                    </p:submenu>
+                    <p:submenu label="Services" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.servicesDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.newService(session)}" value="New" />
+                        <p:menuitem action="#{serviceData.findService(session)}" value="Search" />
+                        <p:menuitem value="REPORTS" class="menu"/>
+                        <p:menuitem action="#{login.servicesGeneral}" value="General" />
+                    </p:submenu>
+                    <p:submenu label="Suppliers" style="font-size:12px; font-weight: bolder;">
+                        <p:menuitem action="#{login.suppliersDashboard}" value="Dashboard" />
+                        <p:menuitem action="#{login.newSupplier()}" value="New" />
+                        <p:menuitem action="#{login.findSupplier(session)}" value="Search" />
+                        <p:menuitem action="#{login.findShipment(session)}" value="Find Shipments" />
+                        <p:menuitem action="#{login.createShipment(session)}" actionListener="#{shipmentController.prepareCreate()}" value="Create Shipment" />
+                        <p:menuitem value="REPORTS" class="menu" />
+                        <p:menuitem action="#{login.suppliersGeneral}" value="General" />                      
+                    </p:submenu>
+                </p:menubar>            
+
+                <p:commandButton id="resetButton" value="New Password" onclick="PF('dlgChangePassword').show();" global="true" />
+            </h:form>
+            <p><h1>Employee Administration</h1></p>
+
+            <p:dialog header="ChangePassword" id="dlgChangePassword" widgetVar="dlgChangePassword" resizable="false" appendTo="@(dialog)">
+                <h:form id="changePasswordForm">                                 
+                    <h:panelGrid columns="1" cellpadding="2" id="cPasswordDlgPanel">
+
+                        <p:password value="#{login.newPassword}" placeholder="New Password" /><br/>
+                        <p:password value="#{login.confirmPassword}" placeholder="Confirm New Password" />
+
+                        <p:commandButton value="Save" actionListener="#{login.saveNewPassword(session.getAttribute('uk'))}"/>
+
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>            
+
+            <p:panelGrid columns="2" rendered="#{employeeController.selected != null}">
+                <h:outputText value="Id"/>
+                <h:outputText value="#{employeeController.selected.id}" title="#{bundle.ViewEmployeeTitle_id}"/>
+                <h:outputText value="Employment Date"/>
+                <h:outputText value="#{employeeController.selected.employmentDate}" title="#{bundle.ViewEmployeeTitle_employmentDate}">
+                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                </h:outputText>
+                <h:outputText value="Name"/>
+                <h:outputText value="#{employeeController.selected.empName}" title="#{bundle.ViewEmployeeTitle_empName}"/>
+                <h:outputText value="Surname"/>
+                <h:outputText value="#{employeeController.selected.surname}" title="#{bundle.ViewEmployeeTitle_surname}"/>
+                <h:outputText value="Gender"/>
+                <h:outputText value="#{employeeController.selected.gender}" title="#{bundle.ViewEmployeeTitle_gender}"/>
+                <h:outputText value="Telephone"/>
+                <h:outputText value="#{employeeController.selected.telephone}" title="#{bundle.ViewEmployeeTitle_telephone}"/>
+                <h:outputText value="Cellphone"/>
+                <h:outputText value="#{employeeController.selected.cellphone}" title="#{bundle.ViewEmployeeTitle_cellphone}"/>
+                <h:outputText value="Email"/>
+                <h:outputText value="#{employeeController.selected.email}" title="#{bundle.ViewEmployeeTitle_email}"/>
+                <h:outputText value="Postal Address"/>
+                <h:outputText value="#{employeeController.selected.postalAddress}" title="#{bundle.ViewEmployeeTitle_postalAddress}"/>
+                <h:outputText value="Salary"/>
+                <h:outputText value="#{employeeController.selected.salary}" title="#{bundle.ViewEmployeeTitle_salary}"/>
+                <h:outputText value="Salary Interval"/>
+                <h:outputText value="#{employeeController.selected.salaryInterval}" title="#{bundle.ViewEmployeeTitle_salaryInterval}"/>
+                <h:outputText value="Level"/>
+                <h:outputText value="#{employeeController.selected.empLevel}" title="#{bundle.ViewEmployeeTitle_empLevel}"/>
+                <h:outputText value="Position"/>
+                <h:outputText value="#{employeeController.selected.position}" title="#{bundle.ViewEmployeeTitle_position}"/>
+                <h:outputText value="Approver"/>
+                <h:outputText value="#{employeeController.selected.approver}" title="#{bundle.ViewEmployeeTitle_approver}"/>
+                <h:outputText value="Department"/>
+                <h:outputText value="#{employeeController.selected.department}" title="#{bundle.ViewEmployeeTitle_department}"/>                        
+                <h:outputText value="Bank Account Number"/>
+                <h:outputText value="#{employeeController.selected.empBankAccNum}" title="#{bundle.ViewEmployeeTitle_empBankAccNum}"/>
+                <h:outputText value="Bank Name"/>
+                <h:outputText value="#{employeeController.selected.empBankName}" title="#{bundle.ViewEmployeeTitle_empBankName}"/>
+                <h:outputText value="Bank Account Name"/>
+                <h:outputText value="#{employeeController.selected.empBankAccName}" title="#{bundle.ViewEmployeeTitle_empBankAccName}"/>
+                <h:outputText value="Branch Code"/>
+                <h:outputText value="#{employeeController.selected.branchCode}" title="#{bundle.ViewEmployeeTitle_branchCode}"/>
+                <h:outputText value="User Role"/>
+                <h:outputText value="#{employeeController.selected.userRole}" title="#{bundle.ViewEmployeeTitle_userRole}"/>
+                <h:outputText value="Tax Number"/>
+                <h:outputText value="#{employeeController.selected.taxNumber}" title="#{bundle.ViewEmployeeTitle_taxNumber}"/>
+                <h:outputText value="ID Number"/>
+                <h:outputText value="#{employeeController.selected.idNumber}" title="#{bundle.ViewEmployeeTitle_idNumber}"/>
+                <h:outputText value="Employee Number"/>
+                <h:outputText value="#{employeeController.selected.employeeNumber}" title="#{bundle.ViewEmployeeTitle_employeeNumber}"/>
+                <h:outputText value="Creation Date"/>
+                <h:outputText value="#{employeeController.selected.creationDate}" title="#{bundle.ViewEmployeeTitle_creationDate}">
+                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                </h:outputText>
+                <h:outputText value="Status"/>
+                <h:outputText value="#{employeeController.selected.status}" title="#{bundle.ViewEmployeeTitle_status}"/>
+                <h:outputText value="Notes"/>
+                <h:outputText value="#{employeeController.selected.notes}" title="#{bundle.ViewEmployeeTitle_notes}"/>
+            </p:panelGrid>
+
+            <div id="bottom">
+                <center><ui:insert name="bottom"><p:outputLabel value="Copyright &copy; Maestro IT (Pty) Ltd 2007 - #{login.currDate}"/>  
+                        | Version 3.1 | <a href="https://www.machuzu.com" target="_blank">www.machuzu.com</a></ui:insert></center>
+            </div>
+        </div>
+    </h:body>
+</html>

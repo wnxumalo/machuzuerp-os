@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Collaboration Files Report</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+                    <p:fieldset legend="FILTER">
+
+                        <h:selectOneMenu value="#{teamBean.selectedTeam}" converter="teamConverter">
+                            <f:selectItems value="#{teamBean.team}" var="team"
+                                           itemValue="#{team}"
+                                           itemLabel="#{team.id} - #{team.name}"/>
+                        </h:selectOneMenu> &nbsp;&nbsp;&nbsp;&nbsp;   
+                        <h:outputText value="Begin" style="width:741px;font-weight:bold;"/>&nbsp;
+                            <p:calendar id="startDate" value="#{collaborationFiles.dateFrom}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />&nbsp;&nbsp;&nbsp;&nbsp;   
+                            <h:outputText value="End" style="width:741px;font-weight:bold;"/>&nbsp;
+                            <p:calendar id="endDate" value="#{collaborationFiles.dateTo}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />&nbsp;&nbsp;&nbsp;&nbsp;   
+                        <p:commandButton value="Files" action="#{collaborationFiles.searchTeamFiles(teamBean.selectedTeam)}" image="ui-icon-search" title="View Accounts" update="filesDT">
+                            
+                            
+                            <f:param name="recnum" value="#{cust.recnum}" />
+                            <f:param name="custname" value="#{cust.customerName}" />
+                            <f:param name="custsurname" value="#{cust.surname}" />
+                        </p:commandButton>                        
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <p:commandButton value="Export as Excel" ajax="false">
+                            <p:dataExporter type="xls" target="filesDT" fileName="Accounts"/>
+                        </p:commandButton>
+                        <br/><br/>
+
+                        <br/><br/>
+                        <p:dataTable id="filesDT" var="fs" value="#{collaborationFiles.allFiles}" style="width:100%">
+
+                            
+                                                         
+                            <p:column style="width:5%">
+                                <f:facet name="header">
+                                    <h:outputText value="Id" />
+                                </f:facet>                       
+                                <h:outputText value="#{fs.recNum}" />                                
+                            </p:column>
+                            <p:column style="width:10%">
+                                <f:facet name="header">
+                                    <h:outputText value="Team" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{fs.teamName}" />                             
+                            </p:column>  
+                            <p:column style="width:20%">
+                                <f:facet name="header">
+                                    <h:outputText value="File" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{fs.filename}" />                                
+                            </p:column>
+                            <p:column style="width:10%">
+                                <f:facet name="header">
+                                    <h:outputText value="Upload Date" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{fs.uploadDate}" />                                
+                            </p:column>
+                            <p:column style="width:55%">
+                                <f:facet name="header">
+                                    <h:outputText value="Initial Comment" />                                    
+                                </f:facet>                       
+                                <h:outputText value="#{fs.comments}" />                                
+                            </p:column>                           
+                        </p:dataTable>
+                    </p:fieldset>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewEventsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewEventsLabel_id}"/>
+                    <h:outputText value="#{eventsController.selected.id}" title="#{bundle.ViewEventsTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewEventsLabel_title}"/>
+                    <h:outputText value="#{eventsController.selected.title}" title="#{bundle.ViewEventsTitle_title}"/>
+                    <h:outputText value="#{bundle.ViewEventsLabel_startDate}"/>
+                    <h:outputText value="#{eventsController.selected.startDate}" title="#{bundle.ViewEventsTitle_startDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewEventsLabel_endDate}"/>
+                    <h:outputText value="#{eventsController.selected.endDate}" title="#{bundle.ViewEventsTitle_endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewEventsLabel_customers}"/>
+                    <h:outputText value="#{eventsController.selected.customers}" title="#{bundle.ViewEventsTitle_customers}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{eventsController.destroyAndView}" value="#{bundle.ViewEventsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewEventsEditLink}"/>
+                <br />
+                <h:commandLink action="#{eventsController.prepareCreate}" value="#{bundle.ViewEventsCreateLink}" />
+                <br />
+                <h:commandLink action="#{eventsController.prepareList}" value="#{bundle.ViewEventsShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewEventsIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Account Payable</h1>
+
+                <p:messages id="messages" showDetail="true" closable="true" />
+                <h:form id="form" styleClass="ui-fluid">
+                    
+                    <h:outputText value="PAY INTO ACCOUNT" style="font-weight: bold"/><br></br>
+                    <h:outputText value="ID: #{accountData.recNum}" /><br></br>
+                    <h:outputText value="NUMBER: #{accountData.accountNumber}"/><br></br>
+                    <h:outputText value="TYPE: #{accountData.accType}" /><br></br>
+                    <h:outputText value="DESCRIPTION: #{accountData.description}"  /><br></br><br></br>                            
+                    <h:outputText value="Amount" /><br></br>
+                    <p:inputText id="amount" value="#{accountData.balance}"  style="width:350px"/><br></br>
+                    <h:outputText value="Comments" /><br></br>
+                    <p:inputText id="comments" value="#{accountData.comments}"  style="width:350px"/><br></br>
+                    <h:outputText value="Date" /><br></br>
+                    <p:calendar id="pDate" value="#{accountData.PDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" >                                   
+
+                    </p:calendar><br></br>
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Save" action="#{accountData.saveAccountPayable()}">
+                        
+                                                       
+                    </p:commandButton>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

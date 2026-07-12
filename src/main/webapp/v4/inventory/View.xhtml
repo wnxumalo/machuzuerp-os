@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InventoryViewDlg" widgetVar="InventoryViewDialog" modal="true" resizable="false" appendTo="@(dialog)" header="Edit" styleClass="ui-fluid">
+            <h:form id="InventoryViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewInventoryLabel_id}"/>
+                    <h:outputText value="#{inventoryController.current.id}" title="#{bundle.ViewInventoryTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewInventoryLabel_code}"/>
+                    <h:outputText value="#{inventoryController.current.code}" title="#{bundle.ViewInventoryTitle_code}"/>
+                    <h:outputText value="#{bundle.ViewInventoryLabel_description}"/>
+                    <h:outputText value="#{inventoryController.current.description}" title="#{bundle.ViewInventoryTitle_description}"/>
+                    <h:outputText value="#{bundle.ViewInventoryLabel_clientId}"/>
+                    <h:outputText value="#{inventoryController.current.clientId}" title="#{bundle.ViewInventoryTitle_clientId}"/>
+                    <h:outputText value="#{bundle.ViewInventoryLabel_cost}"/>
+                    <h:outputText value="#{inventoryController.current.cost}" title="#{bundle.ViewInventoryTitle_cost}"/>
+                    <h:outputText value="#{bundle.ViewInventoryLabel_sellingPrice}"/>
+                    <h:outputText value="#{inventoryController.current.sellingPrice}" title="#{bundle.ViewInventoryTitle_sellingPrice}"/>
+                    <h:outputText value="#{bundle.ViewInventoryLabel_reorderLevel}"/>
+                    <h:outputText value="#{inventoryController.current.reorderLevel}" title="#{bundle.ViewInventoryTitle_reorderLevel}"/>
+                    <h:outputText value="#{bundle.ViewInventoryLabel_markup}"/>
+                    <h:outputText value="#{inventoryController.current.markup}" title="#{bundle.ViewInventoryTitle_markup}"/>
+                    <h:outputText value="#{bundle.ViewInventoryLabel_atHand}"/>
+                    <h:outputText value="#{inventoryController.current.atHand}" title="#{bundle.ViewInventoryTitle_atHand}"/>
+                    <h:outputText value="#{bundle.ViewInventoryLabel_size}"/>
+                    <h:outputText value="#{inventoryController.current.size}" title="#{bundle.ViewInventoryTitle_size}"/>
+                    <h:outputText value="#{bundle.ViewInventoryLabel_color}"/>
+                    <h:outputText value="#{inventoryController.current.color}" title="#{bundle.ViewInventoryTitle_color}"/>
+                    <h:outputText value="#{bundle.ViewInventoryLabel_creationDate}"/>
+                    <h:outputText value="#{inventoryController.current.creationDate}" title="#{bundle.ViewInventoryTitle_creationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewInventoryLabel_status}"/>
+                    <h:outputText value="#{inventoryController.current.status}" title="#{bundle.ViewInventoryTitle_status}"/>
+                </p:panelGrid>
+                
+                                    <h:link outcome="/index" value="#{bundle.ViewInventoryIndexLink}"/>
+
+                    <p:commandButton value="Cancel" onclick="InventoryViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Receipt - Summary</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p:button value="Back To Dashboard" outcome="#{login.accountingDashboard()}">
+                        
+                        
+                    </p:button><br></br><br></br>
+                    <p:fieldset legend="Receipt">
+                        <p:messages id="messages" showDetail="true" closable="true">
+                            <p:autoUpdate/>
+                        </p:messages>
+                            
+                        <h:outputLabel for="outputServices" value="CUSTOMER" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:17px"/><br></br>
+                        <h:panelGrid columns="2" cellpadding="2">                                 
+                            <h:outputLabel for="cID" value="#" style="font-weight:bold"/><h:outputText id="cID" value="#{receipt.CID}"/>                                    
+                            <h:outputLabel for="vatNum" value="VAT #" style="font-weight:bold"/><h:outputText id="vatNum" value="#{receipt.vatNum}"/>                                    
+                            <h:outputLabel for="name" value="Name" style="font-weight:bold"/><h:outputText id="name" value="#{receipt.CName}"/>                                    
+                            <h:outputLabel for="surname" value="Surname" style="font-weight:bold" /><h:outputText id="surname" value="#{receipt.CSurname}"/>                                                                   
+                            <h:outputLabel for="tel" value="Telephone" style="font-weight:bold" /><h:outputText id="tel" value="#{receipt.tel}"/>                                    
+                            <h:outputLabel for="cell" value="Cellphone" style="font-weight:bold" /><h:outputText id="cell" value="#{receipt.cell}"/>                                   
+                            <h:outputLabel for="fax" value="Fax" style="font-weight:bold" /><h:outputText id="fax" value="#{receipt.fax}"/>                                   
+                            <h:outputLabel for="email" value="Email" style="font-weight:bold"/><h:outputText id="email" value="#{receipt.email}"/>                                    
+                            <h:outputLabel for="posAdd" value="Postal Address" style="font-weight:bold" /><h:outputText id="posAdd" value="#{receipt.posAdd}"/>                                  
+                            <h:outputLabel for="physAdd" value="Physical Address" style="font-weight:bold" /><h:outputText id="physAdd" value="#{receipt.physAdd}"/>
+                        </h:panelGrid><br></br>
+                        <h:outputLabel for="outputServices" value="" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:17px"/><br></br>                            
+                        <p:outputPanel id="outputServices">
+                            <ui:repeat value="#{receipt.selectedServs}" var="svs">
+                                <h:panelGrid columns="5" cellpadding="2">
+                                    <h:outputText value="#{svs.recNum}" style="display:block;width:50px"/>
+                                    <h:outputText value="#{svs.description}" style="display:block;width:300px"/>
+                                    <h:outputText value="#{svs.qty}" style="display:block;width:50px"/>
+                                    <h:outputText value="#{svs.cost}" style="display:block;width:100px"/>                                        
+                                    <h:outputText value="#{svs.totCost}" style="display:block;width:100px"/>                                        
+                                </h:panelGrid>
+                            </ui:repeat>                        
+                            <ui:repeat value="#{receipt.selectedInvs}" var="invs">
+                                <h:panelGrid columns="5" cellpadding="2">
+                                    <h:outputText value="#{invs.recNum}" style="display:block;width:50px"/>
+                                    <h:outputText value="#{invs.description}" style="display:block;width:300px"/>                                        
+                                    <h:outputText value="#{invs.quantity}" style="display:block;width:50px"/>
+                                    <h:outputText value="#{invs.sellingPrice}" style="display:block;width:100px"/>
+                                    <h:outputText value="#{invs.totCost}" style="display:block;width:100px"/>
+                                </h:panelGrid>
+                            </ui:repeat>
+                        </p:outputPanel><br></br>                         
+                        <h:panelGrid columns="2" cellpadding="2">                               
+                            <h:outputText value="Total" style="color:#D98880;font-weight:bold;width:1300px"/>
+                            <h:outputText value="#{receipt.totCost}" style="display:block;color:#D98880;font-weight:bold;"/>                          
+                        </h:panelGrid><br></br>                            
+                        <h:outputLabel value="FINALISE" style="color:#999999;font-weight:bold;font-family:Calibri;font-size:17px"/><br></br>                                                            
+                        <h:panelGrid columns="2" cellpadding="2" style="width:741px;">                                                               
+                            <h:outputText value="Date" style="width:741px;font-weight:bold;"/>
+                            <p:calendar id="invDate" value="#{receipt.IDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" >
+                                <p:ajax event="dateSelect" listener="#{receipt.onDateSelect}"/>
+                            </p:calendar>
+                            <h:outputText value="Amount" style="width:741px;font-weight:bold;"/>
+                            <p:inputText id="amount" value="#{receipt.amountPaid}"/><br></br>
+                        </h:panelGrid><br></br>
+
+                        <p:commandButton action="#{receipt.invComplete(receipt.selectedServs,receipt.selectedInvs)}" value="Save" >
+                            
+                            
+                            <f:param name="cID" value="#{receipt.CID}" />
+                            <f:param name="cName" value="#{receipt.CName}" />
+                            <f:param name="cSurname" value="#{receipt.CSurname}" />
+                            <f:param name="tel" value="#{receipt.tel}" />
+                            <f:param name="cell" value="#{receipt.cell}" />
+                            <f:param name="fax" value="#{receipt.fax}" />
+                            <f:param name="posAdd" value="#{receipt.posAdd}" />
+                            <f:param name="physAdd" value="#{receipt.physAdd}" /> 
+                            <f:param name="email" value="#{receipt.email}" />                                    
+                            <f:param name="vatNum" value="#{receipt.vatNum}" /> 
+                        </p:commandButton>
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

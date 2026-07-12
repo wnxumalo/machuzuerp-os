@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>View Stakeholder</h1>
+
+                <h:form id="form" styleClass="ui-fluid">
+                    <p>
+                        <p:commandButton icon="ui-icon-pencil" action="#{customer.editCustomer_1(otRecNumBind.value, otVatNumBind.value, otTypeBind.value, otStatBind.value, otNameBind.value, otSurnameBind.value, otGenderBind.value, otTelBind.value, otCellBind.value, otFaxBind.value, otPosAdBind.value, otPhysAdBind.value, otCountryBind.value, otJDateBind.value, otEmailBind.value)}"  title="Edit">                           
+                            
+                            
+                            <f:param name="vatNum" value="#{param['vatNum']}" />
+                            <f:param name="recnum" value="#{param['recnum']}" />
+                            <f:param name="type" value="#{param['type']}" />
+                            <f:param name="status" value="#{param['status']}" />
+                            <f:param name="cname" value="#{param['cname']}" />                                                                     
+                            <f:param name="cSurname" value="#{param['cSurname']}" />                                                                     
+                            <f:param name="gender" value="#{param['gender']}" />                                                                     
+                            <f:param name="telephone" value="#{param['telephone']}" />                                                                     
+                            <f:param name="email" value="#{param['email']}" />                                                                     
+                            <f:param name="fax" value="#{param['fax']}" />                                                                     
+                            <f:param name="cellphone" value="#{param['cellphone']}" />                                                                     
+                            <f:param name="posaddress" value="#{param['posaddress']}" />                                                                     
+                            <f:param name="physaddress" value="#{param['physaddress']}" />                                                                     
+                            <f:param name="country" value="#{param['country']}" />                                                                     
+                            <f:param name="physaddress" value="#{param['physaddress']}" />                                                                     
+                            <f:param name="jdate" value="#{param['jdate']}" />                                                                     
+                        </p:commandButton>                                      
+                    </p>
+                    <p:messages id="messages" showDetail="true" closable="true" >
+                        <p:autoUpdate/>
+                    </p:messages>
+
+                    <table>
+                        <tr>
+                            <td><h:outputText value="Rec #: "/></td><td><h:outputText binding="#{otRecNumBind}" value="#{param['recnum']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Vat/ID Number "/></td><td><h:outputText binding="#{otVatNumBind}" value="#{param['vatNum']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Type "/></td><td><h:outputText binding="#{otTypeBind}" value="#{param['type']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Status "/></td><td><h:outputText binding="#{otStatBind}" value="#{param['status']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Name: "/></td><td><h:outputText binding="#{otNameBind}" value="#{param['cname']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Surname: "/></td><td><h:outputText binding="#{otSurnameBind}" value="#{param['cSurname']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Gender: "/></td><td><h:outputText binding="#{otGenderBind}" value="#{param['gender']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Telephone: "/></td><td><h:outputText binding="#{otTelBind}" value="#{param['telephone']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Cellphone: "/></td><td><h:outputText binding="#{otCellBind}" value="#{param['cellphone']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Email "/></td><td><h:outputText binding="#{otEmailBind}" value="#{param['email']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Fax: "/></td><td><h:outputText binding="#{otFaxBind}" value="#{param['fax']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Postal Address: "/></td><td><h:outputText binding="#{otPosAdBind}" value="#{param['posaddress']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Physical Address: "/></td><td><h:outputText binding="#{otPhysAdBind}" value="#{param['physaddress']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Country: "/></td><td><h:outputText binding="#{otCountryBind}" value="#{param['country']}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Joining Date: "/></td>
+                            <td>
+                                <h:outputText value="#{param['jdate']}" binding="#{otJDateBind}"/>
+                            </td>
+                        </tr>
+                    </table>            
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

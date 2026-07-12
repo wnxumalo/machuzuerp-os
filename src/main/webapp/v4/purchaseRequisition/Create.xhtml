@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PurchaseRequisitionCreateDlg" widgetVar="PurchaseRequisitionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePurchaseRequisitionTitle}">
+            <h:form id="PurchaseRequisitionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{purchaseRequisitionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePurchaseRequisitionLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{purchaseRequisitionController.selected.id}" title="#{bundle.CreatePurchaseRequisitionTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreatePurchaseRequisitionLabel_PODate}" for="PODate" />
+                        <p:inputText id="PODate" value="#{purchaseRequisitionController.selected.PODate}" title="#{bundle.CreatePurchaseRequisitionTitle_PODate}" />
+                        <p:outputLabel value="#{bundle.CreatePurchaseRequisitionLabel_deliveryDate}" for="deliveryDate" />
+                        <p:inputText id="deliveryDate" value="#{purchaseRequisitionController.selected.deliveryDate}" title="#{bundle.CreatePurchaseRequisitionTitle_deliveryDate}" />
+                        <p:outputLabel value="#{bundle.CreatePurchaseRequisitionLabel_shippingTerms}" for="shippingTerms" />
+                        <p:inputText id="shippingTerms" value="#{purchaseRequisitionController.selected.shippingTerms}" title="#{bundle.CreatePurchaseRequisitionTitle_shippingTerms}" />
+                        <p:outputLabel value="#{bundle.CreatePurchaseRequisitionLabel_shippingMethod}" for="shippingMethod" />
+                        <p:inputText id="shippingMethod" value="#{purchaseRequisitionController.selected.shippingMethod}" title="#{bundle.CreatePurchaseRequisitionTitle_shippingMethod}" />
+                        <p:outputLabel value="#{bundle.CreatePurchaseRequisitionLabel_paymentTerms}" for="paymentTerms" />
+                        <p:inputText id="paymentTerms" value="#{purchaseRequisitionController.selected.paymentTerms}" title="#{bundle.CreatePurchaseRequisitionTitle_paymentTerms}" />
+                        <p:outputLabel value="#{bundle.CreatePurchaseRequisitionLabel_supplierId}" for="supplierId" />
+                        <p:inputText id="supplierId" value="#{purchaseRequisitionController.selected.supplierId}" title="#{bundle.CreatePurchaseRequisitionTitle_supplierId}" required="true" requiredMessage="#{bundle.CreatePurchaseRequisitionRequiredMessage_supplierId}"/>
+                        <p:outputLabel value="#{bundle.CreatePurchaseRequisitionLabel_inventoryId}" for="inventoryId" />
+                        <p:inputText id="inventoryId" value="#{purchaseRequisitionController.selected.inventoryId}" title="#{bundle.CreatePurchaseRequisitionTitle_inventoryId}" />
+                        <p:outputLabel value="#{bundle.CreatePurchaseRequisitionLabel_deliveryEmployeeId}" for="deliveryEmployeeId" />
+                        <p:inputText id="deliveryEmployeeId" value="#{purchaseRequisitionController.selected.deliveryEmployeeId}" title="#{bundle.CreatePurchaseRequisitionTitle_deliveryEmployeeId}" required="true" requiredMessage="#{bundle.CreatePurchaseRequisitionRequiredMessage_deliveryEmployeeId}"/>
+                        <p:outputLabel value="#{bundle.CreatePurchaseRequisitionLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy" value="#{purchaseRequisitionController.selected.creationDate}" title="#{bundle.EditPurchaseRequisitionTitle_creationDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePurchaseRequisitionLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{purchaseRequisitionController.selected.status}" title="#{bundle.CreatePurchaseRequisitionTitle_status}" />
+                        <p:outputLabel value="#{bundle.CreatePurchaseRequisitionLabel_notes}" for="notes" />
+                        <p:inputText id="notes" value="#{purchaseRequisitionController.selected.notes}" title="#{bundle.CreatePurchaseRequisitionTitle_notes}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{purchaseRequisitionController.create}" value="#{bundle.Save}" update="display,:PurchaseRequisitionListForm:datalist,:growl" oncomplete="handleSubmit(args,'PurchaseRequisitionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PurchaseRequisitionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

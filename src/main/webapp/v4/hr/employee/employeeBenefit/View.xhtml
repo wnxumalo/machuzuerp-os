@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmployeeBenefitViewDlg" widgetVar="EmployeeBenefitViewDialog" modal="true" resizable="false" appendTo="@(dialog)" header="View Employee Benefit">
+            <h:form id="EmployeeBenefitViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{employeeBenefitController.selected != null}">
+                        <h:outputText value="Description"/>
+                        <h:outputText value="#{employeeBenefitController.selected.description}" title="#{bundle.ViewEmployeeBenefitTitle_description}"/>
+                        <h:outputText value="Amount"/>
+                        <h:outputText value="#{employeeBenefitController.selected.amount}" title="#{bundle.ViewEmployeeBenefitTitle_amount}"/>
+                        <h:outputText value="Creation Date"/>
+                        <h:outputText value="#{employeeBenefitController.selected.creationDate}" title="#{bundle.ViewEmployeeBenefitTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EmployeeBenefitViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

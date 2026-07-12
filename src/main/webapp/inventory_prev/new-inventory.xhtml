@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Inventory</h1>
+
+                <h:form styleClass="ui-fluid">
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+
+                    <h:panelGrid columns="2">
+                            <p:outputLabel for="code"  value="Code"/>
+                            <p:inputText id="code" value="#{inventory.code}" />
+                            <p:outputLabel for="description"  value="Description" />
+                            <p:inputText id="description" value="#{inventory.description}" required="true"/>
+                            <p:outputLabel for="supplier"  value="Supplier" />
+                            <h:selectOneMenu id="supplier" value="#{inventory.selectedSupplier}" converter="supplierConverter">
+                                <f:selectItems value="#{supplierListBean.supplierList}" var="supp"
+                                               itemValue="#{supp}"
+                                               itemLabel="#{supp.id} - #{supp.name}"/>
+                            </h:selectOneMenu>
+                            <p:outputLabel for="client"  value="Client" />
+                            <h:selectOneMenu id="client" value="#{inventory.selectedClient}" converter="clientConverter">
+                                <f:selectItems value="#{clientsBean.clients}" var="clnt"
+                                               itemValue="#{clnt}"
+                                               itemLabel="#{clnt.id} - #{clnt.name}"/>
+                            </h:selectOneMenu>
+                            <p:outputLabel for="cost"  value="Cost"/>
+                            <p:inputNumber id="cost" value="#{inventory.cost}" />
+                            <p:outputLabel for="sPrice"  value="Selling Price"/>
+                            <p:inputNumber id="sPrice" value="#{inventory.sellingPrice}" required="true"/>
+                            <p:outputLabel for="rLev"  value="Re-order Level"/>
+                            <p:inputNumber id="rLev" value="#{inventory.reorderLevel}" />
+                            <p:outputLabel for="markup"  value="Markup"/>
+                            <p:inputNumber id="markup" value="#{inventory.markUp}" />                               
+                            <p:outputLabel for="atHand"  value="Stock At Hand"/>
+                            <p:inputNumber id="atHand" value="#{inventory.atHand}" />
+                            <p:outputLabel for="size"  value="Size"/>
+                            <p:inputNumber id="size" value="#{inventory.size}" />
+                            <p:outputLabel for="color"  value="Color"/>
+                            <p:inputText id="color" value="#{inventory.color}" />
+                        </h:panelGrid>
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton icon="ui-icon-disk" value="Save" action="#{inventory.saveInventory}">
+                        
+                        
+                    </p:commandButton>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

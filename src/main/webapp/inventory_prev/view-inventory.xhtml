@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Inventory</h1>
+
+                <h:form styleClass="ui-fluid">       
+                    <p>
+                        <p:commandButton icon="ui-icon-pencil" action="#{inventory.editInventory_1()}"  title="Edit">
+                            
+                            
+                            <f:param name="recnum" value="#{param['recnum']}" />
+                            <f:param name="code" value="#{param['code']}" />
+                            <f:param name="description" value="#{param['description']}" />
+                            <f:param name="supplierId" value="#{param['supplierId']}" />                                                                     
+                            <f:param name="supplier" value="#{param['supplier']}" />                                                                     
+                            <f:param name="clientId" value="#{param['clientId']}" />                                                                     
+                            <f:param name="client" value="#{param['client']}" />            
+                            <f:param name="cost" value="#{param['cost']}" />
+                            <f:param name="sellingPrice" value="#{param['sellingPrice']}" />
+                            <f:param name="reorderLevel" value="#{param['reorderLevel']}" />
+                            <f:param name="markup" value="#{param['markup']}" />
+                            <f:param name="atHand" value="#{param['atHand']}" />
+                            <f:param name="size" value="#{param['size']}" />
+                            <f:param name="color" value="#{param['color']}" />
+                        </p:commandButton>  
+                    </p>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="ID: "/>
+                        <h:outputText binding="#{otRecNumBind}" value="#{param['recnum']}"/>
+                        <h:outputText value="Code "/>
+                        <h:outputText binding="#{otCodeBind}" value="#{param['code']}"/>
+                        <h:outputText value="Description "/>
+                        <h:outputText binding="#{otDescriptionBind}" value="#{param['description']}"/>
+                        <h:outputText value="Supplier ID"/>
+                        <h:outputText binding="#{otSupplierIdBind}" value="#{param['supplierId']}"/>
+                        <h:outputText value="Supplier "/>
+                        <h:outputText binding="#{otSupplierBind}" value="#{param['supplier']}"/>
+                        <h:outputText value="Client ID"/>
+                        <h:outputText binding="#{otClientIdBind}" value="#{param['clientId']}"/>
+                        <h:outputText value="Client "/>
+                        <h:outputText binding="#{otClientBind}" value="#{param['client']}"/>
+                        <h:outputText value="Cost "/>
+                        <h:outputText binding="#{otCostBind}" value="#{param['cost']}"/>
+                        <h:outputText value="Selling Price "/>
+                        <h:outputText binding="#{otSellingPriceBind}" value="#{param['sellingPrice']}"/>
+                        <h:outputText value="Re-order Level "/>
+                        <h:outputText binding="#{otReorderLevelBind}" value="#{param['reorderLevel']}"/>
+                        <h:outputText value="Markup "/>
+                        <h:outputText binding="#{otMarkupBind}" value="#{param['markup']}"/>
+                        <h:outputText value="Stock at Hand "/>
+                        <h:outputText binding="#{otStockAtHandBind}" value="#{param['atHand']}"/>
+                        <h:outputText value="Size "/>
+                        <h:outputText binding="#{otSizeBind}" value="#{param['size']}"/>
+                        <h:outputText value="Color "/>
+                        <h:outputText binding="#{otColorBind}" value="#{param['color']}"/>
+                    </h:panelGrid>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

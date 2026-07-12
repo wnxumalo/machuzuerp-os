@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Check In Actions</h1>
+                
+                    <h:form id="form" styleClass="ui-fluid">
+    <p:growl id="msgs" showDetail="true"/>
+    
+    <p:outputLabel id="jobId" value="#{checkIn.jobId}" binding="#{olJobId}"/><br/>
+    <p:outputLabel id="checkInId" value="#{checkIn.recNum}" binding="#{olCheckInId}"/>
+ 
+    <p:dataTable id="ckActions" var="acts" value="#{checkInActions.checkInActions}" editable="true" style="margin-bottom:20px">
+        <f:facet name="header">
+            Check In Actions
+        </f:facet>
+ 
+        <p:ajax event="rowEdit" listener="#{checkInActions.onRowEdit}" update=":form:msgs" />
+        <p:ajax event="rowEditCancel" listener="#{checkInActions.onRowCancel}" update=":form:msgs" />         
+        
+        <p:column headerText="Planned Action">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{acts.plannedAction}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{acts.plannedAction}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Actual Action">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{acts.actualAction}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{acts.actualAction}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Planned Target Date">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{acts.plannedTargetDate}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{acts.plannedTargetDate}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Actual Target Date">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{acts.actualTargetDate}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{acts.actualTargetDate}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Planned Resources Budget">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{acts.plannedResourcesBudget}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{acts.plannedResourcesBudget}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Actual Resources Budget">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{acts.actualResourcesBudget}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{acts.actualResourcesBudget}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Responsible Person">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{acts.responsiblePerson}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{acts.responsiblePerson}" style="width:100%" label="Year"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+         
+ 
+        <p:column style="width:35px">
+            <p:rowEditor />
+        </p:column>
+    </p:dataTable>                                                                 
+                    &nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Next" action="#{checkInActions.checkInAspects(olJobId.value, olCheckInId.value, checkInActions.checkInActions)}"  global="true">
+                        
+                        
+                    </p:commandButton>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

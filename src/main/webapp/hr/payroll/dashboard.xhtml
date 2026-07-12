@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>Payroll</h1>                                
+
+                <p styleClass="ui-fluid">
+                                <p:messages id="messages" showDetail="true" closable="true">
+                                    <p:autoUpdate />
+                                </p:messages>
+
+                                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                                    <img src="images/ajax-loader.gif" />
+                                </p:dialog>
+
+                            </p>
+
+                <h:form id="form" styleClass="ui-fluid">
+
+                    <p>
+                        <p:fieldset id="fsMonthlyPayroll" legend="Process Monthly Payroll">
+                            
+                            <p>
+                                <h:panelGrid columns="5" cellpadding="2" >
+                                    <h:outputText value="Pay Date"/>
+                                    <p:calendar id="payDate" value="#{employeesData.payDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                                </h:panelGrid>
+                            </p>
+                            <p>
+                                <h:panelGrid columns="1" cellpadding="2" >
+                                    <h:outputText value="Select Account To Pay From" />
+                                    <h:selectOneMenu value="#{accounts.selectedAccount1}" >
+                                        <f:selectItems value="#{accounts.loadAccounts}" var="account" 
+                                                       itemValue="#{account}"
+                                                       itemLabel="#{account}"/>
+                                    </h:selectOneMenu>    
+                                </h:panelGrid>
+                            </p>
+                            <h:panelGrid columns="18">
+                                <p:commandButton value="Process" icon="ui-icon-search" action="#{employeesData.runPayroll(accounts.selectedAccount1)}" />
+                            </h:panelGrid> 
+
+                        </p:fieldset>
+                    </p>
+                </h:form>     
+                <p:panel header="Payroll History">
+                    <h:form id="tblPayroll" styleClass="ui-fluid">
+                        <p>
+                            <h:panelGrid columns="4" cellpadding="2" >
+                                <h:outputText value="From"/>
+                                <p:calendar id="datefrom" value="#{employeesData.payDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                                <h:outputText value="To"/>
+                                <p:calendar id="dateto" value="#{employeesData.payDateTo}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />
+                                <p:commandButton value="View" icon="ui-icon-search" action="#{employeesData.filterPayroll}" update="payrollDT"/>
+                                <p:commandButton value="Export as Excel" ajax="false">
+                                    <p:dataExporter type="xls" target="tblPayroll" fileName="cars"/>
+                                </p:commandButton>
+                                <p:commandButton value="Export as PDF" ajax="false">
+                                    <p:dataExporter type="pdf" target="tblPayroll" fileName="cars"/>
+                                </p:commandButton>
+                            </h:panelGrid>
+
+                            <p:dataTable id="payrollDT" var="pay" value="#{employeesData.payrollList}"  selectionMode="single" 
+                                         selection="#{employeesData.selectedPayroll}" 
+                                         rowKey="#{pay.id}" paginator="true" rows="10">
+
+                                <p:ajax event="rowUnselect" update=""/>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Recnum" />
+                                    </f:facet>
+                                    <h:outputText value="#{pay.id}" />
+                                </p:column>
+                                <p:column filterBy="#{pay.id}" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="Name" />
+                                    </f:facet>                       
+                                    <h:outputText value="#{pay.name}" />                                
+                                </p:column>                            
+                                <p:column filterBy="#{pay.surname}" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="Surname" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{pay.surname}" />                                
+                                </p:column>
+                                <p:column filterBy="#{pay.paidFrom}" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="Paid From" />                                    
+                                    </f:facet>                       
+                                    <h:outputText value="#{pay.paidFrom}" />
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Pay Date" />
+                                    </f:facet>
+                                    <h:outputText value="#{pay.payDate}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p>
+                    </h:form>
+                </p:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

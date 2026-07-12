@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrganisationCreateDlg" widgetVar="OrganisationCreateDialog" modal="true" resizable="false" appendTo="@(dialog)" header="Create Organisation">
+            <h:form id="OrganisationCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{organisationController.selected != null}">
+                        <p:outputLabel value="Tax Number" for="vatNumber" />
+                        <p:inputText id="vatNumber" value="#{organisationController.selected.vatNumber}" title="#{bundle.CreateOrganisationTitle_vatNumber}" />
+                        <p:outputLabel value="Name" for="name" />
+                        <p:inputText id="name" value="#{organisationController.selected.name}" title="#{bundle.CreateOrganisationTitle_name}" />
+                        <p:outputLabel value="Telephone" for="telephone" />
+                        <p:inputText id="telephone" value="#{organisationController.selected.telephone}" title="#{bundle.CreateOrganisationTitle_telephone}" />
+                        <p:outputLabel value="Email" for="email" />
+                        <p:inputText id="email" value="#{organisationController.selected.email}" title="#{bundle.CreateOrganisationTitle_email}" />
+                        <p:outputLabel value="Country" for="country" />
+                        <h:selectOneMenu id='country' value="#{organisationController.selected.country}" title="Country">
+                            <f:selectItems value="#{citiesController.countries}" var="cnty" itemValue="#{cnty}" itemLabel="#{cnty}"/>
+                             <p:ajax listener="#{citiesController.onCountryChange(organisationController.selected.country)}" update="city"/>
+                        </h:selectOneMenu>  
+                        <p:outputLabel value="City" for="city" />
+                        <h:selectOneMenu id='city' value="#{organisationController.selected.city}" title="City" >
+                            <f:selectItems id="cities" value="#{citiesController.citiesList}" var="cty" itemValue="#{cty}" itemLabel="#{cty}"/>
+                        </h:selectOneMenu>                                                                            
+                        <p:outputLabel value="District" for="district" />
+                        <p:inputText id="district" value="#{organisationController.selected.district}" title="#{bundle.CreateOrganisationTitle_district}" />                        
+                        <p:outputLabel value="Postal Address" for="postalAddress" />
+                        <p:inputText id="postalAddress" value="#{organisationController.selected.postalAddress}" title="#{bundle.CreateOrganisationTitle_postalAddress}" />
+                        <p:outputLabel value="Physical Address" for="physicalAddress" />
+                        <p:inputText id="physicalAddress" value="#{organisationController.selected.physicalAddress}" title="#{bundle.CreateOrganisationTitle_physicalAddress}" />
+                        <p:outputLabel value="Interest Rate" for="interestRate" />
+                        <p:inputText id="interestRate" value="#{organisationController.selected.interestRate}" title="#{bundle.CreateOrganisationTitle_interestRate}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{organisationController.create}" value="#{bundle.Save}" update="display,:OrganisationListForm:datalist,:growl" />
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OrganisationCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

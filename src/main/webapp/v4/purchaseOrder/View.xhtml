@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PurchaseOrderViewDlg" widgetVar="PurchaseOrderViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPurchaseOrderTitle}">
+            <h:form id="PurchaseOrderViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{purchaseOrderController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_id}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.id}" title="#{bundle.ViewPurchaseOrderTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_PODate}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.PODate}" title="#{bundle.ViewPurchaseOrderTitle_PODate}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_deliveryDate}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.deliveryDate}" title="#{bundle.ViewPurchaseOrderTitle_deliveryDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_shippingTerms}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.shippingTerms}" title="#{bundle.ViewPurchaseOrderTitle_shippingTerms}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_shippingMethod}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.shippingMethod}" title="#{bundle.ViewPurchaseOrderTitle_shippingMethod}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_paymentTerms}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.paymentTerms}" title="#{bundle.ViewPurchaseOrderTitle_paymentTerms}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_supplierId}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.supplierId}" title="#{bundle.ViewPurchaseOrderTitle_supplierId}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_inventoryId}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.inventoryId}" title="#{bundle.ViewPurchaseOrderTitle_inventoryId}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_requisitionId}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.requisitionId}" title="#{bundle.ViewPurchaseOrderTitle_requisitionId}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_total}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.total}" title="#{bundle.ViewPurchaseOrderTitle_total}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_subTotal}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.subTotal}" title="#{bundle.ViewPurchaseOrderTitle_subTotal}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_shippingCharges}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.shippingCharges}" title="#{bundle.ViewPurchaseOrderTitle_shippingCharges}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_taxAmount}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.taxAmount}" title="#{bundle.ViewPurchaseOrderTitle_taxAmount}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_productsServices}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.productsServices}" title="#{bundle.ViewPurchaseOrderTitle_productsServices}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_creationDate}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.creationDate}" title="#{bundle.ViewPurchaseOrderTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_status}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.status}" title="#{bundle.ViewPurchaseOrderTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewPurchaseOrderLabel_notes}"/>
+                        <h:outputText value="#{purchaseOrderController.selected.notes}" title="#{bundle.ViewPurchaseOrderTitle_notes}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PurchaseOrderViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

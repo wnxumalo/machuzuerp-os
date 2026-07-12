@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InventoryStorageEditDlg" widgetVar="InventoryStorageEditDialog" modal="true" resizable="false" appendTo="@(dialog)" header="#{bundle.EditInventoryStorageTitle}">
+            <h:form id="InventoryStorageEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{inventoryStorageController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{inventoryStorageController.selected.description}" title="#{bundle.CreateInventoryStorageTitle_description}" />
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{inventoryStorageController.selected.type}" title="#{bundle.CreateInventoryStorageTitle_type}" />
+                        <p:outputLabel value="Category" for="category" />
+                        <p:inputText id="category" value="#{inventoryStorageController.selected.category}" title="Category" />
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_manufacturer}" for="manufacturer" />
+                        <p:inputText id="manufacturer" value="#{inventoryStorageController.selected.manufacturer}" title="#{bundle.CreateInventoryStorageTitle_manufacturer}" />
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_quantity}" for="quantity" />
+                        <p:inputNumber id="quantity" value="#{inventoryStorageController.selected.quantity}" title="#{bundle.CreateInventoryStorageTitle_quantity}" />
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_location}" for="location" />
+                        <p:inputText id="location" value="#{inventoryStorageController.selected.location}" title="#{bundle.CreateInventoryStorageTitle_location}" />
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_arrivalDate}" for="arrivalDate" />
+                        <p:calendar id="arrivalDate" pattern="MM/dd/yyyy" value="#{inventoryStorageController.selected.arrivalDate}" title="Arrival Date"  showOn="button"/>                        
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_expirationDate}" for="expirationDate" />
+                        <p:calendar id="expirationDate" pattern="MM/dd/yyyy" value="#{inventoryStorageController.selected.expirationDate}" title="Expiration Date"  showOn="button"/>                        
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_itemCondition}" for="itemCondition" />
+                        <p:inputText id="itemCondition" value="#{inventoryStorageController.selected.itemCondition}" title="#{bundle.CreateInventoryStorageTitle_itemCondition}" />
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_purchasePrice}" for="purchasePrice" />
+                        <p:inputNumber id="purchasePrice" value="#{inventoryStorageController.selected.purchasePrice}" title="#{bundle.CreateInventoryStorageTitle_purchasePrice}" />
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_sellingPrice}" for="sellingPrice" />
+                        <p:inputNumber id="sellingPrice" value="#{inventoryStorageController.selected.sellingPrice}" title="#{bundle.CreateInventoryStorageTitle_sellingPrice}" />
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_reorderLevel}" for="reorderLevel" />
+                        <p:inputNumber id="reorderLevel" value="#{inventoryStorageController.selected.reorderLevel}" title="#{bundle.CreateInventoryStorageTitle_reorderLevel}" />
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_reorderQuantity}" for="reorderQuantity" />
+                        <p:inputNumber id="reorderQuantity" value="#{inventoryStorageController.selected.reorderQuantity}" title="#{bundle.CreateInventoryStorageTitle_reorderQuantity}" />
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_warehouseSection}" for="warehouseSection" />
+                        <p:inputText id="warehouseSection" value="#{inventoryStorageController.selected.wareHouseSection}" title="#{bundle.CreateInventoryStorageTitle_warehouseSection}" />
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_implementationDate}" for="implementationDate" />
+                        <p:calendar id="implementationDate" pattern="MM/dd/yyyy" value="#{inventoryStorageController.selected.implementationDate}" title="Implementation Date"  showOn="button"/>                        
+                        <p:outputLabel value="#{bundle.CreateInventoryStorageLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{inventoryStorageController.selected.status}" title="#{bundle.CreateInventoryStorageTitle_status}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{inventoryStorageController.update}" value="#{bundle.Save}" update="display,:storageForm:inventoryStorageDatalist,:growl"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InventoryStorageEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

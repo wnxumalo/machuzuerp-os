@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="../../../erpbyw-template.xhtml">
+            <ui:define name="content">
+                <h1>New Remittance Advice</h1>
+                <h:form styleClass="ui-fluid"><div align="right"><p:commandButton value="Back To Dashboard" action="/accounting/payable/dashboard"/></div></h:form>
+                <h:form styleClass="ui-fluid">
+
+                    <p:messages id="messages" showDetail="true" closable="true" >
+                        <p:autoUpdate/>
+                    </p:messages>                    
+                    <p:panelGrid columns="2">
+                        <h:outputLabel for="dDate" value="Date" />
+                        <p:calendar id="dDate" value="#{remittanceAdvice.deliveryDate}" readonlyInput="true" pattern="yyyy/MM/dd" navigator="true" required="true" />    
+                        <h:outputLabel for="iNumber" value="Invoice Number" />
+                        <p:inputText id="iNumber" value="#{remittanceAdvice.invoiceNumber}" required="true" style="width:350px"/>
+                        <h:outputLabel for="comments" value="Comments" />
+                        <p:inputText id="comments" value="#{remittanceAdvice.comments}"  style="width:350px"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Save" action="#{remittanceAdvice.saveRemittanceAdvice()}">
+                            
+                            
+                        </p:commandButton>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
