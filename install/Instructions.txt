@@ -1,0 +1,46 @@
+- Install "jdk-14_windows-x64_bin"
+https://www.oracle.com/java/technologies/javase/jdk14-archive-downloads.html
+
+- Install "mysql-installer-community-8.0.25.0" with the below credentials; (NB: ENSURE TO SELECT PORT 3307 INSTEAD OF 3306 DURING INSTALLATION)
+- Install MySQL Workbench in the above installation
+https://dev.mysql.com/downloads/installer/
+
+database: erp
+user: root
+password:admin
+port: 3307
+
+
+- Restore "MachuzuERP.sql" from MYSQL Workbench
+
+- Download Wilfly 24
+https://www.wildfly.org/news/2021/07/28/WildFly2401-Released/
+- Unzip the Wildfly archive to where you will install the software (any relevant path)
+- Navigate to "wildfly-24.0.1.Final\modules\system\layers\base\com\mysql\main" if it does not axist create the path
+- Download "mysql-connector-java-8.0.26.jar" and copy it to the above folder 
+https://dev.mysql.com/downloads/connector/j/?os=26
+- Copy Module.xml to the above folder (same as "mysql-connector-java-8.0.26.jar")
+- Make sure the "resource-root" of the Module.xml is the exact same as the name of the mysql-connector-java-8.0.26.jar file
+
+
+- Go to the path "wildfly-24.0.1.Final\bin"
+- Click on "adduser.bat"
+- Select "Management User" (a)
+- Enter username "admin"
+- Enter password "admin"
+- Click Enter to skip adding user to groups
+- Type "yes"
+- Type "yes"
+- Click "Enter" to complete
+- Run the file "wildfly-24.0.1.Final\wildfly-24.0.1.Final\bin\standalone.bat"
+
+- From your browser, go to 127.0.0.1:8080
+- Click on "Administration"
+- Enter the following credentials;
+
+Username: admin1
+Password: admin1
+
+- Click on Configuration -> Subsystems -> Datasources & Drivers - > JDBC Drivers
+- Click on "+" and Add a JDBC Driver
+- Follow Step 1-6 in the attached images
