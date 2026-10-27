@@ -16,8 +16,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+
+    # 👇 ADDED: Elevates permissions so the dependency action can push the snapshot
+    permissions:
+      contents: write
 
     steps:
     - uses: actions/checkout@v4
