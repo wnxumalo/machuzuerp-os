@@ -104,14 +104,7 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.17.0</version>
-        </dependency>
-        
-        <!-- https://mvnrepository.com/artifact/org.jboss.jbossas/jboss-as-server -->
-        <dependency>
-            <groupId>org.jboss.jbossas</groupId>
-            <artifactId>jboss-as-server</artifactId>
-            <version>6.1.0.Final</version>
-        </dependency>
+        </dependency>               
        
        <!--end credential-->
        
